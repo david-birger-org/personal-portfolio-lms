@@ -1,0 +1,286 @@
+{
+  "navigation": {
+    "logo": "David Birger",
+    "logoAccent": "Birger",
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "contact": "Contact",
+    "ctaText": "Book Consultation"
+  },
+  "hero": {
+    "badge": "Professional Fitness Coaching",
+    "title": "Professional Coaching,",
+    "titleAccent": "Exceptional Results",
+    "subtitle": "Personalized training programs designed to help you achieve your fitness goals with expert guidance, tailored plans, and ongoing support.",
+    "ctaText": "Learn More",
+    "stats": {
+      "clients": "Happy Clients",
+      "lost": "Pounds Lost",
+      "success": "Success Rate",
+      "experience": "Years Experience"
+    }
+  },
+  "about": {
+    "tag": "ABOUT ME",
+    "title": "Dedicated to Your",
+    "titleAccent": "Success",
+    "description": "With over 6 years of experience in fitness coaching and bodybuilding, I've helped hundreds of clients achieve their transformation goals. My approach combines personalized training programs, nutrition guidance, and ongoing support to ensure lasting results.",
+    "achievements": [
+      {
+        "name": "Certified Personal Trainer (CPT)"
+      },
+      {
+        "name": "Nutrition Specialist"
+      },
+      {
+        "name": "Online Coaching Certification"
+      },
+      {
+        "name": "Posing & Stage Preparation"
+      }
+    ],
+    "stats": {
+      "clients": "Happy Clients",
+      "lost": "Pounds Lost"
+    },
+    "features": [
+      "Personalized Training Programs",
+      "Nutrition Guidance",
+      "24/7 Support",
+      "Progress Tracking"
+    ]
+  },
+  "services": {
+    "tag": "My Services",
+    "title": "Professional Coaching",
+    "titleAccent": "Programs & Services",
+    "description": "Choose from a range of personalized coaching services designed to help you achieve your fitness goals.",
+    "items": [
+      {
+        "title": "Personal Training",
+        "description": "One-on-one coaching sessions tailored to your fitness level and goals",
+        "features": [
+          "Custom workout plans",
+          "Form correction",
+          "Progress tracking",
+          "Weekly check-ins"
+        ]
+      },
+      {
+        "title": "Online Coaching",
+        "description": "Remote coaching with full support and guidance from anywhere in the world",
+        "features": [
+          "Video consultations",
+          "App-based tracking",
+          "24/7 support",
+          "Monthly reviews"
+        ]
+      },
+      {
+        "title": "Nutrition Planning",
+        "description": "Customized meal plans and nutrition strategies for optimal results",
+        "features": [
+          "Macro calculations",
+          "Meal prep guides",
+          "Recipe library",
+          "Supplement advice"
+        ]
+      },
+      {
+        "title": "Body Transformation",
+        "description": "Complete transformation programs for dramatic, lasting results",
+        "features": [
+          "12-week programs",
+          "Before/after tracking",
+          "Accountability coaching",
+          "Lifestyle education"
+        ]
+      }
+    ],
+    "process": {
+      "title": "How It Works",
+      "description": "Getting started is simple. Follow these three steps to begin your transformation journey.",
+      "steps": [
+        {
+          "title": "Initial Consultation",
+          "description": "We discuss your goals, history, and create your custom plan"
+        },
+        {
+          "title": "Personalized Program",
+          "description": "Get your tailored workout and nutrition strategy"
+        },
+        {
+          "title": "Ongoing Support",
+          "description": "Regular check-ins, adjustments, and continuous guidance"
+        }
+      ],
+      "cta": "Schedule Free Consultation"
+    },
+    "learnMore": "Learn More"
+  },
+  "contact": {
+    "tag": "CONTACTS",
+    "title": "Let's Work Together",
+    "titleAccent": "For Your Results",
+    "description": "Let's discuss your fitness goals and create a personalized plan to help you achieve them.",
+    "info": {
+      "email": {
+        "title": "Email",
+        "value": "coach@fitcoach.com"
+      },
+      "phone": {
+        "title": "Phone",
+        "value": "+1 (555) 123-4567"
+      },
+      "location": {
+        "title": "Location",
+        "value": "Los Angeles, CA"
+      },
+      "infoTitle": "Contact Information",
+      "infoDescription": "Have questions? Reach out through the form or use the contact details below. I typically respond within 24 hours."
+    },
+    "socials": {
+      "title": "Follow Me",
+      "instagram": "https://www.instagram.com/birger_david/",
+      "facebook": "https://facebook.com/davidbirger",
+      "telegram": "https://t.me/davidbirger"
+    },
+    "form": {
+      "nameLabel": "Full Name",
+      "namePlaceholder": "John Doe",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "john@example.com",
+      "phoneLabel": "Phone Number",
+      "phonePlaceholder": "+1 (555) 123-4567",
+      "messageLabel": "Message",
+      "messagePlaceholder": "Tell me about your fitness goals and what you're looking to achieve...",
+      "submitButton": "Send Message",
+      "submitting": "Sending...",
+      "validation": {
+        "nameRequired": "Name is required",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Please enter a valid email",
+        "phoneRequired": "Phone number is required",
+        "phoneInvalid": "Please enter a valid phone number",
+        "messageRequired": "Message is required",
+        "messageMinLength": "Message must be at least 10 characters"
+      },
+      "success": {
+        "title": "Message Sent!",
+        "description": "Thank you for reaching out. I'll get back to you within 24 hours."
+      }
+    },
+    "consultation": {
+      "title": "Free Consultation",
+      "description": "Schedule a free 30-minute consultation to discuss your goals and see if we're a good fit.",
+      "features": [
+        "Goal Assessment",
+        "Program Overview",
+        "Q&A Session"
+      ]
+    }
+  },
+  "testimonials": {
+    "tag": "TESTIMONIALS",
+    "title": "Success Stories from",
+    "titleAccent": "Real Clients",
+    "items": [
+      {
+        "name": "Sarah Johnson",
+        "role": "Lost 30 lbs",
+        "content": "David's coaching transformed not just my body, but my entire lifestyle. His personalized approach and constant support made all the difference.",
+        "image": "/images/testimonial-1.jpg",
+        "rating": 5
+      },
+      {
+        "name": "Michael Chen",
+        "role": "Competition Winner",
+        "content": "The posing coaching was invaluable for my first competition. David's expertise helped me feel confident on stage and achieve a top 3 placement.",
+        "image": "/images/testimonial-2.jpg",
+        "rating": 5
+      },
+      {
+        "name": "Emma Williams",
+        "role": "Fitness Goal Achieved",
+        "content": "I've worked with several trainers, but David's knowledge and dedication are unmatched. He truly cares about your success.",
+        "image": "/images/testimonial-3.jpg",
+        "rating": 5
+      }
+    ],
+    "stats": {
+      "clients": "Happy Clients",
+      "transformations": "Transformations",
+      "success": "Success Rate",
+      "workouts": "Workouts Completed",
+      "rating": "Average Rating"
+    }
+  },
+  "journey": {
+    "tag": "MY JOURNEY",
+    "title": "The Path to",
+    "titleAccent": "Transformation",
+    "cards": [
+      {
+        "title": "Where It All Started",
+        "description": "My journey began with a passion for fitness and a desire to help others achieve their goals. Starting from the basics, I learned the fundamentals of training and nutrition."
+      },
+      {
+        "title": "The Transformation",
+        "description": "Through dedication, consistency, and continuous learning, I transformed my body and my mindset. This journey taught me the importance of personalized approaches to fitness."
+      },
+      {
+        "title": "Today",
+        "description": "Now, as a certified coach with years of experience, I help others achieve their transformation goals through proven methods and personalized coaching."
+      }
+    ]
+  },
+  "cta": {
+    "tag": "GET STARTED",
+    "title": "Ready to Transform",
+    "titleAccent": "Your Life?",
+    "description": "Join hundreds of satisfied clients who have achieved their fitness goals with personalized coaching and proven methods.",
+    "features": [
+      "Personalized Approach",
+      "Proven Results",
+      "Continuous Support"
+    ],
+    "featureDescriptions": {
+      "0": "Every program is tailored to your unique goals and fitness level",
+      "1": "Join hundreds of clients who have achieved their fitness goals",
+      "2": "Get guidance and motivation throughout your entire journey"
+    },
+    "button": "How to Contact Me?"
+  },
+  "footer": {
+    "logo": "David Birger",
+    "logoAccent": "Birger",
+    "tagline": "I will help you create a better version of you. We are working together for your results with personalized coaching and proven training programs.",
+    "navigation": {
+      "title": "Navigation",
+      "home": "Home",
+      "about": "About Me",
+      "services": "My Services",
+      "contact": "Contacts"
+    },
+    "servicesLinks": {
+      "title": "Services",
+      "personalTraining": "Personal Training",
+      "onlineCoaching": "Online Coaching",
+      "nutritionPlanning": "Nutrition Planning",
+      "transformationPrograms": "Transformation Programs"
+    },
+    "newsletter": {
+      "title": "Subscribe to Newsletter",
+      "description": "Get fitness tips, workout ideas, and exclusive offers.",
+      "emailPlaceholder": "Enter your email",
+      "subscribeButton": "Subscribe"
+    },
+    "legal": {
+      "privacyPolicy": "Privacy Policy",
+      "termsOfService": "Terms of Service",
+      "cookiePolicy": "Cookie Policy"
+    },
+    "copyright": "© {year} David Birger. All rights reserved."
+  }
+}

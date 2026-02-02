@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { motion, useScroll } from 'framer-motion';
-import { Hero } from "@/components/sections/Hero";
+import { motion, useScroll } from "framer-motion";
 import { About } from "@/components/sections/About";
+import { Contact } from "@/components/sections/Contact";
+import { CTA } from "@/components/sections/CTA";
+import { Hero } from "@/components/sections/Hero";
+import { Journey } from "@/components/sections/Journey";
 import { Services } from "@/components/sections/Services";
 import { Testimonials } from "@/components/sections/Testimonials";
-import { Contact } from "@/components/sections/Contact";
 
 export default function Home() {
   const { scrollYProgress } = useScroll();
@@ -15,14 +16,16 @@ export default function Home() {
     <div className="min-h-screen bg-white">
       <motion.div
         className="fixed top-0 left-0 right-0 h-0.5 bg-gray-900 z-50 origin-left"
-        style={{ scaleX: scrollYProgress }}
+        style={{ scaleX: scrollYProgress, willChange: "transform" }}
       />
 
       <main>
         <Hero />
+        <Journey />
         <About />
         <Services />
         <Testimonials />
+        <CTA />
         <Contact />
       </main>
     </div>
