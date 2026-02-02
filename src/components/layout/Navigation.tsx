@@ -1,86 +1,92 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Dumbbell } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useScroll,
+} from "framer-motion";
+import { Menu, X } from "lucide-react";
+import Image from "next/image";
+import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { useSectionScroll } from "@/hooks/useSectionScroll";
 
 export function Navigation() {
+  const t = useTranslations("navigation");
+  const scrollTo = useSectionScroll();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { scrollY } = useScroll();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    if (latest > 50 && !scrolled) {
+      setScrolled(true);
+    } else if (latest <= 50 && scrolled) {
+      setScrolled(false);
+    }
+  });
 
   useEffect(() => {
     if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
   }, [mobileMenuOpen]);
 
   const menuItems = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Services', href: '#services' },
-    { name: 'Testimonials', href: '#testimonials' },
-    { name: 'Contact', href: '#contact' },
+    { name: t("home"), href: "#home" },
+    { name: t("about"), href: "#about" },
+    { name: t("services"), href: "#services" },
+    { name: t("contact"), href: "#contact" },
   ];
-
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    setMobileMenuOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   return (
     <>
       <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-700 ${
+        className={`fixed top-0 left-0 right-0 z-40 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 ${
           scrolled
-            ? 'bg-white/70 backdrop-blur-3xl border-b border-white/20 shadow-lg shadow-black/5'
-            : 'bg-white/50 backdrop-blur-md'
+            ? "bg-white/70 backdrop-blur-2xl border-b border-white/20 shadow-lg shadow-black/5"
+            : "bg-white/40 backdrop-blur-sm"
         }`}
-        style={{
-          backdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'blur(12px) saturate(150%)',
-          WebkitBackdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'blur(12px) saturate(150%)',
-        }}
       >
         <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
-            <motion.a
-              href="#home"
-              onClick={(e) => handleNavClick(e, '#home')}
-              className="flex items-center gap-2 group"
+            <motion.button
+              onClick={() => scrollTo("home")}
+              className="flex items-center gap-3 group"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.95 }}
             >
-              <div className="bg-gradient-to-br from-gray-900 to-gray-700 p-2 rounded-xl">
-                <Dumbbell className="w-5 h-5 md:w-6 md:h-6 text-white" />
+              <div className="relative w-8 h-8 md:w-10 md:h-10">
+                <Image
+                  src="/logo_image.svg"
+                  alt="David Birger Logo"
+                  fill
+                  className="object-contain"
+                  priority
+                />
               </div>
-              <span className="text-xl md:text-2xl font-semibold text-gray-900">
-                FitCoach
-              </span>
-            </motion.a>
+              <div className="relative h-6 md:h-7 w-32 md:w-40">
+                <Image
+                  src="/logo_title.svg"
+                  alt="David Birger"
+                  fill
+                  className="object-contain object-left"
+                  priority
+                />
+              </div>
+            </motion.button>
 
             <div className="hidden md:flex items-center gap-8">
               {menuItems.map((item, index) => (
-                <motion.a
+                <motion.button
                   key={item.name}
-                  href={item.href}
-                  onClick={(e) => handleNavClick(e, item.href)}
+                  onClick={() => scrollTo(item.href)}
                   className="text-gray-900 hover:text-black transition-colors text-sm font-semibold relative group"
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -88,7 +94,7 @@ export function Navigation() {
                 >
                   {item.name}
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-900 transition-all group-hover:w-full" />
-                </motion.a>
+                </motion.button>
               ))}
               <motion.div
                 initial={{ opacity: 0, y: -20 }}
@@ -96,26 +102,26 @@ export function Navigation() {
                 transition={{ delay: 0.5 }}
               >
                 <Button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const element = document.querySelector('#contact');
-                    if (element) {
-                      element.scrollIntoView({ behavior: 'smooth' });
-                    }
-                  }}
+                  type="button"
+                  onClick={() => scrollTo("contact")}
                   className="bg-gray-900 hover:bg-gray-800 text-white px-6 rounded-full transition-all"
                 >
-                  Get Started
+                  {t("ctaText")}
                 </Button>
               </motion.div>
             </div>
 
             <button
+              type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="md:hidden p-2 text-gray-700 hover:text-gray-900 transition-colors"
               aria-label="Toggle menu"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </button>
           </div>
         </nav>
@@ -132,38 +138,36 @@ export function Navigation() {
               onClick={() => setMobileMenuOpen(false)}
             />
             <motion.div
-              initial={{ x: '100%' }}
+              initial={{ x: "100%" }}
               animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 30, stiffness: 300 }}
               className="fixed top-16 right-0 bottom-0 w-64 bg-white/90 backdrop-blur-2xl shadow-2xl z-30 md:hidden border-l border-gray-200/50"
             >
               <div className="flex flex-col p-6 gap-4">
                 {menuItems.map((item, index) => (
-                  <motion.a
+                  <motion.button
                     key={item.name}
-                    href={item.href}
-                    onClick={(e) => handleNavClick(e, item.href)}
-                    className="text-gray-700 hover:text-gray-900 transition-colors py-2 text-sm font-medium"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      scrollTo(item.href);
+                    }}
+                    className="text-gray-700 hover:text-gray-900 transition-colors py-2 text-sm font-medium text-left"
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
                   >
                     {item.name}
-                  </motion.a>
+                  </motion.button>
                 ))}
                 <Button
-                  onClick={(e) => {
-                    e.preventDefault();
+                  onClick={() => {
                     setMobileMenuOpen(false);
-                    const element = document.querySelector('#contact');
-                    if (element) {
-                      element.scrollIntoView({ behavior: 'smooth' });
-                    }
+                    scrollTo("contact");
                   }}
                   className="bg-gray-900 hover:bg-gray-800 text-white mt-4 rounded-full"
                 >
-                  Get Started
+                  {t("ctaText")}
                 </Button>
               </div>
             </motion.div>

@@ -1,32 +1,30 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUp } from 'lucide-react';
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useScroll,
+} from "framer-motion";
+import { ArrowUp } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
+  const { scrollY } = useScroll();
 
-  useEffect(() => {
-    const toggleVisibility = () => {
-      if (window.pageYOffset > 300) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-    };
-
-    window.addEventListener('scroll', toggleVisibility);
-
-    return () => {
-      window.removeEventListener('scroll', toggleVisibility);
-    };
-  }, []);
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    if (latest > 300 && !isVisible) {
+      setIsVisible(true);
+    } else if (latest <= 300 && isVisible) {
+      setIsVisible(false);
+    }
+  });
 
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
   };
 

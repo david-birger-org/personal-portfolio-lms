@@ -1,56 +1,58 @@
 "use client";
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, CheckCircle2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
+import { motion } from "framer-motion";
+import {
+  CheckCircle2,
+  Facebook,
+  Instagram,
+  Mail,
+  MapPin,
+  Phone,
+  Send,
+} from "lucide-react";
+import { useTranslations } from "next-intl";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { fadeInUp, staggerContainer } from "@/lib/animations";
 
 export function Contact() {
+  const t = useTranslations("contact");
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: '',
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 40 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as any },
-    },
-  };
-
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
 
     if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
+      newErrors.name = t("form.validation.nameRequired");
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
+      newErrors.email = t("form.validation.emailRequired");
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email';
+      newErrors.email = t("form.validation.emailInvalid");
     }
 
     if (!formData.phone.trim()) {
-      newErrors.phone = 'Phone number is required';
-    } else if (!/^[\d\s\-\+\(\)]+$/.test(formData.phone)) {
-      newErrors.phone = 'Please enter a valid phone number';
+      newErrors.phone = t("form.validation.phoneRequired");
+    } else if (!/^[\d\s\-+()]+$/.test(formData.phone)) {
+      newErrors.phone = t("form.validation.phoneInvalid");
     }
 
     if (!formData.message.trim()) {
-      newErrors.message = 'Message is required';
+      newErrors.message = t("form.validation.messageRequired");
     } else if (formData.message.trim().length < 10) {
-      newErrors.message = 'Message must be at least 10 characters';
+      newErrors.message = t("form.validation.messageMinLength");
     }
 
     setErrors(newErrors);
@@ -72,10 +74,10 @@ export function Contact() {
     setIsSuccess(true);
 
     setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      message: '',
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
     });
 
     setTimeout(() => {
@@ -84,7 +86,7 @@ export function Contact() {
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -100,58 +102,61 @@ export function Contact() {
   const contactInfo = [
     {
       icon: Mail,
-      title: 'Email',
-      value: 'coach@fitcoach.com',
-      link: 'mailto:coach@fitcoach.com',
+      title: t("info.email.title"),
+      value: t("info.email.value"),
+      link: `mailto:${t("info.email.value")}`,
+      key: "email",
     },
     {
       icon: Phone,
-      title: 'Phone',
-      value: '+1 (555) 123-4567',
-      link: 'tel:+15551234567',
+      title: t("info.phone.title"),
+      value: t("info.phone.value"),
+      link: `tel:${t("info.phone.value").replace(/\s/g, "")}`,
+      key: "phone",
     },
     {
       icon: MapPin,
-      title: 'Location',
-      value: 'Los Angeles, CA',
+      title: t("info.location.title"),
+      value: t("info.location.value"),
       link: null,
+      key: "location",
     },
   ];
 
   return (
-    <section id="contact" className="py-32 md:py-40 bg-gray-50 relative overflow-hidden">
+    <section
+      id="contact"
+      className="py-32 md:py-40 bg-gray-50 relative overflow-hidden"
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-          variants={{
-            visible: {
-              transition: {
-                staggerChildren: 0.15,
-              },
-            },
-          }}
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
           className="text-center max-w-3xl mx-auto mb-20"
         >
           <motion.span
             variants={fadeInUp}
             className="text-gray-600 font-medium text-sm uppercase tracking-wider"
           >
-            Get In Touch
+            {t("tag")}
           </motion.span>
 
           <motion.h2
             variants={fadeInUp}
             className="text-4xl sm:text-5xl lg:text-6xl mt-4 mb-6 text-gray-900 tracking-tight"
           >
-            Ready to Start Your
+            {t("title")}
             <br />
-            <span className="text-gray-500">Transformation?</span>
+            <span className="text-gray-500">{t("titleAccent")}</span>
           </motion.h2>
 
-          <motion.p variants={fadeInUp} className="text-lg text-gray-600 leading-relaxed">
-            Let's discuss your fitness goals and create a personalized plan to help you achieve them.
+          <motion.p
+            variants={fadeInUp}
+            className="text-lg text-gray-600 leading-relaxed"
+          >
+            {t("description")}
           </motion.p>
         </motion.div>
 
@@ -159,26 +164,22 @@ export function Contact() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: '-100px' }}
-            variants={{
-              visible: {
-                transition: {
-                  staggerChildren: 0.15,
-                },
-              },
-            }}
+            viewport={{ once: true, margin: "-100px" }}
+            variants={staggerContainer}
           >
             <motion.div variants={fadeInUp} className="mb-10">
-              <h3 className="text-2xl sm:text-3xl mb-4 text-gray-900 tracking-tight">Contact Information</h3>
+              <h3 className="text-2xl sm:text-3xl mb-4 text-gray-900 tracking-tight">
+                {t("info.infoTitle")}
+              </h3>
               <p className="text-gray-600 leading-relaxed">
-                Have questions? Reach out through the form or use the contact details below. I typically respond within 24 hours.
+                {t("info.infoDescription")}
               </p>
             </motion.div>
 
             <div className="space-y-6 mb-10">
-              {contactInfo.map((info, index) => (
+              {contactInfo.map((info) => (
                 <motion.div
-                  key={index}
+                  key={info.key}
                   variants={fadeInUp}
                   className="flex items-start gap-4"
                 >
@@ -186,7 +187,9 @@ export function Contact() {
                     <info.icon className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <div className="text-sm text-gray-600 mb-1">{info.title}</div>
+                    <div className="text-sm text-gray-600 mb-1">
+                      {info.title}
+                    </div>
                     {info.link ? (
                       <a
                         href={info.link}
@@ -195,33 +198,75 @@ export function Contact() {
                         {info.value}
                       </a>
                     ) : (
-                      <div className="text-lg font-medium text-gray-900">{info.value}</div>
+                      <div className="text-lg font-medium text-gray-900">
+                        {info.value}
+                      </div>
                     )}
                   </div>
                 </motion.div>
               ))}
             </div>
 
+            <motion.div variants={fadeInUp} className="mb-10">
+              <h4 className="text-sm text-gray-600 mb-4 font-medium">
+                {t("socials.title")}
+              </h4>
+              <div className="flex gap-3">
+                <motion.a
+                  href={t("socials.instagram")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-12 h-12 bg-white border border-gray-200 rounded-2xl flex items-center justify-center shadow-sm hover:shadow-md transition-shadow group"
+                  aria-label="Instagram"
+                >
+                  <Instagram className="w-6 h-6 text-[#E4405F] group-hover:text-[#C13584] transition-colors" />
+                </motion.a>
+                <motion.a
+                  href={t("socials.facebook")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-12 h-12 bg-white border border-gray-200 rounded-2xl flex items-center justify-center shadow-sm hover:shadow-md transition-shadow group"
+                  aria-label="Facebook"
+                >
+                  <Facebook className="w-6 h-6 text-[#1877F2] group-hover:text-[#0C5DC6] transition-colors" />
+                </motion.a>
+                <motion.a
+                  href={t("socials.telegram")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-12 h-12 bg-white border border-gray-200 rounded-2xl flex items-center justify-center shadow-sm hover:shadow-md transition-shadow group"
+                  aria-label="Telegram"
+                >
+                  <Send className="w-5 h-5 text-[#0088cc] group-hover:text-[#006699] transition-colors" />
+                </motion.a>
+              </div>
+            </motion.div>
+
             <motion.div
               variants={fadeInUp}
               className="bg-white border border-gray-200 rounded-3xl p-8"
             >
               <h4 className="text-lg font-semibold text-gray-900 mb-3 tracking-tight">
-                Free Consultation
+                {t("consultation.title")}
               </h4>
               <p className="text-gray-700 mb-6 leading-relaxed">
-                Schedule a free 30-minute consultation to discuss your goals and see if we're a good fit.
+                {t("consultation.description")}
               </p>
               <div className="flex flex-wrap gap-2">
-                <span className="text-xs bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5 text-gray-700 font-medium">
-                  Goal Assessment
-                </span>
-                <span className="text-xs bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5 text-gray-700 font-medium">
-                  Program Overview
-                </span>
-                <span className="text-xs bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5 text-gray-700 font-medium">
-                  Q&A Session
-                </span>
+                {(t.raw("consultation.features") as string[]).map((feature) => (
+                  <span
+                    key={feature}
+                    className="text-xs bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5 text-gray-700 font-medium"
+                  >
+                    {feature}
+                  </span>
+                ))}
               </div>
             </motion.div>
           </motion.div>
@@ -229,7 +274,7 @@ export function Contact() {
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
+            viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as any }}
             className="bg-white rounded-3xl border border-gray-200 p-8 lg:p-10"
           >
@@ -243,17 +288,15 @@ export function Contact() {
                   <CheckCircle2 className="w-8 h-8 text-green-600" />
                 </div>
                 <h3 className="text-2xl font-semibold text-gray-900 mb-3 tracking-tight">
-                  Message Sent!
+                  {t("form.success.title")}
                 </h3>
-                <p className="text-gray-600">
-                  Thank you for reaching out. I'll get back to you within 24 hours.
-                </p>
+                <p className="text-gray-600">{t("form.success.description")}</p>
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <Label htmlFor="name" className="text-gray-900 mb-2 block">
-                    Full Name
+                    {t("form.nameLabel")}
                   </Label>
                   <Input
                     id="name"
@@ -261,8 +304,8 @@ export function Contact() {
                     type="text"
                     value={formData.name}
                     onChange={handleChange}
-                    className={`border-gray-300 rounded-2xl ${errors.name ? 'border-red-500' : ''}`}
-                    placeholder="John Doe"
+                    className={`border-gray-300 rounded-2xl ${errors.name ? "border-red-500" : ""}`}
+                    placeholder={t("form.namePlaceholder")}
                   />
                   {errors.name && (
                     <p className="text-sm text-red-600 mt-2">{errors.name}</p>
@@ -271,7 +314,7 @@ export function Contact() {
 
                 <div>
                   <Label htmlFor="email" className="text-gray-900 mb-2 block">
-                    Email Address
+                    {t("form.emailLabel")}
                   </Label>
                   <Input
                     id="email"
@@ -279,8 +322,8 @@ export function Contact() {
                     type="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className={`border-gray-300 rounded-2xl ${errors.email ? 'border-red-500' : ''}`}
-                    placeholder="john@example.com"
+                    className={`border-gray-300 rounded-2xl ${errors.email ? "border-red-500" : ""}`}
+                    placeholder={t("form.emailPlaceholder")}
                   />
                   {errors.email && (
                     <p className="text-sm text-red-600 mt-2">{errors.email}</p>
@@ -289,7 +332,7 @@ export function Contact() {
 
                 <div>
                   <Label htmlFor="phone" className="text-gray-900 mb-2 block">
-                    Phone Number
+                    {t("form.phoneLabel")}
                   </Label>
                   <Input
                     id="phone"
@@ -297,8 +340,8 @@ export function Contact() {
                     type="tel"
                     value={formData.phone}
                     onChange={handleChange}
-                    className={`border-gray-300 rounded-2xl ${errors.phone ? 'border-red-500' : ''}`}
-                    placeholder="+1 (555) 123-4567"
+                    className={`border-gray-300 rounded-2xl ${errors.phone ? "border-red-500" : ""}`}
+                    placeholder={t("form.phonePlaceholder")}
                   />
                   {errors.phone && (
                     <p className="text-sm text-red-600 mt-2">{errors.phone}</p>
@@ -307,7 +350,7 @@ export function Contact() {
 
                 <div>
                   <Label htmlFor="message" className="text-gray-900 mb-2 block">
-                    Message
+                    {t("form.messageLabel")}
                   </Label>
                   <Textarea
                     id="message"
@@ -315,12 +358,14 @@ export function Contact() {
                     value={formData.message}
                     onChange={handleChange}
                     className={`min-h-[150px] border-gray-300 rounded-2xl ${
-                      errors.message ? 'border-red-500' : ''
+                      errors.message ? "border-red-500" : ""
                     }`}
-                    placeholder="Tell me about your fitness goals and what you're looking to achieve..."
+                    placeholder={t("form.messagePlaceholder")}
                   />
                   {errors.message && (
-                    <p className="text-sm text-red-600 mt-2">{errors.message}</p>
+                    <p className="text-sm text-red-600 mt-2">
+                      {errors.message}
+                    </p>
                   )}
                 </div>
 
@@ -332,11 +377,11 @@ export function Contact() {
                   {isSubmitting ? (
                     <>
                       <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
-                      Sending...
+                      {t("form.submitting")}
                     </>
                   ) : (
                     <>
-                      Send Message
+                      {t("form.submitButton")}
                       <Send className="ml-2 w-5 h-5" />
                     </>
                   )}
