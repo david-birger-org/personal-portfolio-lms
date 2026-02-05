@@ -27,7 +27,7 @@ export function Hero() {
       className="relative h-screen flex items-center justify-center overflow-hidden"
     >
       <motion.div
-        className="absolute inset-0"
+        className="inset-0 absolute"
         initial="hidden"
         animate="visible"
         variants={scaleIn}
