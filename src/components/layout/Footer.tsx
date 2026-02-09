@@ -119,7 +119,7 @@ export function Footer() {
               </h3>
               <p className="text-gray-400">{t("newsletter.description")}</p>
             </div>
-            <div className="flex gap-3 min-w-[340px]">
+            <div className="flex w-full flex-col gap-3 md:min-w-[340px] md:flex-row">
               <input
                 type="email"
                 placeholder={t("newsletter.emailPlaceholder")}
@@ -127,7 +127,7 @@ export function Footer() {
               />
               <button
                 type="button"
-                className="px-6 py-3 bg-white hover:bg-gray-100 text-gray-900 rounded-2xl font-medium transition-all whitespace-nowrap"
+                className="w-full px-4 py-2 bg-white hover:bg-gray-100 text-sm text-gray-900 rounded-xl font-medium transition-all whitespace-normal break-words text-center leading-snug md:w-auto md:px-5 md:py-2.5 md:whitespace-nowrap"
               >
                 {t("newsletter.subscribeButton")}
               </button>

@@ -219,7 +219,7 @@ export function Services() {
           <motion.div variants={fadeInUp} className="text-center mt-16">
             <Button
               size="lg"
-              className="bg-gray-900 hover:bg-gray-800 text-white px-10 py-6 text-lg rounded-full transition-all shadow-lg hover:shadow-xl"
+              className="h-auto w-full max-w-full whitespace-normal break-words text-center leading-snug bg-gray-900 hover:bg-gray-800 text-white px-6 py-4 text-base sm:w-auto sm:px-10 sm:py-6 sm:text-lg rounded-full transition-all shadow-lg hover:shadow-xl"
               onClick={() => scrollTo("contact")}
             >
               {t("process.cta")}
