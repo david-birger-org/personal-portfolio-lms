@@ -2,14 +2,16 @@
 
 import { ArrowRight } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 import { useSectionScroll } from "@/hooks/useSectionScroll";
 import { itemFadeInUp, scaleIn, staggerContainer } from "@/lib/animations";
+import { cn } from "@/lib/utils";
 
 export function Hero() {
   const t = useTranslations("hero");
+  const locale = useLocale();
   const scrollTo = useSectionScroll();
   const { scrollYProgress } = useScroll();
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
@@ -17,7 +19,7 @@ export function Hero() {
 
   const stats = [
     { number: "300+", label: t("stats.clients"), key: "clients" },
-    { number: "6+", label: t("stats.experience"), key: "experience" },
+    { number: "10+", label: t("stats.experience"), key: "experience" },
     { number: "98%", label: t("stats.success"), key: "success" },
   ];
 
@@ -65,11 +67,26 @@ export function Hero() {
 
           <motion.h1
             variants={itemFadeInUp}
-            className="font-ermilov text-5xl sm:text-6xl lg:text-7xl xl:text-8xl mb-6 text-white tracking-tight"
+            className={cn(
+              "font-ermilov mb-6 text-white tracking-tight",
+              locale === "ua"
+                ? "text-4xl sm:text-6xl lg:text-7xl xl:text-8xl"
+                : "text-5xl sm:text-6xl lg:text-7xl xl:text-8xl",
+            )}
           >
-            {t("title")}
-            <br />
-            <span className="text-white/90">{t("titleAccent")}</span>
+            {locale === "ua" ? (
+              <>
+                <span className="block">ЯКЩО ТИ</span>
+                <span className="block">МОЖЕШ УЯВИТИ ЦЕ</span>
+                <span className="block">ТО І МОЖЕШ</span>
+                <span className="block">ЗРОБИТИ</span>
+              </>
+            ) : (
+              <>
+                <span className="block">{t("title")}</span>
+                <span className="block">{t("titleAccent")}</span>
+              </>
+            )}
           </motion.h1>
 
           <motion.p
