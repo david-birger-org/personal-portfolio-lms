@@ -5,7 +5,6 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useSectionScroll } from "@/hooks/useSectionScroll";
-import { LanguageSwitcher } from "./LanguageSwitcher";
 
 export function Footer() {
   const t = useTranslations("footer");
@@ -34,16 +33,6 @@ export function Footer() {
     { icon: Youtube, href: "#", label: "YouTube" },
     { icon: Mail, href: "mailto:coach@fitcoach.com", label: "Email" },
   ];
-
-  const handleNavClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    href: string,
-  ) => {
-    e.preventDefault();
-    if (href.startsWith("#")) {
-      scrollTo(href);
-    }
-  };
 
   return (
     <footer className="bg-gray-900 text-white pt-20 pb-8 relative overflow-hidden">
@@ -159,10 +148,6 @@ export function Footer() {
               {t("legal.cookiePolicy")}
             </button>
           </div>
-        </div>
-
-        <div className="pt-6 flex justify-center">
-          <LanguageSwitcher />
         </div>
       </div>
     </footer>

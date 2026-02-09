@@ -1,32 +1,45 @@
 "use client";
 
-import { useParams, usePathname as useNextPathname } from "next/navigation";
-import { useRouter } from "@/i18n/routing";
-import { locales, localeNames, type Locale } from "@/i18n/config";
+import { useLocale } from "next-intl";
+import { type Locale, localeNames, locales } from "@/i18n/config";
+import { usePathname, useRouter } from "@/i18n/routing";
+import { cn } from "@/lib/utils";
 
-export function LanguageSwitcher() {
-  const params = useParams();
+interface LanguageSwitcherProps {
+  className?: string;
+  onSelect?: () => void;
+}
+
+export function LanguageSwitcher({
+  className,
+  onSelect,
+}: LanguageSwitcherProps) {
   const router = useRouter();
-  const pathname = useNextPathname();
-  const currentLocale = (params.locale as Locale) || "en";
+  const pathname = usePathname();
+  const currentLocale = useLocale() as Locale;
 
   const handleLocaleChange = (newLocale: Locale) => {
-    // Remove the current locale from pathname if it exists
-    const pathWithoutLocale = pathname.replace(/^\/(en|ua)/, '') || '/';
-    router.replace(pathWithoutLocale as any, { locale: newLocale });
+    if (newLocale === currentLocale) {
+      return;
+    }
+
+    router.replace(pathname, { locale: newLocale });
+    onSelect?.();
   };
 
   return (
-    <div className="flex items-center gap-2">
+    <div className={cn("flex items-center gap-2", className)}>
       {locales.map((locale) => (
         <button
+          type="button"
           key={locale}
           onClick={() => handleLocaleChange(locale)}
-          className={`text-xs px-2 py-1 rounded transition-colors ${
+          className={cn(
+            "rounded px-2 py-1 text-xs transition-colors",
             locale === currentLocale
-              ? "text-white font-semibold underline"
-              : "text-gray-400 hover:text-gray-200"
-          }`}
+              ? "bg-gray-900 font-semibold text-white"
+              : "text-gray-600 hover:bg-gray-100 hover:text-gray-900",
+          )}
           aria-label={`Switch to ${localeNames[locale]}`}
         >
           {locale.toUpperCase()}

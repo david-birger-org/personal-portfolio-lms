@@ -11,6 +11,7 @@ import {
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useSectionScroll } from "@/hooks/useSectionScroll";
@@ -205,7 +206,7 @@ export function Navigation() {
               transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
               className="fixed top-0 right-0 bottom-0 w-64 transform-gpu bg-white/70 backdrop-blur-2xl shadow-lg shadow-black/5 z-30 md:hidden border-l border-white/20 will-change-transform"
             >
-              <div className="flex flex-col gap-4 p-6 pt-20">
+              <div className="flex h-full flex-col gap-4 p-6 pt-20">
                 {menuItems.map((item, index) => (
                   <motion.button
                     key={item.name}
@@ -230,6 +231,14 @@ export function Navigation() {
                 >
                   {t("ctaText")}
                 </Button>
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: menuItems.length * 0.1 }}
+                  className="mt-auto pt-4"
+                >
+                  <LanguageSwitcher onSelect={() => setMobileMenuOpen(false)} />
+                </motion.div>
               </div>
             </motion.div>
           </>
