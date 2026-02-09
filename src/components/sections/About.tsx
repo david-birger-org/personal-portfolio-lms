@@ -42,7 +42,7 @@ export function About() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, margin: "-40px" }}
             variants={fadeInUp}
             className="relative order-2 lg:order-1"
           >
@@ -83,7 +83,7 @@ export function About() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, margin: "-40px" }}
             variants={staggerContainer}
             className="order-1 lg:order-2"
           >

@@ -132,7 +132,7 @@ export function Contact() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: "-40px" }}
           variants={staggerContainer}
           className="text-center max-w-3xl mx-auto mb-20"
         >
@@ -164,7 +164,7 @@ export function Contact() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, margin: "-40px" }}
             variants={staggerContainer}
           >
             <motion.div variants={fadeInUp} className="mb-10">
@@ -274,7 +274,7 @@ export function Contact() {
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as any }}
             className="bg-white rounded-3xl border border-gray-200 p-8 lg:p-10"
           >

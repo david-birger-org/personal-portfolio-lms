@@ -26,7 +26,7 @@ export function Testimonials() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: "-40px" }}
           variants={staggerContainer}
           className="text-center max-w-3xl mx-auto mb-20"
         >
@@ -62,7 +62,7 @@ export function Testimonials() {
               key={testimonial.name}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, margin: "-50px" }}
+              viewport={{ once: true, margin: "-20px" }}
               variants={fadeInUp}
               transition={{
                 delay: index * 0.1,
@@ -118,7 +118,7 @@ export function Testimonials() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: "-40px" }}
           variants={staggerContainer}
           className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-24 max-w-5xl mx-auto"
         >

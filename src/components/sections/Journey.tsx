@@ -26,7 +26,7 @@ export function Journey() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: "-40px" }}
           variants={staggerContainer}
           className="text-center mb-12 sm:mb-16"
         >
@@ -47,7 +47,7 @@ export function Journey() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: "-40px" }}
           variants={staggerContainer}
           className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8"
         >

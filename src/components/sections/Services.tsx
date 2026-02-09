@@ -81,7 +81,7 @@ export function Services() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: "-40px" }}
           variants={staggerContainer}
           className="text-center max-w-3xl mx-auto mb-20"
         >
@@ -113,12 +113,12 @@ export function Services() {
           {services.map((service, index) => (
             <motion.div
               key={service.title}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-50px" }}
-              variants={fadeInUp}
+              initial={{ y: 18 }}
+              whileInView={{ y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
               transition={{
-                delay: index * 0.1,
+                delay: index * 0.05,
+                duration: 0.28,
               }}
               className="group bg-white rounded-3xl overflow-hidden border border-gray-200 hover:border-gray-300 transition-all duration-500"
             >
@@ -169,7 +169,7 @@ export function Services() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: "-40px" }}
           variants={staggerContainer}
           className="bg-white border border-gray-200 rounded-3xl p-8 md:p-16"
         >

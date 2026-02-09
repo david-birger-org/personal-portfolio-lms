@@ -103,8 +103,8 @@ export function Hero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
-                  delay: 1 + stats.indexOf(stat) * 0.1,
-                  duration: 0.8,
+                  delay: 0.2 + stats.indexOf(stat) * 0.08,
+                  duration: 0.45,
                 }}
                 className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 text-center"
               >
@@ -121,7 +121,7 @@ export function Hero() {
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.5, duration: 1 }}
+        transition={{ delay: 0.4, duration: 0.45 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
       >
         <motion.div
