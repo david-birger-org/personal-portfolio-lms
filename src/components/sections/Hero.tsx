@@ -65,7 +65,7 @@ export function Hero() {
 
           <motion.h1
             variants={itemFadeInUp}
-            className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl mb-6 text-white tracking-tight"
+            className="font-ermilov text-5xl sm:text-6xl lg:text-7xl xl:text-8xl mb-6 text-white tracking-tight"
           >
             {t("title")}
             <br />

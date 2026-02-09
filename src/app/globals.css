@@ -2,6 +2,18 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@font-face {
+  font-family: "Ermilov-Bold";
+  src:
+    url("/Ermilov.otf") format("opentype"),
+    url("/fonts/Ermilov-Bold.woff2") format("woff2"),
+    url("/fonts/Ermilov-Bold.otf") format("opentype"),
+    url("/fonts/Ermilov-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --font-size: 16px;
   --background: #ffffff;
@@ -213,4 +225,10 @@
 
 .animation-delay-4000 {
   animation-delay: 4s;
+}
+
+@layer utilities {
+  .font-ermilov {
+    font-family: "Ermilov-Bold", var(--font-geist-sans), sans-serif;
+  }
 }
