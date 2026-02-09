@@ -74,19 +74,10 @@ export function Hero() {
                 : "text-5xl sm:text-6xl lg:text-7xl xl:text-8xl",
             )}
           >
-            {locale === "ua" ? (
-              <>
-                <span className="block">ЯКЩО ТИ</span>
-                <span className="block">МОЖЕШ УЯВИТИ ЦЕ</span>
-                <span className="block">ТО І МОЖЕШ</span>
-                <span className="block">ЗРОБИТИ</span>
-              </>
-            ) : (
-              <>
-                <span className="block">{t("title")}</span>
-                <span className="block">{t("titleAccent")}</span>
-              </>
-            )}
+            <span className="block">{t("titleLine1")}</span>
+            <span className="block">{t("titleLine2")}</span>
+            <span className="block">{t("titleLine3")}</span>
+            <span className="block">{t("titleLine4")}</span>
           </motion.h1>
 
           <motion.p
