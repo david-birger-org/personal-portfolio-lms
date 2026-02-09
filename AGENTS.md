@@ -8,7 +8,7 @@ This document provides instructions and guidelines for AI agents operating withi
 - **Runtime**: Bun
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS v4, Radix UI, Shadcn/ui-like patterns
-- **Animation**: Framer Motion
+- **Animation**: Motion for React (`motion/react`)
 - **Formatting/Linting**: Biome
 
 ## 2. Operational Commands
@@ -60,7 +60,7 @@ This document provides instructions and guidelines for AI agents operating withi
 
 ### State & Logic
 - **Hooks**: Use standard React hooks (`useState`, `useEffect`).
-- **Animations**: Use `framer-motion` for complex animations (e.g., `motion.div`, `AnimatePresence`).
+- **Animations**: Use `motion/react` for complex animations (e.g., `motion.div`, `AnimatePresence`).
 
 ## 4. File Structure
 - `src/app/`: Next.js App Router pages and layouts.
