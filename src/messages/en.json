@@ -10,9 +10,9 @@
   },
   "hero": {
     "badge": "Professional Fitness Coaching",
-    "title": "Professional Coaching,",
-    "titleAccent": "Exceptional Results",
-    "subtitle": "Personalized training programs designed to help you achieve your fitness goals with expert guidance, tailored plans, and ongoing support.",
+    "title": "IF YOU CAN DREAM IT,",
+    "titleAccent": "YOU CAN DO IT",
+    "subtitle": "I will help you build the best version of yourself. Preparation for natural bodybuilding competitions, fat loss, muscle gain, and professional coaching support.",
     "ctaText": "Learn More",
     "stats": {
       "clients": "Happy Clients",
@@ -25,19 +25,22 @@
     "tag": "ABOUT ME",
     "title": "Dedicated to Your",
     "titleAccent": "Success",
-    "description": "With over 6 years of experience in fitness coaching and bodybuilding, I've helped hundreds of clients achieve their transformation goals. My approach combines personalized training programs, nutrition guidance, and ongoing support to ensure lasting results.",
+    "description": "About me (full biography via link):",
     "achievements": [
       {
-        "name": "Certified Personal Trainer (CPT)"
+        "name": "President of the Ukrainian Natural Bodybuilding Federation (WNBF Ukraine)"
       },
       {
-        "name": "Nutrition Specialist"
+        "name": "WNBF Natural Bodybuilding Vice World Champion in 2023 and 2025"
       },
       {
-        "name": "Online Coaching Certification"
+        "name": "WNBF Pro Professional Athlete"
       },
       {
-        "name": "Posing & Stage Preparation"
+        "name": "More than 20 years in sport"
+      },
+      {
+        "name": "Helping people become the best version of themselves since 2016"
       }
     ],
     "stats": {
@@ -174,11 +177,7 @@
     "consultation": {
       "title": "Free Consultation",
       "description": "Schedule a free 30-minute consultation to discuss your goals and see if we're a good fit.",
-      "features": [
-        "Goal Assessment",
-        "Program Overview",
-        "Q&A Session"
-      ]
+      "features": ["Goal Assessment", "Program Overview", "Q&A Session"]
     }
   },
   "testimonials": {
