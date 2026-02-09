@@ -1,12 +1,12 @@
 "use client";
 
+import { ArrowUp } from "lucide-react";
 import {
   AnimatePresence,
   motion,
   useMotionValueEvent,
   useScroll,
-} from "framer-motion";
-import { ArrowUp } from "lucide-react";
+} from "motion/react";
 import { useEffect, useState } from "react";
 
 export function ScrollToTop() {

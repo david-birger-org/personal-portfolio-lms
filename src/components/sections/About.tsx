@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Award, CheckCircle2, Target, TrendingUp } from "lucide-react";
+import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 import { fadeInUp, staggerContainer } from "@/lib/animations";

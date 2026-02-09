@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll } from "framer-motion";
+import { motion, useScroll } from "motion/react";
 import { About } from "@/components/sections/About";
 import { Contact } from "@/components/sections/Contact";
 import { CTA } from "@/components/sections/CTA";

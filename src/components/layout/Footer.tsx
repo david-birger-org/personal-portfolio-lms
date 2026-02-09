@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Facebook, Instagram, Mail, Twitter, Youtube } from "lucide-react";
+import { motion } from "motion/react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useSectionScroll } from "@/hooks/useSectionScroll";
