@@ -1,10 +1,4 @@
 "use client";
-
-import {
-  AsYouType,
-  type CountryCode,
-  parsePhoneNumberFromString,
-} from "libphonenumber-js";
 import {
   CheckCircle2,
   Facebook,
@@ -37,6 +31,8 @@ const CONTACT_COUNTRIES = [
   { code: "DE", dialCode: "+49", labelKey: "de" },
 ] as const;
 
+type CountryCode = (typeof CONTACT_COUNTRIES)[number]["code"];
+
 const SOCIAL_HANDLE_PATTERN = /^@?[a-zA-Z0-9._]{2,32}$/;
 
 export function Contact() {
@@ -55,7 +51,7 @@ export function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const validateForm = () => {
+  const validateForm = async () => {
     const newErrors: Record<string, string> = {};
 
     if (!formData.firstName.trim()) {
@@ -74,10 +70,24 @@ export function Contact() {
 
     if (!formData.phone.trim()) {
       newErrors.phone = t("form.validation.phoneRequired");
-    } else if (
-      !parsePhoneNumberFromString(formData.phone, formData.country)?.isValid()
-    ) {
-      newErrors.phone = t("form.validation.phoneInvalid");
+    } else {
+      try {
+        const { parsePhoneNumberFromString } = await import(
+          "libphonenumber-js/min"
+        );
+        const parsed = parsePhoneNumberFromString(
+          formData.phone,
+          formData.country,
+        );
+        if (!parsed?.isValid()) {
+          newErrors.phone = t("form.validation.phoneInvalid");
+        }
+      } catch {
+        const digits = formData.phone.replace(/\D/g, "");
+        if (digits.length < 8) {
+          newErrors.phone = t("form.validation.phoneInvalid");
+        }
+      }
     }
 
     if (!formData.preferredContactMethod.trim()) {
@@ -111,7 +121,7 @@ export function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!validateForm()) {
+    if (!(await validateForm())) {
       return;
     }
 
@@ -169,9 +179,7 @@ export function Contact() {
     setFormData((prev) => ({
       ...prev,
       country,
-      phone: prev.phone
-        ? new AsYouType(country).input(prev.phone.replace(/[^\d+]/g, ""))
-        : "",
+      phone: prev.phone,
     }));
 
     if (errors.phone) {
@@ -185,11 +193,8 @@ export function Contact() {
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value;
-    const formattedValue = new AsYouType(formData.country).input(
-      rawValue.replace(/[^\d+]/g, ""),
-    );
-
-    setFormData((prev) => ({ ...prev, phone: formattedValue }));
+    const sanitized = rawValue.replace(/[^\d+()\-\s]/g, "");
+    setFormData((prev) => ({ ...prev, phone: sanitized }));
 
     if (errors.phone) {
       setErrors((prev) => {
