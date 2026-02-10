@@ -1,28 +1,25 @@
-"use client";
-
 import { Facebook, Instagram, Mail, Twitter, Youtube } from "lucide-react";
-import { motion } from "motion/react";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
-import { useSectionScroll } from "@/hooks/useSectionScroll";
+import { getTranslations } from "next-intl/server";
 
-export function Footer() {
-  const t = useTranslations("footer");
-  const scrollTo = useSectionScroll();
+import { Link } from "@/i18n/routing";
+
+export async function Footer() {
+  const t = await getTranslations("footer");
   const currentYear = new Date().getFullYear();
 
-  const footerLinks = {
+  const footerLinks: Record<string, Array<{ name: string; href: string }>> = {
     [t("servicesLinks.title")]: [
-      { name: t("servicesLinks.personalTraining"), href: "#services" },
-      { name: t("servicesLinks.onlineCoaching"), href: "#services" },
-      { name: t("servicesLinks.nutritionPlanning"), href: "#services" },
-      { name: t("servicesLinks.transformationPrograms"), href: "#services" },
+      { name: t("servicesLinks.personalTraining"), href: "/#services" },
+      { name: t("servicesLinks.onlineCoaching"), href: "/#services" },
+      { name: t("servicesLinks.nutritionPlanning"), href: "/#services" },
+      { name: t("servicesLinks.transformationPrograms"), href: "/#services" },
     ],
     [t("navigation.title")]: [
-      { name: t("navigation.home"), href: "#home" },
-      { name: t("navigation.about"), href: "#about" },
-      { name: t("navigation.services"), href: "#services" },
-      { name: t("navigation.contact"), href: "#contact" },
+      { name: t("navigation.home"), href: "/#home" },
+      { name: t("navigation.about"), href: "/#about" },
+      { name: t("navigation.services"), href: "/#services" },
+      { name: t("navigation.contact"), href: "/#contact" },
     ],
   };
 
@@ -39,16 +36,13 @@ export function Footer() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div className="lg:col-span-2">
-            <motion.button
-              onClick={() => scrollTo("home")}
-              className="flex items-center gap-3 group mb-6"
-              whileHover={{ scale: 1.02 }}
-            >
+            <Link href="/#home" className="flex items-center gap-3 group mb-6">
               <div className="relative w-10 h-10">
                 <Image
                   src="/logo_image.svg"
                   alt="David Birger Logo"
                   fill
+                  sizes="40px"
                   className="object-contain brightness-0 invert"
                 />
               </div>
@@ -57,25 +51,26 @@ export function Footer() {
                   src="/logo_title.svg"
                   alt="David Birger"
                   fill
+                  sizes="160px"
                   className="object-contain object-left brightness-0 invert"
                 />
               </div>
-            </motion.button>
+            </Link>
+
             <p className="text-gray-400 mb-8 max-w-md leading-relaxed">
               {t("tagline")}
             </p>
+
             <div className="flex gap-3">
               {socialLinks.map((social) => (
-                <motion.a
+                <a
                   key={social.label}
                   href={social.href}
                   aria-label={social.label}
                   className="w-11 h-11 bg-gray-800 hover:bg-white hover:text-gray-900 rounded-2xl flex items-center justify-center transition-all duration-300"
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
                 >
                   <social.icon className="w-5 h-5" />
-                </motion.a>
+                </a>
               ))}
             </div>
           </div>
@@ -86,13 +81,12 @@ export function Footer() {
               <ul className="space-y-3">
                 {links.map((link) => (
                   <li key={link.name}>
-                    <button
-                      type="button"
-                      onClick={() => scrollTo(link.href)}
+                    <Link
+                      href={link.href}
                       className="text-gray-400 hover:text-white transition-colors inline-block text-sm"
                     >
                       {link.name}
-                    </button>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -129,24 +123,24 @@ export function Footer() {
             {t("copyright", { year: currentYear })}
           </p>
           <div className="flex gap-8 text-sm">
-            <button
-              type="button"
+            <Link
+              href="/privacy-policy"
               className="text-gray-400 hover:text-white transition-colors"
             >
               {t("legal.privacyPolicy")}
-            </button>
-            <button
-              type="button"
+            </Link>
+            <Link
+              href="/terms-of-service"
               className="text-gray-400 hover:text-white transition-colors"
             >
               {t("legal.termsOfService")}
-            </button>
-            <button
-              type="button"
+            </Link>
+            <Link
+              href="/cookie-policy"
               className="text-gray-400 hover:text-white transition-colors"
             >
               {t("legal.cookiePolicy")}
-            </button>
+            </Link>
           </div>
         </div>
       </div>

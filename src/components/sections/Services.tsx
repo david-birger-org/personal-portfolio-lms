@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Apple,
   Calendar,
@@ -8,16 +6,14 @@ import {
   TrendingUp,
   Users,
 } from "lucide-react";
-import { motion } from "motion/react";
-import { useTranslations } from "next-intl";
-import { Button } from "@/components/ui/button";
-import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
-import { useSectionScroll } from "@/hooks/useSectionScroll";
-import { fadeInUp, staggerContainer } from "@/lib/animations";
+import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 
-export function Services() {
-  const t = useTranslations("services");
-  const scrollTo = useSectionScroll();
+import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/routing";
+
+export async function Services() {
+  const t = await getTranslations("services");
 
   const serviceItems = t.raw("items") as Array<{
     title: string;
@@ -78,55 +74,35 @@ export function Services() {
       className="py-32 md:py-40 bg-gray-50 relative overflow-hidden"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-40px" }}
-          variants={staggerContainer}
-          className="text-center max-w-3xl mx-auto mb-20"
-        >
-          <motion.span
-            variants={fadeInUp}
-            className="text-gray-600 font-medium text-sm uppercase tracking-wider"
-          >
+        <div className="text-center max-w-3xl mx-auto mb-20">
+          <span className="text-gray-600 font-medium text-sm uppercase tracking-wider">
             {t("tag")}
-          </motion.span>
+          </span>
 
-          <motion.h2
-            variants={fadeInUp}
-            className="text-4xl sm:text-5xl lg:text-6xl mt-4 mb-6 text-gray-900 tracking-tight"
-          >
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl mt-4 mb-6 text-gray-900 tracking-tight">
             {t("title")}
             <br />
             <span className="text-gray-500">{t("titleAccent")}</span>
-          </motion.h2>
+          </h2>
 
-          <motion.p
-            variants={fadeInUp}
-            className="text-lg text-gray-600 leading-relaxed"
-          >
+          <p className="text-lg text-gray-600 leading-relaxed">
             {t("description")}
-          </motion.p>
-        </motion.div>
+          </p>
+        </div>
 
         <div className="grid md:grid-cols-2 gap-6 lg:gap-8 mb-24">
-          {services.map((service, index) => (
-            <motion.div
+          {services.map((service) => (
+            <div
               key={service.title}
-              initial={{ y: 18 }}
-              whileInView={{ y: 0 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{
-                delay: index * 0.05,
-                duration: 0.28,
-              }}
               className="group bg-white rounded-3xl overflow-hidden border border-gray-200 hover:border-gray-300 transition-all duration-500"
             >
               <div className="aspect-video relative overflow-hidden bg-gray-100">
-                <ImageWithFallback
+                <Image
                   src={service.image}
                   alt={service.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="absolute bottom-4 left-4 bg-white rounded-2xl p-3">
@@ -155,44 +131,28 @@ export function Services() {
                 </ul>
 
                 <Button
+                  asChild
                   variant="outline"
                   className="w-full border border-gray-300 hover:border-gray-900 hover:bg-gray-50 text-gray-900 rounded-full transition-all"
-                  onClick={() => scrollTo("contact")}
                 >
-                  {t("learnMore")}
+                  <Link href="/#contact">{t("learnMore")}</Link>
                 </Button>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-40px" }}
-          variants={staggerContainer}
-          className="bg-white border border-gray-200 rounded-3xl p-8 md:p-16"
-        >
-          <motion.h3
-            variants={fadeInUp}
-            className="text-3xl sm:text-4xl lg:text-5xl text-center mb-4 text-gray-900 tracking-tight"
-          >
+        <div className="bg-white border border-gray-200 rounded-3xl p-8 md:p-16">
+          <h3 className="text-3xl sm:text-4xl lg:text-5xl text-center mb-4 text-gray-900 tracking-tight">
             {t("process.title")}
-          </motion.h3>
-          <motion.p
-            variants={fadeInUp}
-            className="text-gray-600 text-center mb-16 max-w-2xl mx-auto leading-relaxed"
-          >
+          </h3>
+          <p className="text-gray-600 text-center mb-16 max-w-2xl mx-auto leading-relaxed">
             {t("process.description")}
-          </motion.p>
+          </p>
 
           <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
             {processSteps.map((step, index) => (
-              <motion.div
-                key={step.title}
-                variants={fadeInUp}
-                className="text-center relative"
-              >
+              <div key={step.title} className="text-center relative">
                 {index < processSteps.length - 1 && (
                   <div className="hidden md:block absolute top-10 left-[60%] w-[80%] h-px bg-gray-200" />
                 )}
@@ -212,20 +172,20 @@ export function Services() {
                 <p className="text-gray-600 leading-relaxed">
                   {step.description}
                 </p>
-              </motion.div>
+              </div>
             ))}
           </div>
 
-          <motion.div variants={fadeInUp} className="text-center mt-16">
+          <div className="text-center mt-16">
             <Button
+              asChild
               size="lg"
               className="h-auto w-full max-w-full whitespace-normal break-words text-center leading-snug bg-gray-900 hover:bg-gray-800 text-white px-6 py-4 text-base sm:w-auto sm:px-10 sm:py-6 sm:text-lg rounded-full transition-all shadow-lg hover:shadow-xl"
-              onClick={() => scrollTo("contact")}
             >
-              {t("process.cta")}
+              <Link href="/#contact">{t("process.cta")}</Link>
             </Button>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
     </section>
   );

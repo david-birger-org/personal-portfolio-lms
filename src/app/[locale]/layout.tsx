@@ -68,7 +68,12 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale);
 
-  const messages = await getMessages({ locale });
+  const allMessages = await getMessages({ locale });
+  const messages = {
+    // Keep the client payload small. Only client components that call
+    // `useTranslations()` need their namespaces here.
+    contact: (allMessages as Record<string, unknown>).contact,
+  };
 
   return (
     <html lang={locale} className="scroll-smooth">
@@ -76,11 +81,11 @@ export default async function LocaleLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <NextIntlClientProvider messages={messages}>
-          <Navigation />
+          <Navigation locale={locale} />
           {children}
           <Footer />
-          <ScrollToTop />
         </NextIntlClientProvider>
+        <ScrollToTop />
         {process.env.NODE_ENV === "production" && (
           <>
             <Analytics />

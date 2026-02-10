@@ -1,17 +1,21 @@
+"use client";
+
 import type { Locale } from "@/i18n/config";
 import { localeNames, locales } from "@/i18n/config";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
-interface LanguageSwitcherProps {
+interface LanguageSwitcherClientProps {
   currentLocale: Locale;
   className?: string;
+  onSelect?: () => void;
 }
 
-export function LanguageSwitcher({
+export function LanguageSwitcherClient({
   currentLocale,
   className,
-}: LanguageSwitcherProps) {
+  onSelect,
+}: LanguageSwitcherClientProps) {
   return (
     <div className={cn("flex items-center gap-2", className)}>
       {locales.map((locale) => (
@@ -19,6 +23,7 @@ export function LanguageSwitcher({
           key={locale}
           href="/"
           locale={locale}
+          onClick={onSelect}
           className={cn(
             "rounded px-2 py-1 text-xs transition-colors",
             locale === currentLocale

@@ -217,21 +217,21 @@
         "name": "Sarah Johnson",
         "role": "Lost 30 lbs",
         "content": "David's coaching transformed not just my body, but my entire lifestyle. His personalized approach and constant support made all the difference.",
-        "image": "/images/testimonial-1.jpg",
+        "image": "/images/testimonial-1.svg",
         "rating": 5
       },
       {
         "name": "Michael Chen",
         "role": "Competition Winner",
         "content": "The posing coaching was invaluable for my first competition. David's expertise helped me feel confident on stage and achieve a top 3 placement.",
-        "image": "/images/testimonial-2.jpg",
+        "image": "/images/testimonial-2.svg",
         "rating": 5
       },
       {
         "name": "Emma Williams",
         "role": "Fitness Goal Achieved",
         "content": "I've worked with several trainers, but David's knowledge and dedication are unmatched. He truly cares about your success.",
-        "image": "/images/testimonial-3.jpg",
+        "image": "/images/testimonial-3.svg",
         "rating": 5
       }
     ],
