@@ -66,15 +66,15 @@ export function Navigation() {
             mobileHideLogo
               ? "bg-transparent backdrop-blur-none border-transparent shadow-none"
               : scrolled
-                ? "bg-white/70 backdrop-blur-2xl border-b border-white/20 shadow-lg shadow-black/5"
-                : "bg-white/40 backdrop-blur-sm"
+                ? "bg-white border-b border-gray-200 shadow-sm"
+                : "bg-white border-b border-gray-200/60"
           }`}
         >
           <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16 md:h-20">
               <motion.button
                 onClick={() => scrollTo("home")}
-                className={`flex items-center gap-3 group transition-opacity duration-300 ${
+                className={`flex items-center gap-0.5 group transition-opacity duration-300 ${
                   mobileHideLogo
                     ? "opacity-0 pointer-events-none"
                     : "opacity-100"
@@ -82,7 +82,7 @@ export function Navigation() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <div className="relative w-8 h-8 md:w-10 md:h-10">
+                <div className="relative w-16 h-16 md:w-20 md:h-20">
                   <Image
                     src="/logo_image.svg"
                     alt="David Birger Logo"
@@ -173,7 +173,7 @@ export function Navigation() {
               layoutId="mobile-menu-trigger"
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="fixed top-4 right-4 z-50 rounded-full border border-white/30 bg-white/70 p-2 text-gray-700 shadow-lg shadow-black/5 backdrop-blur-2xl transition-colors hover:text-gray-900 md:hidden"
+              className="fixed top-4 right-4 z-50 rounded-full border border-gray-200 bg-white p-2 text-gray-700 shadow-lg shadow-black/5 transition-colors hover:text-gray-900 md:hidden"
               aria-label="Toggle menu"
               initial={{ opacity: 0, scale: 0.92 }}
               animate={{
@@ -211,7 +211,7 @@ export function Navigation() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed top-0 right-0 bottom-0 w-64 transform-gpu bg-white/70 backdrop-blur-2xl shadow-lg shadow-black/5 z-30 md:hidden border-l border-white/20 will-change-transform"
+              className="fixed top-0 right-0 bottom-0 w-64 transform-gpu bg-white shadow-lg shadow-black/5 z-30 md:hidden border-l border-gray-200 will-change-transform"
             >
               <div className="flex h-full flex-col gap-4 p-6 pt-20">
                 {menuItems.map((item, index) => (

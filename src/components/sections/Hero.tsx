@@ -26,7 +26,7 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen min-h-[100svh] flex items-center justify-center overflow-hidden pt-24 pb-24 sm:pt-28 sm:pb-28"
     >
       <motion.div
         className="inset-0 absolute"
@@ -59,7 +59,10 @@ export function Hero() {
           animate="visible"
           className="max-w-4xl mx-auto text-center"
         >
-          <motion.div variants={itemFadeInUp} className="inline-block mb-6">
+          <motion.div
+            variants={itemFadeInUp}
+            className="inline-block mb-5 sm:mb-6"
+          >
             <div className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-5 py-2 rounded-full text-sm font-medium">
               {t("badge")}
             </div>
@@ -103,7 +106,7 @@ export function Hero() {
 
           <motion.div
             variants={itemFadeInUp}
-            className="grid grid-cols-3 gap-4 sm:gap-6 mt-16 max-w-3xl mx-auto"
+            className="grid grid-cols-3 gap-3 sm:gap-6 mt-10 sm:mt-16 max-w-3xl mx-auto"
           >
             {stats.map((stat) => (
               <motion.div
@@ -114,7 +117,7 @@ export function Hero() {
                   delay: 0.2 + stats.indexOf(stat) * 0.08,
                   duration: 0.45,
                 }}
-                className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 text-center"
+                className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 sm:p-6 text-center"
               >
                 <div className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white mb-1">
                   {stat.number}
