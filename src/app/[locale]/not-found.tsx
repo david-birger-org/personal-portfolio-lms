@@ -1,12 +1,9 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 export default function NotFound() {
-  const t = useTranslations();
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="text-center px-4">
