@@ -1,7 +1,7 @@
 "use client";
 
 import { Menu, X } from "lucide-react";
-import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { LanguageSwitcherClient } from "@/components/layout/LanguageSwitcherClient";
 import { Button } from "@/components/ui/button";
@@ -27,7 +27,7 @@ export function MobileSidebar({
   const [open, setOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const [activeSectionId, setActiveSectionId] = useState(sections[0]?.id ?? "");
-  const titleId = useId();
+  const titleId = `${headerId}-mobile-nav-title-${locale}`;
   const sectionRatiosRef = useRef<Record<string, number>>({});
   const activeSectionIdRef = useRef(activeSectionId);
 
