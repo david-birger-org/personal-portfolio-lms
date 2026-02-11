@@ -17,7 +17,7 @@ export async function Footer() {
     ],
     [t("navigation.title")]: [
       { name: t("navigation.home"), href: "/#home" },
-      { name: t("navigation.about"), href: "/#about" },
+      { name: t("navigation.about"), href: "/about" },
       { name: t("navigation.services"), href: "/#services" },
       { name: t("navigation.contact"), href: "/#contact" },
     ],

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 
-import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
+import { LanguageSwitcherClient } from "@/components/layout/LanguageSwitcherClient";
 import { MobileSidebar } from "@/components/layout/MobileSidebar";
 import { Button } from "@/components/ui/button";
 import type { Locale } from "@/i18n/config";
@@ -15,7 +15,7 @@ export async function Navigation({ locale }: { locale: Locale }) {
 
   const menuItems = [
     { name: t("home"), href: "/#home" },
-    { name: t("about"), href: "/#about" },
+    { name: t("about"), href: "/about" },
     { name: t("services"), href: "/#services" },
     { name: t("contact"), href: "/#contact" },
   ];
@@ -112,7 +112,7 @@ export async function Navigation({ locale }: { locale: Locale }) {
                 <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-gray-900 transition-all group-hover/nav:w-full" />
               </Link>
             ))}
-            <LanguageSwitcher currentLocale={locale} />
+            <LanguageSwitcherClient currentLocale={locale} />
             <Button
               asChild
               className="rounded-full bg-gray-900 px-6 text-white hover:bg-gray-800"

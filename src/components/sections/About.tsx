@@ -2,6 +2,9 @@ import { Award, CheckCircle2, Target, TrendingUp } from "lucide-react";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 
+import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/routing";
+
 export async function About() {
   const t = await getTranslations("about");
 
@@ -89,6 +92,13 @@ export async function About() {
                 </div>
               ))}
             </div>
+
+            <Button
+              asChild
+              className="rounded-full bg-gray-900 px-6 text-white hover:bg-gray-800"
+            >
+              <Link href="/about">{t("readFullBiography")}</Link>
+            </Button>
           </div>
         </div>
       </div>
