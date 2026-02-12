@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 
 interface SectionTagProps {
   children: React.ReactNode;
@@ -7,7 +7,7 @@ interface SectionTagProps {
 export default function SectionTag({ children }: SectionTagProps) {
   return (
     <div className="flex items-center justify-center mb-4">
-      <span className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-50 to-purple-50 text-blue-600 font-bold text-xs sm:text-sm uppercase tracking-wider rounded-full border border-blue-100">
+      <span className="inline-flex items-center rounded-full border border-gray-300/80 bg-white/80 px-4 py-2 text-xs font-semibold text-gray-700 uppercase tracking-[0.2em] backdrop-blur-sm sm:text-sm">
         {children}
       </span>
     </div>

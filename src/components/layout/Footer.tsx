@@ -32,7 +32,8 @@ export async function Footer() {
   ];
 
   return (
-    <footer className="bg-gray-900 text-white pt-20 pb-8 relative overflow-hidden">
+    <footer className="relative overflow-hidden bg-gray-950 pt-20 pb-8 text-white">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.12),transparent_38%),radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.08),transparent_42%)]" />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div className="lg:col-span-2">
@@ -57,7 +58,7 @@ export async function Footer() {
               </div>
             </Link>
 
-            <p className="text-gray-400 mb-8 max-w-md leading-relaxed">
+            <p className="mb-8 max-w-md leading-relaxed text-gray-300">
               {t("tagline")}
             </p>
 
@@ -67,7 +68,7 @@ export async function Footer() {
                   key={social.label}
                   href={social.href}
                   aria-label={social.label}
-                  className="w-11 h-11 bg-gray-800 hover:bg-white hover:text-gray-900 rounded-2xl flex items-center justify-center transition-all duration-300"
+                  className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/15 bg-white/5 text-gray-200 transition-all duration-300 hover:-translate-y-0.5 hover:border-white/30 hover:bg-white hover:text-gray-900"
                 >
                   <social.icon className="w-5 h-5" />
                 </a>
@@ -77,13 +78,13 @@ export async function Footer() {
 
           {Object.entries(footerLinks).map(([category, links]) => (
             <div key={category}>
-              <h3 className="text-base font-semibold mb-6">{category}</h3>
+              <h3 className="mb-6 text-base font-semibold">{category}</h3>
               <ul className="space-y-3">
                 {links.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-gray-400 hover:text-white transition-colors inline-block text-sm"
+                      className="inline-block text-sm text-gray-300 transition-colors hover:text-white"
                     >
                       {link.name}
                     </Link>
@@ -94,23 +95,23 @@ export async function Footer() {
           ))}
         </div>
 
-        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 md:p-10 mb-16">
+        <div className="mb-16 rounded-3xl border border-white/15 bg-white/8 p-8 backdrop-blur-sm md:p-10">
           <div className="md:flex items-center justify-between gap-8">
             <div className="mb-6 md:mb-0">
               <h3 className="text-xl font-semibold mb-2 tracking-tight">
                 {t("newsletter.title")}
               </h3>
-              <p className="text-gray-400">{t("newsletter.description")}</p>
+              <p className="text-gray-300">{t("newsletter.description")}</p>
             </div>
             <div className="flex w-full flex-col gap-3 md:min-w-[340px] md:flex-row">
               <input
                 type="email"
                 placeholder={t("newsletter.emailPlaceholder")}
-                className="flex-1 px-5 py-3 bg-gray-800 border border-gray-700 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/20 transition-all"
+                className="flex-1 rounded-2xl border border-white/20 bg-black/20 px-5 py-3 text-white placeholder:text-gray-400 transition-all focus:outline-none focus:ring-2 focus:ring-white/30"
               />
               <button
                 type="button"
-                className="w-full px-4 py-2 bg-white hover:bg-gray-100 text-sm text-gray-900 rounded-xl font-medium transition-all whitespace-normal break-words text-center leading-snug md:w-auto md:px-5 md:py-2.5 md:whitespace-nowrap"
+                className="w-full whitespace-normal break-words rounded-xl bg-white px-4 py-2 text-center text-sm leading-snug font-medium text-gray-900 transition-all hover:-translate-y-0.5 hover:bg-gray-100 md:w-auto md:whitespace-nowrap md:px-5 md:py-2.5"
               >
                 {t("newsletter.subscribeButton")}
               </button>
@@ -118,26 +119,26 @@ export async function Footer() {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-gray-400 text-sm text-center md:text-left">
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 md:flex-row">
+          <p className="text-center text-sm text-gray-300 md:text-left">
             {t("copyright", { year: currentYear })}
           </p>
           <div className="flex gap-8 text-sm">
             <Link
               href="/privacy-policy"
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-gray-300 transition-colors hover:text-white"
             >
               {t("legal.privacyPolicy")}
             </Link>
             <Link
               href="/terms-of-service"
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-gray-300 transition-colors hover:text-white"
             >
               {t("legal.termsOfService")}
             </Link>
             <Link
               href="/cookie-policy"
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-gray-300 transition-colors hover:text-white"
             >
               {t("legal.cookiePolicy")}
             </Link>
