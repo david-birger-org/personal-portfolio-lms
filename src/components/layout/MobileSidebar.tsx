@@ -165,10 +165,8 @@ export function MobileSidebar({
       <button
         type="button"
         className={cn(
-          "md:hidden grid size-11 place-items-center rounded-full text-gray-700 transition-colors hover:text-gray-900",
-          collapsed
-            ? "border border-gray-200/80 bg-white/95 shadow-md shadow-black/10 ring-1 ring-black/[0.02] backdrop-blur-sm"
-            : "border border-transparent bg-transparent shadow-none ring-0",
+          "md:hidden grid size-11 place-items-center rounded-full border border-gray-200/80 bg-white text-gray-700 shadow-md shadow-black/10 ring-1 ring-black/[0.02] transition-colors hover:text-gray-900",
+          collapsed ? "backdrop-blur-sm" : "",
         )}
         aria-label="Open navigation"
         aria-haspopup="dialog"

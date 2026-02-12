@@ -33,7 +33,7 @@ export async function Navigation({ locale }: { locale: Locale }) {
   return (
     <header
       id="site-header"
-      className="group fixed top-0 left-0 right-0 z-40 border-b border-gray-200/60 bg-white data-[mobile-collapsed=true]:bg-transparent data-[mobile-collapsed=true]:border-transparent md:data-[mobile-collapsed=true]:bg-white md:data-[mobile-collapsed=true]:border-gray-200/60"
+      className="group fixed top-0 left-0 right-0 z-40 border-b border-gray-200/70 bg-white shadow-[0_8px_30px_-24px_rgba(15,23,42,0.55)] data-[mobile-collapsed=true]:border-transparent data-[mobile-collapsed=true]:bg-transparent data-[mobile-collapsed=true]:shadow-none"
     >
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between md:hidden">
@@ -106,10 +106,10 @@ export async function Navigation({ locale }: { locale: Locale }) {
               <Link
                 key={item.name}
                 href={item.href}
-                className="group/nav relative text-sm font-semibold text-gray-900 transition-colors hover:text-black"
+                className="group/nav relative text-sm font-semibold tracking-wide text-gray-800 transition-colors hover:text-gray-950"
               >
                 {item.name}
-                <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-gray-900 transition-all group-hover/nav:w-full" />
+                <span className="absolute -bottom-1 left-0 h-0.5 w-0 rounded-full bg-gray-900 transition-all duration-300 group-hover/nav:w-full" />
               </Link>
             ))}
             <LanguageSwitcherClient currentLocale={locale} />
