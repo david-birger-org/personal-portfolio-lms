@@ -1,6 +1,5 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
 import type { Locale } from "@/i18n/config";
@@ -20,27 +19,28 @@ export function LanguageSwitcherClient({
   onSelect,
 }: LanguageSwitcherClientProps) {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const [search, setSearch] = useState("");
   const [hash, setHash] = useState("");
 
   useEffect(() => {
-    const updateHash = () => {
+    const updateLocationParts = () => {
+      setSearch(window.location.search);
       setHash(window.location.hash);
     };
 
-    updateHash();
-    window.addEventListener("hashchange", updateHash);
+    updateLocationParts();
+    window.addEventListener("hashchange", updateLocationParts);
+    window.addEventListener("popstate", updateLocationParts);
 
     return () => {
-      window.removeEventListener("hashchange", updateHash);
+      window.removeEventListener("hashchange", updateLocationParts);
+      window.removeEventListener("popstate", updateLocationParts);
     };
   }, []);
 
   const href = useMemo(() => {
-    const query = searchParams.toString();
-    const queryString = query ? `?${query}` : "";
-    return `${pathname}${queryString}${hash}`;
-  }, [hash, pathname, searchParams]);
+    return `${pathname}${search}${hash}`;
+  }, [hash, pathname, search]);
 
   return (
     <div className={cn("flex items-center gap-2", className)}>
