@@ -9,7 +9,7 @@
     "ctaText": "Book Consultation"
   },
   "hero": {
-    "badge": "Professional Fitness Coaching",
+    "badge": "WNBF Pro Coach | Natural Bodybuilding",
     "title": "IF YOU CAN DREAM IT,",
     "titleAccent": "YOU CAN DO IT",
     "titleLine1": "IF YOU CAN",
@@ -17,7 +17,7 @@
     "titleLine3": "YOU CAN",
     "titleLine4": "DO IT",
     "subtitle": "I will help you build the best version of yourself. Preparation for natural bodybuilding competitions, fat loss, muscle gain, and professional coaching support.",
-    "ctaText": "Learn More",
+    "ctaText": "Start Your Plan",
     "stats": {
       "clients": "Happy Clients",
       "lost": "Pounds Lost",
@@ -29,7 +29,7 @@
     "tag": "ABOUT ME",
     "title": "Dedicated to Your",
     "titleAccent": "Success",
-    "description": "About me (full biography via link):",
+    "description": "For over 20 years in sport, I have built my own system around discipline, aesthetics, and sustainable natural progress. Today I combine elite competition experience with practical coaching for real people.",
     "readFullBiography": "Read Full Biography",
     "achievements": [
       {
@@ -63,90 +63,90 @@
     "tag": "My Services",
     "title": "Professional Coaching",
     "titleAccent": "Programs & Services",
-    "description": "Choose from a range of personalized coaching services designed to help you achieve your fitness goals.",
+    "description": "Choose the coaching format that matches your goal, schedule, and current level - from first steps to competitive stage readiness.",
     "items": [
       {
         "title": "Personal Training",
-        "description": "One-on-one coaching sessions tailored to your fitness level and goals",
+        "description": "In-person one-on-one sessions focused on technique, progression, and measurable strength outcomes",
         "features": [
-          "Custom workout plans",
-          "Form correction",
-          "Progress tracking",
-          "Weekly check-ins"
+          "Movement assessment",
+          "Technique and posing cues",
+          "Progressive overload strategy",
+          "Weekly performance reviews"
         ]
       },
       {
         "title": "Online Coaching",
-        "description": "Remote coaching with full support and guidance from anywhere in the world",
+        "description": "Structured online coaching with direct feedback and accountability wherever you are",
         "features": [
-          "Video consultations",
-          "App-based tracking",
-          "24/7 support",
-          "Monthly reviews"
+          "Video check-ins",
+          "Training and cardio tracking",
+          "Priority chat support",
+          "Weekly plan adjustments"
         ]
       },
       {
         "title": "Nutrition Planning",
-        "description": "Customized meal plans and nutrition strategies for optimal results",
+        "description": "Evidence-based nutrition built around your lifestyle, digestion, and training demands",
         "features": [
-          "Macro calculations",
-          "Meal prep guides",
-          "Recipe library",
-          "Supplement advice"
+          "Macros and calorie periodization",
+          "Meal timing strategy",
+          "Travel and restaurant protocol",
+          "Supplement guidance"
         ]
       },
       {
         "title": "Body Transformation",
-        "description": "Complete transformation programs for dramatic, lasting results",
+        "description": "Long-term transformation coaching to reshape your body and habits step by step",
         "features": [
-          "12-week programs",
-          "Before/after tracking",
-          "Accountability coaching",
-          "Lifestyle education"
+          "12- and 24-week roadmaps",
+          "Body composition tracking",
+          "Mindset and accountability coaching",
+          "Lifestyle systems for retention"
         ]
       }
     ],
     "process": {
       "title": "How It Works",
-      "description": "Getting started is simple. Follow these three steps to begin your transformation journey.",
+      "description": "A clear three-step process built for consistency, progress, and long-term results.",
       "steps": [
         {
-          "title": "Initial Consultation",
-          "description": "We discuss your goals, history, and create your custom plan"
+          "title": "Assessment Call",
+          "description": "We map your goals, training history, and constraints"
         },
         {
-          "title": "Personalized Program",
-          "description": "Get your tailored workout and nutrition strategy"
+          "title": "Custom Strategy",
+          "description": "You receive a training, nutrition, and recovery plan built for you"
         },
         {
-          "title": "Ongoing Support",
-          "description": "Regular check-ins, adjustments, and continuous guidance"
+          "title": "Execution and Feedback",
+          "description": "Weekly analysis, adjustments, and direct coaching support"
         }
       ],
-      "cta": "Schedule Free Consultation"
+      "cta": "Book Your Assessment Call"
     },
-    "learnMore": "Learn More"
+    "learnMore": "Discuss This Program"
   },
   "contact": {
     "tag": "CONTACTS",
     "title": "Let's Work Together",
     "titleAccent": "For Your Results",
-    "description": "Let's discuss your fitness goals and create a personalized plan to help you achieve them.",
+    "description": "Tell me where you are now and where you want to be. I will build a clear plan and coach you all the way through.",
     "info": {
       "email": {
         "title": "Email",
-        "value": "coach@fitcoach.com"
+        "value": "hello@davidbirger.com"
       },
       "phone": {
         "title": "Phone",
-        "value": "+1 (555) 123-4567"
+        "value": "+380 67 123 4567"
       },
       "location": {
         "title": "Location",
-        "value": "Los Angeles, CA"
+        "value": "Lviv, Ukraine (online worldwide)"
       },
       "infoTitle": "Contact Information",
-      "infoDescription": "Have questions? Reach out through the form or use the contact details below. I typically respond within 24 hours."
+      "infoDescription": "If you are serious about your progress, message me with your goals and current routine. I typically reply within 24 hours."
     },
     "socials": {
       "title": "Follow Me",
@@ -211,27 +211,28 @@
   },
   "testimonials": {
     "tag": "TESTIMONIALS",
-    "title": "Success Stories from",
-    "titleAccent": "Real Clients",
+    "title": "Client Results &",
+    "titleAccent": "Competition Wins",
+    "description": "Stories from clients and athletes who trained with me through lifestyle change, stage prep, and long-term transformation.",
     "items": [
       {
-        "name": "Sarah Johnson",
-        "role": "Lost 30 lbs",
-        "content": "David's coaching transformed not just my body, but my entire lifestyle. His personalized approach and constant support made all the difference.",
+        "name": "Anastasiia K.",
+        "role": "-12 kg | Recomposition",
+        "content": "I came for fat loss and stayed for the structure. David built a clear weekly system for training and nutrition, and for the first time my results became predictable.",
         "image": "/images/testimonial-1.svg",
         "rating": 5
       },
       {
-        "name": "Michael Chen",
-        "role": "Competition Winner",
-        "content": "The posing coaching was invaluable for my first competition. David's expertise helped me feel confident on stage and achieve a top 3 placement.",
+        "name": "Oleksandr M.",
+        "role": "First-Time Competitor",
+        "content": "Prep with David was precise from day one - training blocks, peak-week adjustments, and posing practice. I stepped on stage fully prepared and took top placement in my class.",
         "image": "/images/testimonial-2.svg",
         "rating": 5
       },
       {
-        "name": "Emma Williams",
-        "role": "Fitness Goal Achieved",
-        "content": "I've worked with several trainers, but David's knowledge and dedication are unmatched. He truly cares about your success.",
+        "name": "Marta P.",
+        "role": "Online Client | 9 Months",
+        "content": "Even online, the coaching felt personal. Weekly feedback, quick corrections, and realistic nutrition rules helped me gain muscle without losing balance in daily life.",
         "image": "/images/testimonial-3.svg",
         "rating": 5
       }
@@ -246,39 +247,39 @@
   },
   "journey": {
     "tag": "MY JOURNEY",
-    "title": "The Path to",
+    "title": "My Path to",
     "titleAccent": "Transformation",
     "cards": [
       {
-        "title": "Where It All Started",
-        "description": "My journey began with a passion for fitness and a desire to help others achieve their goals. Starting from the basics, I learned the fundamentals of training and nutrition."
+        "title": "Early Discipline",
+        "description": "I started in sport at age 6 with kickboxing. Years of structured training taught me discipline, consistency, and respect for the process."
       },
       {
-        "title": "The Transformation",
-        "description": "Through dedication, consistency, and continuous learning, I transformed my body and my mindset. This journey taught me the importance of personalized approaches to fitness."
+        "title": "Natural Bodybuilding Mission",
+        "description": "From athlete to organizer, I committed to natural bodybuilding and built WNBF Ukraine to create a fair, high-level platform for competitors."
       },
       {
-        "title": "Today",
-        "description": "Now, as a certified coach with years of experience, I help others achieve their transformation goals through proven methods and personalized coaching."
+        "title": "Coaching Today",
+        "description": "As a WNBF Pro and coach, I help clients transform with structured training, strategic nutrition, and consistent accountability."
       }
     ]
   },
   "cta": {
     "tag": "GET STARTED",
-    "title": "Ready to Transform",
-    "titleAccent": "Your Life?",
-    "description": "Join hundreds of satisfied clients who have achieved their fitness goals with personalized coaching and proven methods.",
+    "title": "Ready to Build",
+    "titleAccent": "Your Best Shape?",
+    "description": "If you are ready to work with intent, I will give you a professional system that fits your body, schedule, and long-term goals.",
     "features": [
-      "Personalized Approach",
-      "Proven Results",
-      "Continuous Support"
+      "Personalized Coaching System",
+      "Competition-Level Expertise",
+      "Weekly Accountability"
     ],
     "featureDescriptions": {
-      "0": "Every program is tailored to your unique goals and fitness level",
-      "1": "Join hundreds of clients who have achieved their fitness goals",
-      "2": "Get guidance and motivation throughout your entire journey"
+      "0": "Your training and nutrition are tailored to your body, schedule, and objective",
+      "1": "Benefit from methods shaped by real stage prep and elite natural bodybuilding",
+      "2": "Receive regular feedback, plan updates, and direct support each week"
     },
-    "button": "How to Contact Me?"
+    "button": "Apply for Coaching"
   },
   "footer": {
     "logo": "David Birger",
