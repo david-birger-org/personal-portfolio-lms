@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
+import type React from "react";
 
 import { biographyPhotos } from "@/content/biography";
 
@@ -20,21 +21,66 @@ interface BiographyParagraph {
 
 const sloganText =
   "« ЯКЩО ТИ МОЖЕШ УЯВИТИ ЦЕ, ТО І МОЖЕШ ЗРОБИТИ – IF YOU CAN DREAM IT, YOU CAN DO IT »";
+const wnbfWebsiteText = "wnbfukraine.com.ua";
+const wnbfWebsiteHref = "https://wnbfukraine.com.ua";
 
 function renderParagraphText(text: string) {
-  if (!text.includes(sloganText)) {
-    return text;
+  const tokens = [sloganText, wnbfWebsiteText];
+  const parts: React.ReactNode[] = [];
+  let cursor = 0;
+
+  while (cursor < text.length) {
+    let nextIndex = -1;
+    let nextToken = "";
+
+    for (const token of tokens) {
+      const index = text.indexOf(token, cursor);
+      if (index === -1) {
+        continue;
+      }
+
+      if (nextIndex === -1 || index < nextIndex) {
+        nextIndex = index;
+        nextToken = token;
+      }
+    }
+
+    if (nextIndex === -1) {
+      parts.push(text.slice(cursor));
+      break;
+    }
+
+    if (nextIndex > cursor) {
+      parts.push(text.slice(cursor, nextIndex));
+    }
+
+    if (nextToken === sloganText) {
+      parts.push(
+        <span
+          key={`slogan-${nextIndex}`}
+          className="font-semibold text-neutral-900"
+        >
+          {sloganText}
+        </span>,
+      );
+    } else {
+      parts.push(
+        <a
+          key={`wnbf-${nextIndex}`}
+          href={wnbfWebsiteHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-neutral-900 underline decoration-neutral-400 underline-offset-4 transition-colors hover:text-neutral-700"
+        >
+          {wnbfWebsiteText}
+        </a>,
+      );
+    }
+
+    cursor = nextIndex + nextToken.length;
   }
 
-  const [before, after] = text.split(sloganText);
-
-  return (
-    <>
-      {before}
-      <span className="font-semibold text-neutral-900">{sloganText}</span>
-      {after}
-    </>
-  );
+  return <>{parts}</>;
 }
 
 interface BiographyParagraphWithId extends BiographyParagraph {
