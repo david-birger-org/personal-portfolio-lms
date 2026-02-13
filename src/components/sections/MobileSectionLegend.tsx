@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import { Button } from "@/components/ui/button";
+
 interface MobileSectionLegendProps {
   sections: Array<{ id: string; title: string }>;
   label: string;
@@ -49,15 +51,17 @@ export function MobileSectionLegend({
           </nav>
         ) : null}
 
-        <button
+        <Button
           type="button"
-          className="rounded-full border border-neutral-200 bg-white px-4 py-2 text-sm font-medium text-neutral-800 shadow-sm transition-colors hover:bg-neutral-50"
+          variant="outline"
+          size="sm"
+          className="border-neutral-200 bg-white px-4 text-neutral-800 shadow-sm hover:bg-neutral-50"
           onClick={() => setIsOpen((prev) => !prev)}
           aria-expanded={isOpen}
           aria-controls="mobile-section-legend"
         >
           {label}
-        </button>
+        </Button>
       </div>
     </div>
   );

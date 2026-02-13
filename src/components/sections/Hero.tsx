@@ -62,7 +62,7 @@ export async function Hero({ locale }: { locale: string }) {
             <Button
               asChild
               size="lg"
-              className="bg-white text-gray-900 hover:bg-gray-100 px-8 py-6 text-lg rounded-full transition-all shadow-lg hover:shadow-xl"
+              className="bg-white text-gray-900 shadow-lg hover:bg-gray-100 hover:shadow-xl"
             >
               <Link href="/#contact">
                 {t("ctaText")}

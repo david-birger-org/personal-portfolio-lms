@@ -598,9 +598,10 @@ export function Contact() {
                 </div>
 
                 <Button
+                  size="lg"
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-gray-900 hover:bg-gray-800 text-white py-6 text-base rounded-full disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                  className="w-full disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? (
                     <>

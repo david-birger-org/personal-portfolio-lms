@@ -52,11 +52,7 @@ export async function CTA() {
             </div>
 
             <div className="mt-10">
-              <Button
-                asChild
-                size="lg"
-                className="bg-gray-900 hover:bg-gray-800 text-white px-8 py-6 text-lg rounded-full transition-all shadow-lg hover:shadow-xl"
-              >
+              <Button asChild size="lg" className="shadow-lg hover:shadow-xl">
                 <Link href="/#contact">
                   {t("button")}
                   <ArrowRight className="ml-2 w-5 h-5" />

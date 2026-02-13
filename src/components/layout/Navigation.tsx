@@ -113,10 +113,7 @@ export async function Navigation({ locale }: { locale: Locale }) {
               </Link>
             ))}
             <LanguageSwitcherClient currentLocale={locale} />
-            <Button
-              asChild
-              className="rounded-full bg-gray-900 px-6 text-white hover:bg-gray-800"
-            >
+            <Button asChild className="px-6">
               <Link href="/#contact">{t("ctaText")}</Link>
             </Button>
           </div>

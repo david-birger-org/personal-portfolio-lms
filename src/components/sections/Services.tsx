@@ -133,7 +133,7 @@ export async function Services() {
                 <Button
                   asChild
                   variant="outline"
-                  className="w-full border border-gray-300 hover:border-gray-900 hover:bg-gray-50 text-gray-900 rounded-full transition-all"
+                  className="w-full border-gray-300 bg-white text-gray-900 hover:border-gray-400 hover:bg-gray-50"
                 >
                   <Link href="/#contact">{t("learnMore")}</Link>
                 </Button>
@@ -180,7 +180,7 @@ export async function Services() {
             <Button
               asChild
               size="lg"
-              className="h-auto w-full max-w-full whitespace-normal break-words text-center leading-snug bg-gray-900 hover:bg-gray-800 text-white px-6 py-4 text-base sm:w-auto sm:px-10 sm:py-6 sm:text-lg rounded-full transition-all shadow-lg hover:shadow-xl"
+              className="h-auto w-full max-w-full whitespace-normal break-words text-center leading-snug sm:w-auto shadow-lg hover:shadow-xl"
             >
               <Link href="/#contact">{t("process.cta")}</Link>
             </Button>

@@ -165,8 +165,10 @@ export function MobileSidebar({
       <button
         type="button"
         className={cn(
-          "md:hidden grid size-11 place-items-center rounded-full border border-gray-200/80 bg-white text-gray-700 shadow-md shadow-black/10 ring-1 ring-black/[0.02] transition-colors hover:text-gray-900",
-          collapsed ? "backdrop-blur-sm" : "",
+          "md:hidden grid size-11 place-items-center text-gray-700 transition-all duration-200 hover:text-gray-900",
+          collapsed
+            ? "rounded-full bg-gray-900 text-white shadow-lg shadow-black/20"
+            : "rounded-none bg-transparent text-gray-700 shadow-none",
         )}
         aria-label="Open navigation"
         aria-haspopup="dialog"
@@ -236,10 +238,7 @@ export function MobileSidebar({
                 currentLocale={locale}
                 onSelect={() => setOpen(false)}
               />
-              <Button
-                asChild
-                className="rounded-full bg-gray-900 px-5 text-white hover:bg-gray-800"
-              >
+              <Button asChild className="px-5">
                 <Link href="/#contact" onClick={() => setOpen(false)}>
                   {ctaText}
                 </Link>

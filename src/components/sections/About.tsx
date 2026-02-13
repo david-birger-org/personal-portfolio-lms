@@ -93,10 +93,7 @@ export async function About() {
               ))}
             </div>
 
-            <Button
-              asChild
-              className="rounded-full bg-gray-900 px-6 text-white hover:bg-gray-800"
-            >
+            <Button asChild className="px-6">
               <Link href="/about">{t("readFullBiography")}</Link>
             </Button>
           </div>
