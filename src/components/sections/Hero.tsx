@@ -33,7 +33,12 @@ export async function Hero({ locale }: { locale: string }) {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
+        <div
+          className={cn(
+            "mx-auto text-center",
+            locale === "ua" ? "max-w-5xl" : "max-w-4xl",
+          )}
+        >
           <div className="inline-block mb-5 sm:mb-6">
             <div className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-5 py-2 rounded-full text-sm font-medium">
               {t("badge")}
@@ -42,16 +47,32 @@ export async function Hero({ locale }: { locale: string }) {
 
           <h1
             className={cn(
-              "font-ermilov mb-6 text-white tracking-tight",
+              "font-ermilov mb-6 mx-auto w-fit text-white tracking-tight leading-[0.95]",
               locale === "ua"
-                ? "text-4xl sm:text-6xl lg:text-7xl xl:text-8xl"
+                ? "text-3xl sm:text-6xl lg:text-7xl xl:text-8xl"
                 : "text-5xl sm:text-6xl lg:text-7xl xl:text-8xl",
             )}
           >
-            <span className="block">{t("titleLine1")}</span>
-            <span className="block">{t("titleLine2")}</span>
-            <span className="block">{t("titleLine3")}</span>
-            <span className="block">{t("titleLine4")}</span>
+            <span
+              className={cn("block", locale === "ua" && "whitespace-nowrap")}
+            >
+              {t("titleLine1")}
+            </span>
+            <span
+              className={cn("block", locale === "ua" && "whitespace-nowrap")}
+            >
+              {t("titleLine2")}
+            </span>
+            <span
+              className={cn("block", locale === "ua" && "whitespace-nowrap")}
+            >
+              {t("titleLine3")}
+            </span>
+            <span
+              className={cn("block", locale === "ua" && "whitespace-nowrap")}
+            >
+              {t("titleLine4")}
+            </span>
           </h1>
 
           <p className="text-lg sm:text-xl text-white/80 mb-10 max-w-2xl mx-auto leading-relaxed">
@@ -64,7 +85,7 @@ export async function Hero({ locale }: { locale: string }) {
               size="lg"
               className="bg-white text-gray-900 shadow-lg hover:bg-gray-100 hover:shadow-xl"
             >
-              <Link href="/contact">
+              <Link href="/contact#contact-form">
                 {t("ctaText")}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>

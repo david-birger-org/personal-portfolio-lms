@@ -33,7 +33,7 @@ export async function Navigation({ locale }: { locale: Locale }) {
       id="site-header"
       className="group fixed top-0 left-0 right-0 z-40 border-b border-gray-200/70 bg-white shadow-[0_8px_30px_-24px_rgba(15,23,42,0.55)] data-[mobile-collapsed=true]:border-transparent data-[mobile-collapsed=true]:bg-transparent data-[mobile-collapsed=true]:shadow-none"
     >
-      <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <nav className="container mx-auto px-4 sm:px-6 md:px-0 lg:px-8">
         <div className="flex h-16 items-center justify-between md:hidden">
           <Link
             href="/#home"
@@ -77,29 +77,29 @@ export async function Navigation({ locale }: { locale: Locale }) {
             className="flex items-center gap-0.5 transition-opacity duration-200 hover:opacity-90"
             aria-label="Home"
           >
-            <div className="relative h-20 w-20">
+            <div className="relative h-14 w-14 lg:h-16 lg:w-16 xl:h-20 xl:w-20">
               <Image
                 src="/logo_image.svg"
                 alt="David Birger Logo"
                 fill
-                sizes="80px"
+                sizes="(min-width: 1280px) 80px, (min-width: 1024px) 64px, 56px"
                 className="object-contain"
                 priority
               />
             </div>
-            <div className="relative h-7 w-40">
+            <div className="relative h-6 w-32 lg:h-7 lg:w-36 xl:h-7 xl:w-40">
               <Image
                 src="/logo_title.svg"
                 alt="David Birger"
                 fill
-                sizes="160px"
+                sizes="(min-width: 1280px) 160px, (min-width: 1024px) 144px, 128px"
                 className="object-contain object-left"
                 priority
               />
             </div>
           </Link>
 
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-4 lg:gap-6 xl:gap-8">
             {menuItems.map((item) => (
               <Link
                 key={item.name}
@@ -112,7 +112,7 @@ export async function Navigation({ locale }: { locale: Locale }) {
             ))}
             <LanguageSwitcherClient currentLocale={locale} />
             <Button asChild className="px-6">
-              <Link href="/contact">{t("ctaText")}</Link>
+              <Link href="/contact#contact-form">{t("ctaText")}</Link>
             </Button>
           </div>
         </div>
