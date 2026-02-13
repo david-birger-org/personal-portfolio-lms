@@ -2,6 +2,7 @@ import { Award, CheckCircle2, Target, TrendingUp } from "lucide-react";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 
+import { SectionHeader } from "@/components/sections/SectionHeader";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/routing";
 
@@ -70,19 +71,16 @@ export async function About() {
           </div>
 
           <div className="order-1 lg:order-2">
-            <span className="text-gray-600 font-medium text-sm uppercase tracking-wider">
-              {t("tag")}
-            </span>
-
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl mt-4 mb-6 text-gray-900 tracking-tight">
-              {t("title")}
-              <br />
-              <span className="text-gray-500">{t("titleAccent")}</span>
-            </h2>
-
-            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              {t("description")}
-            </p>
+            <SectionHeader
+              tag={t("tag")}
+              title={t("title")}
+              titleAccent={t("titleAccent")}
+              description={t("description")}
+              align="left"
+              className="mb-8"
+              titleClassName="mb-0"
+              descriptionClassName="mb-0"
+            />
 
             <div className="space-y-4 mb-8">
               {achievements.map((achievement) => (

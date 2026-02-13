@@ -2,9 +2,9 @@
 
 import { Menu, X } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
-
 import { LanguageSwitcherClient } from "@/components/layout/LanguageSwitcherClient";
 import { Button } from "@/components/ui/button";
+import { CONTACT_FORM_HREF } from "@/constants/links";
 import type { Locale } from "@/i18n/config";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
@@ -239,10 +239,7 @@ export function MobileSidebar({
                 onSelect={() => setOpen(false)}
               />
               <Button asChild className="px-5">
-                <Link
-                  href="/contact#contact-form"
-                  onClick={() => setOpen(false)}
-                >
+                <Link href={CONTACT_FORM_HREF} onClick={() => setOpen(false)}>
                   {ctaText}
                 </Link>
               </Button>

@@ -2,6 +2,8 @@ import { Quote, Star } from "lucide-react";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 
+import { SectionHeader } from "@/components/sections/SectionHeader";
+
 export async function Testimonials() {
   const t = await getTranslations("testimonials");
   const testimonials = t.raw("items") as Array<{
@@ -19,23 +21,17 @@ export async function Testimonials() {
       className="py-32 md:py-40 bg-white relative overflow-hidden"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <span className="text-gray-600 font-medium text-sm uppercase tracking-wider">
-            {t("tag")}
-          </span>
-
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl mt-4 mb-6 text-gray-900 tracking-tight">
-            {t("title")}
-            <br />
-            <span className="text-gray-500">{t("titleAccent")}</span>
-          </h2>
-
-          <p className="text-lg text-gray-600 leading-relaxed">
-            {t.has("description")
+        <SectionHeader
+          tag={t("tag")}
+          title={t("title")}
+          titleAccent={t("titleAccent")}
+          description={
+            t.has("description")
               ? t("description")
-              : "Hear from clients who have transformed their lives through personalized coaching and dedication."}
-          </p>
-        </div>
+              : "Hear from clients who have transformed their lives through personalized coaching and dedication."
+          }
+          className="mb-20"
+        />
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {testimonials.map((testimonial) => (

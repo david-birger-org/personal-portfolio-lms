@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
-
 import { LanguageSwitcherClient } from "@/components/layout/LanguageSwitcherClient";
 import { MobileSidebar } from "@/components/layout/MobileSidebar";
 import { Button } from "@/components/ui/button";
+import { CONTACT_FORM_HREF } from "@/constants/links";
 import type { Locale } from "@/i18n/config";
 import { Link } from "@/i18n/routing";
 
@@ -112,7 +112,7 @@ export async function Navigation({ locale }: { locale: Locale }) {
             ))}
             <LanguageSwitcherClient currentLocale={locale} />
             <Button asChild className="px-6">
-              <Link href="/contact#contact-form">{t("ctaText")}</Link>
+              <Link href={CONTACT_FORM_HREF}>{t("ctaText")}</Link>
             </Button>
           </div>
         </div>

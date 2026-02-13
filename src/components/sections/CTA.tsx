@@ -1,8 +1,9 @@
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
-
+import { SectionHeader } from "@/components/sections/SectionHeader";
 import { Button } from "@/components/ui/button";
+import { CONTACT_FORM_HREF } from "@/constants/links";
 import { Link } from "@/i18n/routing";
 
 export async function CTA() {
@@ -17,19 +18,16 @@ export async function CTA() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
           <div className="order-2 lg:order-1">
-            <span className="text-gray-600 font-medium text-sm uppercase tracking-wider">
-              {t("tag")}
-            </span>
-
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl mt-4 mb-6 text-gray-900 tracking-tight">
-              {t("title")}
-              <br />
-              <span className="text-gray-500">{t("titleAccent")}</span>
-            </h2>
-
-            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              {t("description")}
-            </p>
+            <SectionHeader
+              tag={t("tag")}
+              title={t("title")}
+              titleAccent={t("titleAccent")}
+              description={t("description")}
+              align="left"
+              className="mb-8"
+              titleClassName="mb-0"
+              descriptionClassName="mb-0"
+            />
 
             <div className="space-y-6">
               {features.map((feature, index) => (
@@ -53,7 +51,7 @@ export async function CTA() {
 
             <div className="mt-10">
               <Button asChild size="lg" className="shadow-lg hover:shadow-xl">
-                <Link href="/contact#contact-form">
+                <Link href={CONTACT_FORM_HREF}>
                   {t("button")}
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Link>

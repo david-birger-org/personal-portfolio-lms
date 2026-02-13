@@ -1,11 +1,7 @@
 import type { Metadata } from "next";
 import { LegalDocument } from "@/components/legal/LegalDocument";
 import { legalContent } from "@/content/legal";
-import { type Locale, locales } from "@/i18n/config";
-
-function isLocale(value: string): value is Locale {
-  return locales.includes(value as Locale);
-}
+import { resolveLocale } from "@/i18n/locale";
 
 export async function generateMetadata({
   params,
@@ -13,7 +9,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const effectiveLocale: Locale = isLocale(locale) ? locale : "en";
+  const effectiveLocale = resolveLocale(locale);
   const doc = legalContent[effectiveLocale].docs.terms;
 
   return {
@@ -27,7 +23,7 @@ export default async function TermsOfServicePage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const effectiveLocale: Locale = isLocale(locale) ? locale : "en";
+  const effectiveLocale = resolveLocale(locale);
 
   return (
     <LegalDocument

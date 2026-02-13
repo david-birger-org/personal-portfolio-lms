@@ -1,8 +1,8 @@
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
-
 import { Button } from "@/components/ui/button";
+import { CONTACT_FORM_HREF } from "@/constants/links";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
@@ -85,7 +85,7 @@ export async function Hero({ locale }: { locale: string }) {
               size="lg"
               className="bg-white text-gray-900 shadow-lg hover:bg-gray-100 hover:shadow-xl"
             >
-              <Link href="/contact#contact-form">
+              <Link href={CONTACT_FORM_HREF}>
                 {t("ctaText")}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>

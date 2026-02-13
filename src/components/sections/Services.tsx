@@ -8,8 +8,9 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
-
+import { SectionHeader } from "@/components/sections/SectionHeader";
 import { Button } from "@/components/ui/button";
+import { CONTACT_FORM_HREF } from "@/constants/links";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
@@ -82,21 +83,13 @@ export async function Services({ isComingSoon = false }: ServicesProps) {
       )}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <span className="text-gray-600 font-medium text-sm uppercase tracking-wider">
-            {t("tag")}
-          </span>
-
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl mt-4 mb-6 text-gray-900 tracking-tight">
-            {t("title")}
-            <br />
-            <span className="text-gray-500">{t("titleAccent")}</span>
-          </h2>
-
-          <p className="text-lg text-gray-600 leading-relaxed">
-            {t("description")}
-          </p>
-        </div>
+        <SectionHeader
+          tag={t("tag")}
+          title={t("title")}
+          titleAccent={t("titleAccent")}
+          description={t("description")}
+          className="mb-20"
+        />
 
         <div className="grid md:grid-cols-2 gap-6 lg:gap-8 mb-24">
           {services.map((service) => (
@@ -168,7 +161,7 @@ export async function Services({ isComingSoon = false }: ServicesProps) {
                     variant="outline"
                     className="w-full border-gray-300 bg-white text-gray-900 hover:border-gray-400 hover:bg-gray-50"
                   >
-                    <Link href="/contact#contact-form">{t("learnMore")}</Link>
+                    <Link href={CONTACT_FORM_HREF}>{t("learnMore")}</Link>
                   </Button>
                 )}
               </div>
@@ -231,7 +224,7 @@ export async function Services({ isComingSoon = false }: ServicesProps) {
                 size="lg"
                 className="h-auto w-full max-w-full whitespace-normal break-words text-center leading-snug sm:w-auto shadow-lg hover:shadow-xl"
               >
-                <Link href="/contact#contact-form">{t("process.cta")}</Link>
+                <Link href={CONTACT_FORM_HREF}>{t("process.cta")}</Link>
               </Button>
             )}
           </div>
