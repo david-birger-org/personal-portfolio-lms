@@ -2,21 +2,35 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import type React from "react";
 
+import { MobileSectionLegend } from "@/components/sections/MobileSectionLegend";
 import { biographyPhotos } from "@/content/biography";
 
 type Locale = "en" | "ua";
 
-interface BiographySectionProps {
-  chunks: BiographyParagraphWithId[][];
-  sectionClassName: string;
-  reverseOnEven: boolean;
-  photoOffset: number;
-  imageAlt: string;
-}
-
 interface BiographyParagraph {
   text: string;
   bold?: boolean;
+}
+
+interface BiographySection {
+  heading: string;
+  body: BiographyParagraph[];
+}
+
+interface BiographyContent {
+  intro?: BiographyParagraph[];
+  sections: BiographySection[];
+}
+
+interface BiographySectionData {
+  id: string;
+  title: string;
+  paragraphs: BiographyParagraphWithId[];
+}
+
+interface BiographySplitResult {
+  introParagraphs: BiographyParagraphWithId[];
+  sections: BiographySectionData[];
 }
 
 const sloganText =
@@ -94,42 +108,143 @@ function addParagraphIds(paragraphs: BiographyParagraph[]) {
   }));
 }
 
-function chunkParagraphs(paragraphs: BiographyParagraphWithId[], size: number) {
-  const chunks: BiographyParagraphWithId[][] = [];
-
-  for (let i = 0; i < paragraphs.length; i += size) {
-    chunks.push(paragraphs.slice(i, i + size));
-  }
-
-  return chunks;
+function addParagraphIdsWithPrefix(
+  paragraphs: BiographyParagraph[],
+  prefix: string,
+) {
+  return paragraphs.map((paragraph, index) => ({
+    ...paragraph,
+    id: `${prefix}-${index}-${paragraph.text.slice(0, 24)}`,
+  }));
 }
 
-function getChunkSizeForMaxBlocks(paragraphCount: number, maxBlocks: number) {
-  const safeMaxBlocks = Math.max(1, maxBlocks);
-  return Math.max(1, Math.ceil(paragraphCount / safeMaxBlocks));
+function splitBiographyIntoSections(
+  paragraphs: BiographyParagraphWithId[],
+  headingTitles: string[],
+): BiographySplitResult {
+  const headingSet = new Set(headingTitles);
+  const sections: BiographySectionData[] = [];
+  const introParagraphs: BiographyParagraphWithId[] = [];
+  let currentSection: BiographySectionData | null = null;
+
+  for (const paragraph of paragraphs) {
+    const normalizedText = paragraph.text.trim();
+    const isHeading = headingSet.has(normalizedText);
+
+    if (isHeading) {
+      if (currentSection) {
+        sections.push(currentSection);
+      }
+
+      currentSection = {
+        id: `bio-section-${sections.length + 1}`,
+        title: normalizedText,
+        paragraphs: [],
+      };
+
+      continue;
+    }
+
+    if (currentSection) {
+      currentSection.paragraphs.push(paragraph);
+    } else {
+      introParagraphs.push(paragraph);
+    }
+  }
+
+  if (currentSection) {
+    sections.push(currentSection);
+  }
+
+  if (sections.length === 0 && introParagraphs.length > 0) {
+    return {
+      introParagraphs: [],
+      sections: [
+        {
+          id: "bio-section-1",
+          title: "Biography",
+          paragraphs: introParagraphs,
+        },
+      ],
+    };
+  }
+
+  return {
+    introParagraphs,
+    sections,
+  };
+}
+
+function normalizeBiographyContent(
+  biography: BiographyParagraph[] | BiographyContent,
+  locale: Locale,
+): BiographySplitResult {
+  if (Array.isArray(biography)) {
+    const paragraphsWithIds = addParagraphIds(biography);
+    const headingTitles =
+      locale === "ua"
+        ? [
+            "Дитинство",
+            "Підлітковий вік",
+            "Початок занять у залі",
+            "Зацікавлення бодібілдингом та перші змагання",
+            "Розвиток натурального бодібілдингу в Україні",
+            "Здобуття статусу WNBF Pro та перший міжнародний турнір",
+            "Шлях Нептуна",
+            "Пам’ятний змагальний сезон 2025",
+          ]
+        : [
+            "Childhood",
+            "Adolescence",
+            "Beginning in the Gym",
+            "Interest in Bodybuilding and First Competitions",
+            "Development of Natural Bodybuilding in Ukraine",
+            "Earning WNBF Pro Status and the First International Tournament",
+            "Path of Neptune",
+            "Memorable 2025 Competitive Season",
+          ];
+
+    return splitBiographyIntoSections(paragraphsWithIds, headingTitles);
+  }
+
+  const introParagraphs = addParagraphIdsWithPrefix(
+    biography.intro ?? [],
+    "biography-intro",
+  );
+  const sections = biography.sections.map((section, sectionIndex) => ({
+    id: `bio-section-${sectionIndex + 1}`,
+    title: section.heading,
+    paragraphs: addParagraphIdsWithPrefix(
+      section.body,
+      `biography-section-${sectionIndex + 1}`,
+    ),
+  }));
+
+  return {
+    introParagraphs,
+    sections,
+  };
 }
 
 function BiographySection({
-  chunks,
-  sectionClassName,
-  reverseOnEven,
-  photoOffset,
+  sections,
   imageAlt,
-}: BiographySectionProps) {
+}: {
+  sections: BiographySectionData[];
+  imageAlt: string;
+}) {
   return (
-    <section className={sectionClassName}>
+    <section>
       <div className="space-y-8 md:space-y-10">
-        {chunks.map((chunk, index) => {
-          const shouldReverse = reverseOnEven
-            ? index % 2 === 0
-            : index % 2 !== 0;
-          const photo =
-            biographyPhotos[(index + photoOffset) % biographyPhotos.length];
+        {sections.map((section, index) => {
+          const shouldReverse = index % 2 !== 0;
+          const photo = biographyPhotos[index % biographyPhotos.length];
 
           return (
             <article
-              key={`${chunk[0]?.id ?? "biography"}-${photoOffset}`}
-              className="overflow-hidden rounded-3xl border border-neutral-200 bg-white"
+              id={section.id}
+              key={section.id}
+              className="scroll-mt-20 overflow-hidden rounded-3xl border border-neutral-200 bg-white md:scroll-mt-24"
             >
               <div className="grid gap-0 lg:grid-cols-12">
                 <div
@@ -144,13 +259,20 @@ function BiographySection({
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/35 to-transparent" />
                 </div>
-
                 <div
                   className={`p-6 sm:p-8 md:p-10 lg:col-span-7 ${shouldReverse ? "lg:order-1" : "lg:order-2"}`}
                 >
+                  <h2 className="mb-5 text-xl font-semibold tracking-tight text-neutral-900 sm:text-2xl">
+                    {section.title}
+                  </h2>
                   <div className="space-y-5 text-sm leading-7 text-neutral-700 sm:text-base">
-                    {chunk.map((paragraph) => (
-                      <p key={paragraph.id}>
+                    {section.paragraphs.map((paragraph) => (
+                      <p
+                        key={paragraph.id}
+                        className={
+                          paragraph.bold ? "font-semibold text-neutral-900" : ""
+                        }
+                      >
                         {renderParagraphText(paragraph.text)}
                       </p>
                     ))}
@@ -174,28 +296,88 @@ export default async function AboutPage({
   const currentLocale: Locale = locale === "ua" ? "ua" : "en";
   const t = await getTranslations("aboutPage");
 
-  const paragraphs = t.raw("biography") as BiographyParagraph[];
-  const paragraphsWithIds = addParagraphIds(paragraphs);
-  const maxBlocks = 10;
-  const chunkSize = getChunkSizeForMaxBlocks(
-    paragraphsWithIds.length,
-    maxBlocks,
+  const biography = t.raw("biography") as
+    | BiographyParagraph[]
+    | BiographyContent;
+  const { introParagraphs, sections } = normalizeBiographyContent(
+    biography,
+    currentLocale,
   );
-  const chunks = chunkParagraphs(paragraphsWithIds, chunkSize);
 
   return (
     <main className="min-h-screen bg-neutral-50 pt-28 pb-20 md:pt-32 md:pb-24">
-      <BiographySection
-        chunks={chunks}
-        sectionClassName="container mx-auto px-4 sm:px-6 lg:px-8"
-        reverseOnEven={false}
-        photoOffset={0}
-        imageAlt={
-          currentLocale === "ua"
-            ? "Фотографія спортивного шляху"
-            : "Sport journey photo"
-        }
-      />
+      {introParagraphs.length > 0 ? (
+        <section className="mb-8 border-y border-neutral-200 bg-white py-6 sm:py-8 md:mb-10 md:py-10">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="space-y-4 text-sm leading-7 text-neutral-700 sm:text-base">
+              {introParagraphs.map((paragraph) => (
+                <p
+                  key={paragraph.id}
+                  className={
+                    paragraph.bold ? "font-semibold text-neutral-900" : ""
+                  }
+                >
+                  {renderParagraphText(paragraph.text)}
+                </p>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <MobileSectionLegend
+          sections={sections.map((section) => ({
+            id: section.id,
+            title: section.title,
+          }))}
+          label={currentLocale === "ua" ? "Легенда" : "Legend"}
+          ariaLabel={
+            currentLocale === "ua"
+              ? "Мобільна навігація розділами"
+              : "Mobile section navigation"
+          }
+        />
+
+        <div className="grid gap-8 lg:grid-cols-[220px_minmax(0,1fr)] lg:items-start lg:gap-10">
+          <aside className="hidden lg:sticky lg:top-28 lg:block">
+            <div className="rounded-2xl border border-neutral-200 bg-white p-4">
+              <p className="mb-3 text-xs font-medium uppercase tracking-[0.16em] text-neutral-500">
+                {currentLocale === "ua" ? "Легенда" : "Legend"}
+              </p>
+              <nav
+                aria-label={
+                  currentLocale === "ua"
+                    ? "Навігація розділами"
+                    : "Section navigation"
+                }
+              >
+                <ul className="space-y-1.5">
+                  {sections.map((section) => (
+                    <li key={`legend-${section.id}`}>
+                      <a
+                        href={`#${section.id}`}
+                        className="block rounded-lg px-2 py-1.5 text-sm text-neutral-600 transition-colors hover:bg-neutral-100 hover:text-neutral-900"
+                      >
+                        {section.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
+          </aside>
+
+          <BiographySection
+            sections={sections}
+            imageAlt={
+              currentLocale === "ua"
+                ? "Фотографія спортивного шляху"
+                : "Sport journey photo"
+            }
+          />
+        </div>
+      </div>
     </main>
   );
 }

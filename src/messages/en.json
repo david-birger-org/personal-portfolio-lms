@@ -16,7 +16,7 @@
     "titleLine2": "DREAM IT,",
     "titleLine3": "YOU CAN",
     "titleLine4": "DO IT",
-    "subtitle": "I will help you build the best version of yourself. Preparation for natural bodybuilding competitions, fat loss, muscle gain, and professional coaching support.",
+    "subtitle": "I help you build your best self through discipline, aesthetics, and natural bodybuilding: contest prep, recomposition, muscle gain, and structured coaching support.",
     "ctaText": "Start Your Plan",
     "stats": {
       "clients": "Happy Clients",
@@ -29,23 +29,23 @@
     "tag": "ABOUT ME",
     "title": "Dedicated to Your",
     "titleAccent": "Success",
-    "description": "For over 20 years in sport, I have built my own system around discipline, aesthetics, and sustainable natural progress. Today I combine elite competition experience with practical coaching for real people.",
+    "description": "My journey spans from kickboxing at age 6 to President of WNBF Ukraine, WNBF Pro athlete, and Vice World Champion. I combine elite competition experience, the Path of Neptune philosophy, and practical coaching that delivers measurable outcomes.",
     "readFullBiography": "Read Full Biography",
     "achievements": [
       {
-        "name": "President of the Ukrainian Natural Bodybuilding Federation (WNBF Ukraine)"
+        "name": "President of WNBF Ukraine (since 2021)"
       },
       {
-        "name": "WNBF Natural Bodybuilding Vice World Champion in 2023 and 2025"
+        "name": "WNBF Vice World Champion in Bodybuilding (2023) and Classic Physique (2025)"
       },
       {
-        "name": "WNBF Pro Professional Athlete"
+        "name": "WNBF Pro athlete in two divisions: Bodybuilding and Classic Physique"
       },
       {
-        "name": "More than 20 years in sport"
+        "name": "Organizer of international natural bodybuilding tournaments in Ukraine, including “Path of Neptune”"
       },
       {
-        "name": "Helping people become the best version of themselves since 2016"
+        "name": "20+ years in sport and coaching practice since 2016"
       }
     ],
     "stats": {
@@ -213,7 +213,7 @@
     "tag": "TESTIMONIALS",
     "title": "Client Results &",
     "titleAccent": "Competition Wins",
-    "description": "Stories from clients and athletes who trained with me through lifestyle change, stage prep, and long-term transformation.",
+    "description": "Stories from clients and athletes who trained with me through lifestyle change, contest prep, and long-term transformation.",
     "items": [
       {
         "name": "Anastasiia K.",
@@ -225,7 +225,7 @@
       {
         "name": "Oleksandr M.",
         "role": "First-Time Competitor",
-        "content": "Prep with David was precise from day one - training blocks, peak-week adjustments, and posing practice. I stepped on stage fully prepared and took top placement in my class.",
+        "content": "Contest prep with David was precise from day one - training blocks, peak-week adjustments, and posing practice. I stepped on stage fully prepared and took top placement in my class.",
         "image": "/images/testimonial-2.svg",
         "rating": 5
       },
@@ -251,16 +251,16 @@
     "titleAccent": "Transformation",
     "cards": [
       {
-        "title": "Early Discipline",
-        "description": "I started in sport at age 6 with kickboxing. Years of structured training taught me discipline, consistency, and respect for the process."
+        "title": "Early Foundation",
+        "description": "Kickboxing from age 6, then water polo, rugby, and football built my physical and mental base: discipline, resilience, and consistency."
       },
       {
-        "title": "Natural Bodybuilding Mission",
-        "description": "From athlete to organizer, I committed to natural bodybuilding and built WNBF Ukraine to create a fair, high-level platform for competitors."
+        "title": "WNBF Ukraine Mission",
+        "description": "I chose natural bodybuilding in 2013, then founded WNBF Ukraine in 2021 to provide athletes in Ukraine with a fair, professional, drug-tested platform."
       },
       {
-        "title": "Coaching Today",
-        "description": "As a WNBF Pro and coach, I help clients transform with structured training, strategic nutrition, and consistent accountability."
+        "title": "Path of Neptune Coaching",
+        "description": "My concept is the Path of Neptune: a personal journey through life’s waves toward strength and freedom. My coaching follows the same model: system, accountability, aesthetics, and progress."
       }
     ]
   },
@@ -268,23 +268,23 @@
     "tag": "GET STARTED",
     "title": "Ready to Build",
     "titleAccent": "Your Best Shape?",
-    "description": "If you are ready to work with intent, I will give you a professional system that fits your body, schedule, and long-term goals.",
+    "description": "If you are ready to move forward with discipline, I will build a system around your exact goal - from your first transformation to the WNBF stage.",
     "features": [
-      "Personalized Coaching System",
-      "Competition-Level Expertise",
-      "Weekly Accountability"
+      "Strategy built for your category and goal",
+      "WNBF Pro and international stage expertise",
+      "Structured support with weekly adjustments"
     ],
     "featureDescriptions": {
-      "0": "Your training and nutrition are tailored to your body, schedule, and objective",
-      "1": "Benefit from methods shaped by real stage prep and elite natural bodybuilding",
-      "2": "Receive regular feedback, plan updates, and direct support each week"
+      "0": "Training, nutrition, and posing are tailored to your current level and target outcome",
+      "1": "Methods are built on proven international WNBF experience in Bodybuilding and Classic Physique",
+      "2": "You receive weekly progress analysis, plan updates, and clear next-step execution"
     },
     "button": "Apply for Coaching"
   },
   "footer": {
     "logo": "David Birger",
     "logoAccent": "Birger",
-    "tagline": "I will help you create a better version of you. We are working together for your results with personalized coaching and proven training programs.",
+    "tagline": "The Path of Neptune stands for discipline, aesthetics, and natural progress. I help you build your best self through personalized coaching and a proven system.",
     "navigation": {
       "title": "Navigation",
       "home": "Home",
@@ -318,112 +318,165 @@
     "description": "Complete biography in English.",
     "languageLabel": "English",
     "originalBadge": "Original text",
-    "biography": [
-      {
-        "text": "Hello!"
-      },
-      {
-        "text": "My name is David Birger, and I am a huge fan of natural bodybuilding. In 2021, I became the president of the Ukrainian Natural Bodybuilding Federation WNBF Ukraine (official website - wnbfukraine.com.ua), the official representation of the World Natural Bodybuilding Federation."
-      },
-      {
-        "text": "My sports path started at the age of 6, when my father (Valeriy Birger) took me to my first training session - a kickboxing class at the Olimp sports club. In general, all of my achievements would have been impossible without my father, whom I deeply respect and love. He has always supported me in everything, and I am endlessly grateful for every opportunity I have. Thank you!"
-      },
-      {
-        "text": "At that time, my daily schedule looked like this: school until 16:20 (I studied at the Braty Izrayilyu gymnasium), then training until 20:30, then dinner and homework. I remember that period with joy, because it was exactly then that the foundations of my future sporting success were laid."
-      },
-      {
-        "text": "Training sessions of 2-2.5 hours, strict discipline, and constant trips to competitions all over Ukraine became routine and everyday life. My best kickboxing achievement was a silver medal at the Ukrainian Championship. I also repeatedly won regional competitions. My kickboxing experience lasted 7 years."
-      },
-      {
-        "text": "Kickboxing became the foundation of my physical and mental preparation. Thanks to this sport, I achieved high results not only in athletics, but also in other areas of life. Coaches to whom I express great gratitude: Ivan Danchenko, Huk Vasyl Huk, and Taras Stefanyshyn."
-      },
-      {
-        "text": "As for other sports interests, in childhood my dream was to become a professional football player. I have played football all my life, and at this moment it remains one of my favorite sports."
-      },
-      {
-        "text": "Throughout life, people's views and priorities change, and after kickboxing I decided to try myself in water polo (I was 13 then). In a short time, I proved to the coach that my abilities were not limited only to physical strengths, and I was appointed team captain of \"Aquapark Plyazh.\" I progressed very quickly, and my sports indicators improved from session to session. This led to an offer to move into a sports school where water polo would become a way of life. But after discussing with my parents, I chose to continue school and later enter higher education."
-      },
-      {
-        "text": "After defining my development path and priorities, I chose another sport - rugby. It is tough and traumatic, but also a sport that makes you treat your health much more carefully. Besides endurance, rugby requires great physical strength. That was the reason I started including bars and pull-up exercises to improve upper-body functionality and strength. Going to the workout ground for pull-ups and push-ups became almost daily."
-      },
-      {
-        "text": "Time passed, and training intensity increased. One of the largest rugby loads falls on the lumbar spine. At that time I was 15 - a transitional age. Muscle development could not keep up with bone growth, and this caused severe pain. As a result, I left rugby."
-      },
-      {
-        "text": "My next step was football again, but at a higher level. I played in regional competitions on a local team. Over time, I realized that my body was better suited to strength work. Football players asked me for advice on improving physical condition outside the field, and I answered with great enthusiasm."
-      },
-      {
-        "text": "At 16, I decided to return to kickboxing and take part in regional competitions. My preparation took one year. In parallel, I was preparing for final exams and university admission."
-      },
-      {
-        "text": "During that training process, one thing did not satisfy me - a ban on strength training. Kickboxers must be maximally technical and fast, with optimal striking power. I had enough strength, but lacked speed. To improve speed qualities, coaches often ban strength exercises with bodyweight or extra weight (unless speed is already at a very high level). This was one of the key factors in my decision to move into strength sports."
-      },
-      {
-        "text": "After entering Lviv Polytechnic in 2014 (major: Economics of Enterprise), I focused on developing strength as a physical quality. My first workouts were at the Halla fitness club under one of Lviv's most experienced coaches - Viktor Yarullin. Thanks to his coaching skills and huge experience, the key technical and strength aspects of my preparation were built. I learned to feel my body, recover correctly, and progress loads properly. In essence, in my first years I trained in powerlifting and built a strength base (which I continue to maintain). At the same time, I gained muscle mass as a side effect of strength development. In that same gym, I got my first coaching experience, working for one year from 2017 to 2018."
-      },
-      {
-        "text": "From the very beginning of my gym training, I was interested in bodybuilding."
-      },
-      {
-        "text": "Balanced nutrition is an essential part of every sport. In bodybuilding, the athlete is the artist, training is the stimulus, and nutrition is the paint. Body fat percentage for a bodybuilder on stage is the same as speed for a sprinter - it is a foundation of the discipline. On almost the same level is the skill of presenting your strengths. Posing in bodybuilding is the element where I want to become better. A free routine and musical accompaniment are factors that develop bodybuilding not only as a sport, but as art. People want to watch those they would like to resemble. In my opinion, attending bodybuilding competitions should be associated with going to the theater. People should enjoy a performance - an effective show."
-      },
-      {
-        "text": "That is exactly why I competed on November 24, 2018, at my first bodybuilding event in Lviv. I started preparing my free routine one month before the competition. Result: bronze medalist in the Athletic Physique 175+ cm category, which was a big surprise for me and inspired me strongly to keep developing in this field. Special thanks to Yuriy Fedyshyn for giving me the opportunity to join athlete camps he organized. Yuriy introduced me to this sport and to judging and posing criteria."
-      },
-      {
-        "text": "Two months before that competition, I conducted my first seminar at the KULT fitness school on the topic: \"Fullbody: training the entire body in one session.\""
-      },
-      {
-        "text": "The year 2019 became triumphant for me. I became the absolute champion of a tournament in Lviv, champion of Ukraine, and also absolute champion in Kharkiv (in Kharkiv, I won my first prize for best free routine). A year later, I again became the tournament absolute champion and silver medalist at the Ukrainian Championship, where I received the prize for best free routine, \"Best Posing,\" named after Roman Berezovyi. I express gratitude to Serhii Babchuk and Kostiantyn Mamasakhlisov for very valuable advice and belief in me."
-      },
-      {
-        "text": "From the very beginning, I chose the path of natural bodybuilding (since I started strength training in 2013). This is my vision, which I follow and spread among youth and the wider public. In 2017, I actively began running my Instagram profile and sharing my vision of sport and natural bodybuilding. In my opinion, every athlete who chooses natural bodybuilding should have the opportunity to compete among natural athletes. That is why I decided to move in this direction. I began following the best natural athletes in the world and noticed they competed in WNBF - the most authoritative federation. I set a goal: one day, Ukraine will have its own natural bodybuilding federation. In my posts and videos, I tagged WNBF, and finally it was noticed. WNBF president Bob Bell wrote to me. After a highly productive conversation, a decision was made to create the first natural bodybuilding federation in Ukraine - the official representation WNBF Ukraine. This is truly a historic event for our country. It is a great honor for me to be president of this federation. Since its foundation in 2021, my team and I have done everything possible to develop natural bodybuilding and provide a platform for doping control for athletes from around the world."
-      },
-      {
-        "text": "On October 31, 2021, the first international natural bodybuilding tournament in Ukraine took place in Lviv. It was a true show of aesthetics and beauty in sport. Athletes from Ukraine, Poland, Spain, Turkey, UAE, Nigeria, Canada, Tunisia, and other countries competed for WNBF pro status and qualification to the World Championship in Las Vegas. This day can be considered the official birth date of natural bodybuilding in Ukraine. We proved that this direction is promising and has great potential for future growth."
-      },
-      {
-        "text": "The following year became a major challenge for all of Ukraine. The full-scale war started by Russia against our state on February 24, 2022 changed everything. Millions of Ukrainians faced the brutal reality of war. Sport moved to second place, because national security and defense always come first. This was the time I thought deeply about the future of Ukrainian natural bodybuilding: either we stop activity during hostilities, or we continue working despite everything. I am an optimist in life, so a decision was made that I will be proud of forever. We began preparing a second international tournament, held on November 5, 2022 in Lviv. There were two times fewer athletes at that event, but this did not demotivate me at all - it gave me even more desire to develop this direction. By the way, an athlete from Israel came and became absolute champion in Men's Physique."
-      },
-      {
-        "text": "On September 30, 2023, we organized the second tournament during wartime, and significantly more athletes registered. Since the beginning of the war, we could not rely on foreign athletes due to safety and logistics issues (flight restrictions). This directly influenced how I built the federation's development strategy. We decided to organize camps in different cities of Ukraine for education, seminars, and attracting more Ukrainian athletes to competitive sport. As a result, our third tournament became much more successful."
-      },
-      {
-        "text": "In that same year, I debuted at international WNBF competitions. On October 28, 2023, in Warsaw, the first natural bodybuilding tournament in Poland's history was held, where I earned a WNBF Pro card in Bodybuilding. Then, in my first professional competition in Germany, I reached TOP-4. And three weeks later, on November 19, 2023, I competed at the natural bodybuilding world championship in Seattle, USA, and became Vice World Champion in Bodybuilding."
-      },
-      {
-        "text": "One year later, we kept the same momentum, updated the venue to a more modern location, and organized our fourth tournament in Lviv on October 20, 2024. It was remembered for strong media reach and a new level of photo and video production, because for the first time we hosted White Dragon Agency, a creative content agency from Spain. The number of Ukrainian athletes increased by 50%."
-      },
-      {
-        "text": "Our fifth tournament became defining and even destiny-shaping in many senses. The name was renewed - from that point, it became \"The Path of Neptune.\" Why that name? It started in 2019, when I performed to a melody called \"Neptune,\" and in 2020 I had a photoshoot at Rynok Square in Lviv near the fountain with the same name. I thought about the name for a long time, and my mother Nataliya Terekhova suggested adding \"Path\" to the word \"Neptune.\" I am deeply grateful to my mother for upbringing, life advice, and colossal influence on my development as a person. She is an example of loyalty, moral principles, and exceptional hunger for life. Her optimism and positivity always inspire me in the hardest moments. When things are difficult, I know I can receive wonderful and inspiring advice from her. She is a fantastic person - very kind and always ready to help at any moment. I hope one day she tells her life story in a book - believe me, it would be a bestseller."
-      },
-      {
-        "text": "The Path of Neptune is the path of personality through the waves of life to the peaks of strength and freedom. Every athlete, preparing for competition, builds a unique personal Path. This is a deep philosophical vision of creating the best version of yourself."
-      },
-      {
-        "text": "I have a life motto that now takes central place in my vision of self-development and especially in The Path of Neptune: \"IF YOU CAN DREAM IT, YOU CAN DO IT.\" These words remind us that imagination allows us to achieve anything if we act persistently and with discipline. As Albert Einstein said: \"Logic will get you from A to B. Imagination will take you everywhere,\" and also, \"Imagination is more important than knowledge. Knowledge is limited, while imagination embraces the entire world, stimulating progress and giving birth to evolution.\""
-      },
-      {
-        "text": "So our fifth tournament took place on October 5, 2025 (also symbolic) in Lviv. One hundred registered athletes became our greatest achievement so far. In the morning of that day, one of the largest missile attacks happened - I wanted to cancel the event. But I know what it means to be an athlete preparing for competition: months of exhausting preparation, daily workouts, and living with a dream. So we decided to proceed according to plan. Looking back, I understand this is a decision I will also be incredibly proud of, just like the one made in early 2022. The tournament turned out extraordinary: exclusive sponsor awards - handmade crowns by Family Gold Masters for women's category champions, golden tridents from Kuznia Lviv, and our medals for all athletes with water and ocean symbolism. I also sincerely thank Mega Mass, the sports nutrition store chain that has supported natural bodybuilding development since our foundation in 2021. Most of all, I am proud of Ukrainian athletes - you truly deserve the highest awards, because despite all obstacles, you continue to demonstrate devotion to this sport, discipline in your own Path, and the building of a legacy that will inspire future generations."
-      },
-      {
-        "text": "After the tournament, where I performed my free routine called \"Neptune,\" I continued preparing for the competition season. At that point it was already month seven of daily execution of my training, nutrition, and posing plan. I combine all this with work - personal coaching, online clients, federation leadership (which includes marketing, management, accounting, legal work, strategic planning, communication with other international WNBF representatives and athletes, logistics, judging, organizing camps and seminars, design, sponsor and partner relations, SMM and social media, video production, podcast production on the WNBF Ukraine YouTube channel \"Natural Sport,\" competition organization, and many other responsibilities). This is what I love and will continue doing because I have inspiration and a clear vision for developing natural bodybuilding."
-      },
-      {
-        "text": "Returning to my preparation, I had 4 weeks left before the first tournament of the season in New York, USA. I traveled there with my mother, who competes in Figure and Fitbody women's categories - she is the most titled athlete from Ukraine in our federation. Our journey started in Poland, where we organized a training camp before the important start in the USA. Our flight was scheduled for October 28, and that day we were already across the ocean. New York welcomed us brightly - it is a city remembered for life by its diversity and color. You can find absolutely everything there, in any quantity, for any taste. First, we visited Times Square - one of the most famous places not only in the United States but in the whole world. My childhood passed while watching Spider-Man with Tobey Maguire, and I remembered those incredible skyscraper scenes that were now so close it was impossible to capture them with the naked eye. I am grateful to life for this. In New York, we stayed in the suburb of Yonkers. We spent the next three days there, walking through supermarkets with the largest assortment of products I had ever seen (American supermarkets are truly impressive in scale and availability for everyone). Two days before the tournament, we successfully passed polygraph testing and received official permission to compete at Naturalmania. On the morning of November 1, we went to the event in White Plains, a New York suburb. After applying tan for the second time (the first layer was applied one day before), we finally realized we were here and ready to show 100% performance. And that is exactly what happened - my mother won gold in Figure Open and Figure Masters, and I became absolute champion in Classic Physique (a new WNBF category focused first of all on aesthetics, proportion, and posing). I took first place in my height category and then defeated the champion of the other (taller) category. It was very difficult, and I was surprised by this success. On that day, I also received a WNBF Pro card, now in Classic Physique (two years earlier, I became a pro in Bodybuilding)."
-      },
-      {
-        "text": "I am confident that natural bodybuilding has a bright future because its basis is health, aesthetics, proportional physique, and natural appearance. If we remember sport history, bodybuilding was natural from the very beginning. In my opinion, we must move persistently, ignore skeptics, develop our own vision, and establish our own criteria of the bodybuilding ideal."
-      },
-      {
-        "text": "Ukraine is a country with great development potential. We have every opportunity to create a high-quality platform for natural bodybuilding and build a strong foundation for the development of natural athletes. We are confident that this sport will dominate in the future, but for this we must demonstrate our desire and persistent work."
-      },
-      {
-        "text": "Aesthetic physique, proportion, and constant striving for ideal body development - these are the factors through which I will continue to progress. A global vision of the final result is the driving force that will improve me and people around me. Achieving your own global goals creates a huge impact on those who seek to change themselves for the better."
-      },
-      {
-        "text": "\"Bodybuilding is the art of feeling harmonious physique construction. It is reaching your own peak of excellence by forming a comprehensive vision and realizing it in the material world.\" (c) David Birger"
-      }
-    ]
+    "biography": {
+      "intro": [
+        {
+          "text": "Hello!"
+        },
+        {
+          "text": "My name is David Birger, and I am deeply committed to natural bodybuilding. In 2021, I became President of the Ukrainian Natural Bodybuilding Federation, WNBF Ukraine (official website: wnbfukraine.com.ua), the official national representation of the World Natural Bodybuilding Federation."
+        }
+      ],
+      "sections": [
+        {
+          "heading": "Childhood",
+          "body": [
+            {
+              "text": "My sports path began at age 6, when my father (Valerii Birger) brought me to my first training session - kickboxing at the Olimp sports club. In truth, all of my achievements would have been impossible without my father, whom I deeply respect and love. He has always supported me in everything, and I am endlessly grateful for every opportunity I have. Thank you!"
+            },
+            {
+              "text": "At that time, my day looked like this: school until 16:20 (I studied at the Braty Izrailiu gymnasium), training until 20:30, then dinner and homework. I remember that period with joy, because that was exactly when the foundation of my future sports success was built."
+            },
+            {
+              "text": "Training sessions of 2-2.5 hours, strict discipline, and constant travel to competitions across Ukraine became normal daily life. My top kickboxing result was a silver medal at the Ukrainian Championship. I also repeatedly won regional competitions. My kickboxing background totals 7 years."
+            },
+            {
+              "text": "Kickboxing became the foundation of both my physical and mental preparation. This sport helped me achieve high results not only in athletics, but also in other areas of life. Coaches to whom I express deep gratitude: Ivan Danchenko, Vasyl Huk, and Taras Stefanyshyn."
+            },
+            {
+              "text": "As for other sporting interests, my childhood dream was to become a professional football player. I played football throughout my life, and it remains one of my favorite sports today."
+            }
+          ]
+        },
+        {
+          "heading": "Adolescence",
+          "body": [
+            {
+              "text": "As with everyone, priorities and perspectives change over time. After kickboxing, I decided to try water polo (I was 13 at the time). In a short period, I proved to my coach that my potential was not limited to physical ability alone, and I was appointed captain of the Aquapark Plyazh team. I progressed rapidly, with performance improving from session to session. This led to an offer to move into a sports school where water polo would become a full lifestyle. After discussing it with my parents, I chose to continue academic school and prepare for university."
+            },
+            {
+              "text": "After defining my development path and priorities, I moved into rugby. It is a tough and injury-prone sport, but also one that teaches you to treat your health with greater care. Beyond endurance, rugby demands significant physical strength. That is why I added bar work and pull-ups to improve upper-body function and strength. Training at outdoor sports grounds for pull-ups and push-ups became almost daily."
+            },
+            {
+              "text": "Time passed, and training intensity increased. One of rugby’s biggest loads falls on the lumbar spine. At that time I was 15 - a transitional age. Muscle development could not keep pace with bone growth, and this caused severe pain. As a result, I left rugby."
+            },
+            {
+              "text": "My next step was football again, but at a higher level. I competed in regional events for a local team. Over time, I realized my body is more suited to strength-oriented loads. Football players asked me for advice on improving physical form outside the field, and I answered with great enthusiasm."
+            },
+            {
+              "text": "At 16, I decided to return to kickboxing and compete in regional events. Preparation took me one year. In parallel, I was preparing for external exams and university admission."
+            },
+            {
+              "text": "During that period, one thing did not satisfy me - the ban on strength training. Kickboxers must be highly technical and fast, with optimal striking power. I had enough power, but lacked speed. To improve speed, coaches often prohibit strength work with bodyweight or added load (unless speed is already very high). This was one of the key factors behind my decision to move into strength sports."
+            }
+          ]
+        },
+        {
+          "heading": "Beginning in the Gym",
+          "body": [
+            {
+              "text": "After entering Lviv Polytechnic in 2014 (major: Economics of Enterprise), I focused on developing strength as a physical quality. My first gym training sessions (which I began in 2013) were at the Halla fitness club under one of Lviv’s most experienced coaches, Viktor Yarullin. Thanks to his coaching skill and extensive experience, the essential technical and strength foundations were built. I learned to understand my body, recover correctly, and progress load properly. In essence, my first years were powerlifting-oriented, building a strength base (which I still maintain). At the same time, I gained muscle mass as a side effect of strength development. In that same gym, I gained my first coaching experience, working for one year from 2017 to 2018."
+            }
+          ]
+        },
+        {
+          "heading": "Interest in Bodybuilding and First Competitions",
+          "body": [
+            {
+              "text": "From my very first gym sessions, I was interested in bodybuilding."
+            },
+            {
+              "text": "Balanced nutrition is an essential component of every sport. In bodybuilding, the athlete is the artist, training is the stimulus, and nutrition is the paint. For a bodybuilder on stage, body fat percentage is what speed is to a sprinter - a foundation of the discipline. At nearly the same level stands the ability to display your strengths. Posing in bodybuilding is the component where I want to become better. A free routine and musical accompaniment help develop bodybuilding not only as a sport, but as an art form. People want to watch those they aspire to resemble. In my view, attending a bodybuilding event should feel like going to the theater. People should enjoy a performance - a spectacular show."
+            },
+            {
+              "text": "That is exactly why I stepped on stage on November 24, 2018, at my first bodybuilding competition in Lviv. I began preparing my free routine one month before the event. Result: bronze medalist in Athletic Physique 175+ cm, which was a major surprise for me and strongly inspired me to continue developing in this direction. Special thanks to Yurii Fedyshyn for the opportunity to join athlete training camps he organized. Yurii introduced me to this sport and to judging criteria and posing."
+            },
+            {
+              "text": "Two months before the competition, I delivered my first seminar at KULT fitness school: “Fullbody: whole-body training in one session.”"
+            },
+            {
+              "text": "2019 was a breakthrough year for me. I became absolute champion of a tournament in Lviv, champion of Ukraine, and absolute champion in Kharkiv (where I also received my first award for best free routine). A year later, I again became the tournament’s absolute champion and silver medalist at the Ukrainian Championship, where I received the \"Best Posing\" free-routine award named after Roman Berezovyi. I sincerely thank Serhii Babchuk and Kostiantyn Mamasakhlisov for their valuable advice and their belief in me."
+            }
+          ]
+        },
+        {
+          "heading": "Development of Natural Bodybuilding in Ukraine",
+          "body": [
+            {
+              "text": "From the very beginning, I chose the path of natural bodybuilding (since I started strength training in 2013). This is the vision I follow and promote among young people and the broader public. In 2017, I actively began building my Instagram profile and sharing my view of sport and natural bodybuilding. In my opinion, every athlete who chooses natural bodybuilding should have the opportunity to compete among natural athletes. That is exactly why I moved in this direction. I began following the best natural athletes in the world and noticed that they competed in WNBF - the most authoritative federation. I set a goal: one day Ukraine would have its own natural bodybuilding federation. In my posts and videos, I tagged WNBF, and eventually it was noticed. WNBF President Bob Bell wrote to me. After an exceptionally productive conversation, a decision was made to create the first natural bodybuilding federation in Ukraine - the official WNBF Ukraine representation. This is truly a historic event for our country. It is a great honor for me to serve as president of this federation. Since its founding in 2021, my team and I have done everything possible to develop natural bodybuilding and provide a platform for doping control for athletes from around the world."
+            },
+            {
+              "text": "On October 31, 2021, Lviv hosted the first international natural bodybuilding tournament in Ukraine’s history. It was a true show of athletic aesthetics and beauty. Athletes from Ukraine, Poland, Spain, Turkey, the UAE, Nigeria, Canada, Tunisia, and other countries competed for WNBF Pro status and qualification to the World Championship in Las Vegas. That day can be considered the official birth date of natural bodybuilding in Ukraine. We proved this direction is promising and has major long-term potential."
+            },
+            {
+              "text": "The next year became a serious challenge for all of Ukraine. The full-scale war launched by Russia against our state on February 24, 2022 changed everything. Millions of Ukrainians faced the brutal realities of war. Sport moved to second place, because national security and defense always come first. It was a time when I had to decide the future of Ukrainian natural bodybuilding: either we pause activity during active war, or we continue to work despite everything. I am an optimist by nature, so we made a decision I will be proud of for life. We began preparing the second international tournament, held on November 5, 2022 in Lviv. That tournament had two times fewer athletes, but it did not demotivate me in any way - it gave me even more drive to develop this direction. By the way, an athlete from Israel came and became absolute champion in Men’s Physique."
+            }
+          ]
+        },
+        {
+          "heading": "Earning WNBF Pro Status and the First International Tournament",
+          "body": [
+            {
+              "text": "On September 30, 2023, we organized the second tournament during wartime, with significantly more athletes registered. Since the war began, we could not rely on foreign athletes due to safety and logistics constraints (flight restrictions). This directly affected the strategy I built for federation development. We decided to organize camps in different Ukrainian cities for education, seminars, and broader involvement of Ukrainian athletes in competitive sport. As a result, our third tournament was much more successful."
+            },
+            {
+              "text": "In that same year, I made my international WNBF debut. On October 28, 2023, Warsaw hosted the first natural bodybuilding tournament in Poland’s history, where I earned a WNBF Pro card in Bodybuilding. These competitions are special to me: they were my first in WNBF, my first abroad, and my first where I won gold in this federation. It was also the first tournament of the official WNBF Poland representation, led by Mariusz Czernewicz (now my coach). So these competitions are truly special to me. That season, I traveled with my mother, Nataliia Terekhova (I wrote about her achievements later), and for her it was also a first international experience: silver in a very challenging class. Then we headed to Germany, to Wolfratshausen (near Munich), where two tournaments were held in one day: one for amateurs (without a WNBF Pro card) and one for professionals. I already competed among pro athletes and managed to enter TOP-4 (an excellent result for a first attempt). My mother took two gold medals in her categories, finishing her season very successfully. Then came the most important start of my life... We returned to Poland and stayed in Krakow, from where I was to fly overseas. Just two weeks later, on November 19, 2023, I competed at the Natural Bodybuilding World Championship in Seattle, USA, and became Vice World Champion in Bodybuilding. The trip to the United States gave me a new push for growth in every area. That country allowed me to believe in myself in a way I never had before. There, every skill and talent feels like it gets 10x acceleration (at least that is how I felt). For me, America represents that very dream we can imagine and also build here - in Ukraine."
+            },
+            {
+              "text": "A year later, we kept the same momentum, upgraded to a more modern venue, and held our fourth tournament in Lviv on October 20, 2024. It stood out for broad media reach and a new level of photo and video production, since White Dragon Agency, a creative content team from Spain, joined us for the first time. The number of Ukrainian athletes increased by 50%."
+            }
+          ]
+        },
+        {
+          "heading": "Path of Neptune",
+          "body": [
+            {
+              "text": "Our fifth tournament became defining - and even destiny-shaping - in many senses. We updated the name: from then on, it became “Path of Neptune.” Why this name? It began in 2019, when I performed to a melody titled “Neptune,” and in 2020 I had a photoshoot in Lviv’s Rynok Square near the fountain of the same name. I thought long and hard about the title, and my mother, Nataliia Terekhova, suggested adding “Path” to “Neptune.” I am deeply grateful to my mother for her upbringing, life advice, and colossal influence on my development as a person. She is an example of loyalty, devotion to moral principles, and extraordinary thirst for life. Her optimism and positivity always inspire me in the toughest moments. When things are difficult, I know I can receive wise and inspiring advice from her. She is a fantastic person - very kind, always ready to help at any moment. I hope she one day tells her life story in a book - believe me, it would be a bestseller."
+            },
+            {
+              "text": "The Path of Neptune is a personal journey through life’s waves toward the peaks of strength and freedom. Every athlete, while preparing for competition, builds a unique path of their own. This is a deep philosophical view of creating the best version of yourself."
+            },
+            {
+              "text": "I have a life motto that now takes a central place in my vision of personal development and specifically in the Path of Neptune: “IF YOU CAN DREAM IT, YOU CAN DO IT.” These words remind us that through imagination we can achieve anything, if we also act with persistence and discipline. As Albert Einstein said: “Logic will get you from A to B. Imagination will take you everywhere,” and also, “Imagination is more important than knowledge. Knowledge is limited, whereas imagination embraces the whole world, stimulating progress and giving birth to evolution.”"
+            },
+            {
+              "text": "So our fifth tournament took place on October 5, 2025 (symbolically as well) in Lviv. One hundred registered athletes - our biggest achievement to date. On that morning, one of the most massive attacks occurred, and I wanted to cancel the event. But I know what it means to be an athlete preparing for competition: months of exhausting contest prep, daily training, and living a dream (I saw myself in their place). So we made the decision to move forward as planned. Looking back, I understand this is another decision I will be incredibly proud of, just like the one made at the beginning of 2022. The tournament was extraordinary: exclusive sponsor awards - handcrafted crowns from Family Gold Masters for women’s category champions, golden tridents from Kuznia Lviv, and our medals for all athletes decorated with water and ocean symbolism. I also sincerely thank the Mega Mass sports nutrition chain, which has supported natural bodybuilding development since our foundation in 2021. Most of all, I am proud of Ukrainian athletes - you truly deserve the highest honors, because despite every obstacle, you continue to show devotion to this sport, moving with discipline along your own Path and building a legacy that will inspire future generations."
+            },
+            {
+              "text": "After the tournament, where I performed a free routine titled “Neptune,” I continued preparing for the competition season. At that point, it was already month seven of daily execution of my training, nutrition, and posing plan. I combine all of this with work - personal coaching, online athletes, federation leadership (including marketing, management, accounting, legal work, strategic planning, communication with other international WNBF representatives and athletes, logistics, judging, camp and seminar organization, design, sponsor and partner relations, SMM and social media, video production, the WNBF Ukraine YouTube podcast “Natural Sport,” competition production, and many other responsibilities). This is what I love and what I will keep doing, because I have both inspiration and a clear vision for developing natural bodybuilding."
+            }
+          ]
+        },
+        {
+          "heading": "Memorable 2025 Competitive Season",
+          "body": [
+            {
+              "text": "Returning to my contest prep, I had 4 weeks left before the first tournament of the season in New York, USA. I traveled with my mother, who competes in the Figure and Fitbody women’s categories - she is the most titled athlete from Ukraine in our federation. Our journey began in Poland, where we set up training camp before the key start in the USA. Our flight was scheduled for October 28, and on that very day we were already overseas. New York welcomed us vividly - a city remembered for life through its diversity and character. Two days before the tournament, we successfully passed polygraph testing and received official approval to compete at Naturalmania. On the morning of November 1, we headed to White Plains, a New York suburb, for the event. After applying tan for the second time (the first layer was done a day before), we finally felt we were truly there and ready to deliver 100%. And that is exactly what happened: my mother won gold in Figure Open and Figure Masters, and I became overall champion in Classic Physique (a new WNBF category focused first of all on aesthetic structure, balanced proportions, and posing). I took first in my height class and then defeated the champion of the other (taller) class (it was very difficult, and I was surprised by this success). That day, I also earned a WNBF Pro card - now in Classic Physique (two years earlier, I became a pro in Bodybuilding)."
+            },
+            {
+              "text": "Our next stop was Sacramento, California, where California Natural Muscle Mayhem took place on November 8. Once again, we delivered at a high level: my mother won gold in Figure Open and Figure Masters. I earned my first career win among WNBF Pro athletes in Classic Physique. So it was a 100% result. Of course, we could not have expected this level of success before the trip, and winning two tournaments gave us the confidence needed ahead of the most prestigious event in world natural bodybuilding."
+            },
+            {
+              "text": "On November 12, we arrived in the city with no limits - Los Angeles. We spent the next 10 days there, preparing psychologically and mentally for the World Championship: more than 300 athletes from dozens of countries (WNBF has over 65 official representations), two separate competition days for amateurs and professionals, and simply huge scale. On Saturday, November 22, my mother competed - she debuted in a new category for herself, Fit Body, and won bronze. I competed the next day and once again became Vice World Champion - this time in Classic Physique. Full understanding of everything we experienced will come later (I am writing this after two months have already passed, and I still cannot fully believe it). The 2025 season was intense. Next comes preparation for the next season - we need to improve proportions and priority muscle groups. The decisive factor in progress is TIME, and everyone who chooses the path of natural bodybuilding should understand that."
+            },
+            {
+              "text": "I am confident that natural bodybuilding has a bright future, because its foundation is health, aesthetics, proportion, and a natural look. If we recall sports history, bodybuilding was natural from the very beginning. In my view, we must move forward persistently, ignore skeptics, develop our own vision, and establish our own standards for the bodybuilding ideal."
+            },
+            {
+              "text": "Ukraine is a country with tremendous potential for growth. We have every opportunity to build a high-quality platform for natural bodybuilding and create the foundation for developing natural athletes. We are confident that in the future this sport will dominate, but to make that happen we must demonstrate our desire and persistent work."
+            },
+            {
+              "text": "Aesthetic physique, proportion, and the constant pursuit of ideal body development are the factors that will keep driving my progress. A global vision of the final result is the force that improves me and the people around me. Achieving your own global goals creates a profound impact on those who strive to change themselves for the better."
+            },
+            {
+              "text": "“Bodybuilding is the art of sensing harmonious physique construction. It is reaching your own summit of excellence by forming a comprehensive vision and realizing it in the material world.” (c) David Birger"
+            },
+            {
+              "text": "Success in any field is the ability to sail the ocean of discipline through the waves of motivation toward your vision, while keeping your fire alive through inspiration. (c) David Birger"
+            }
+          ]
+        }
+      ]
+    }
   }
 }

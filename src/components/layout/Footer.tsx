@@ -37,14 +37,17 @@ export async function Footer() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div className="lg:col-span-2">
-            <Link href="/#home" className="flex items-center gap-3 group mb-6">
-              <div className="relative w-10 h-10">
+            <Link
+              href="/#home"
+              className="mb-6 inline-flex items-center gap-0.5 rounded-2xl bg-white px-2.5 py-1.5"
+            >
+              <div className="relative h-12 w-12">
                 <Image
                   src="/logo_image.svg"
                   alt="David Birger Logo"
                   fill
-                  sizes="40px"
-                  className="object-contain brightness-0 invert"
+                  sizes="48px"
+                  className="object-contain"
                 />
               </div>
               <div className="relative h-7 w-40">
@@ -53,7 +56,7 @@ export async function Footer() {
                   alt="David Birger"
                   fill
                   sizes="160px"
-                  className="object-contain object-left brightness-0 invert"
+                  className="object-contain object-left"
                 />
               </div>
             </Link>
