@@ -11,8 +11,13 @@ import { getTranslations } from "next-intl/server";
 
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/routing";
+import { cn } from "@/lib/utils";
 
-export async function Services() {
+interface ServicesProps {
+  isComingSoon?: boolean;
+}
+
+export async function Services({ isComingSoon = false }: ServicesProps) {
   const t = await getTranslations("services");
 
   const serviceItems = t.raw("items") as Array<{
@@ -71,7 +76,10 @@ export async function Services() {
   return (
     <section
       id="services"
-      className="py-32 md:py-40 bg-gray-50 relative overflow-hidden"
+      className={cn(
+        "relative overflow-hidden py-32 md:py-40",
+        isComingSoon ? "bg-gray-100" : "bg-gray-50",
+      )}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-20">
@@ -94,7 +102,12 @@ export async function Services() {
           {services.map((service) => (
             <div
               key={service.title}
-              className="group bg-white rounded-3xl overflow-hidden border border-gray-200 hover:border-gray-300 transition-all duration-500"
+              className={cn(
+                "group overflow-hidden rounded-3xl border border-gray-200 bg-white transition-all duration-500",
+                isComingSoon
+                  ? "opacity-65 saturate-0"
+                  : "hover:border-gray-300",
+              )}
             >
               <div className="aspect-video relative overflow-hidden bg-gray-100">
                 <Image
@@ -102,9 +115,19 @@ export async function Services() {
                   alt={service.title}
                   fill
                   sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                  className={cn(
+                    "object-cover transition-transform duration-700 ease-out",
+                    isComingSoon ? "" : "group-hover:scale-105",
+                  )}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div
+                  className={cn(
+                    "absolute inset-0 bg-gradient-to-t from-black/30 to-transparent transition-opacity duration-500",
+                    isComingSoon
+                      ? "opacity-100"
+                      : "opacity-0 group-hover:opacity-100",
+                  )}
+                />
                 <div className="absolute bottom-4 left-4 bg-white rounded-2xl p-3">
                   <service.icon className="w-6 h-6 text-gray-900" />
                 </div>
@@ -130,19 +153,35 @@ export async function Services() {
                   ))}
                 </ul>
 
-                <Button
-                  asChild
-                  variant="outline"
-                  className="w-full border-gray-300 bg-white text-gray-900 hover:border-gray-400 hover:bg-gray-50"
-                >
-                  <Link href="/#contact">{t("learnMore")}</Link>
-                </Button>
+                {isComingSoon ? (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    disabled
+                    className="w-full border-gray-300 bg-gray-100 text-gray-500"
+                  >
+                    {t("comingSoon")}
+                  </Button>
+                ) : (
+                  <Button
+                    asChild
+                    variant="outline"
+                    className="w-full border-gray-300 bg-white text-gray-900 hover:border-gray-400 hover:bg-gray-50"
+                  >
+                    <Link href="/contact">{t("learnMore")}</Link>
+                  </Button>
+                )}
               </div>
             </div>
           ))}
         </div>
 
-        <div className="bg-white border border-gray-200 rounded-3xl p-8 md:p-16">
+        <div
+          className={cn(
+            "rounded-3xl border border-gray-200 bg-white p-8 md:p-16",
+            isComingSoon ? "opacity-70 saturate-0" : "",
+          )}
+        >
           <h3 className="text-3xl sm:text-4xl lg:text-5xl text-center mb-4 text-gray-900 tracking-tight">
             {t("process.title")}
           </h3>
@@ -177,13 +216,24 @@ export async function Services() {
           </div>
 
           <div className="text-center mt-16">
-            <Button
-              asChild
-              size="lg"
-              className="h-auto w-full max-w-full whitespace-normal break-words text-center leading-snug sm:w-auto shadow-lg hover:shadow-xl"
-            >
-              <Link href="/#contact">{t("process.cta")}</Link>
-            </Button>
+            {isComingSoon ? (
+              <Button
+                type="button"
+                size="lg"
+                disabled
+                className="h-auto w-full max-w-full whitespace-normal break-words text-center leading-snug sm:w-auto"
+              >
+                {t("comingSoon")}
+              </Button>
+            ) : (
+              <Button
+                asChild
+                size="lg"
+                className="h-auto w-full max-w-full whitespace-normal break-words text-center leading-snug sm:w-auto shadow-lg hover:shadow-xl"
+              >
+                <Link href="/contact">{t("process.cta")}</Link>
+              </Button>
+            )}
           </div>
         </div>
       </div>
