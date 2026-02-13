@@ -34,6 +34,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
 
+  if (!isValidLocale(locale)) {
+    notFound();
+  }
+
   if (locale === "ua") {
     return {
       title: "Давід Біргер - Професійний коучинг та тренування",
