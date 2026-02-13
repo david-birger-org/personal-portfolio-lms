@@ -64,7 +64,7 @@ export async function Hero({ locale }: { locale: string }) {
               size="lg"
               className="bg-white text-gray-900 shadow-lg hover:bg-gray-100 hover:shadow-xl"
             >
-              <Link href="/#contact">
+              <Link href="/contact">
                 {t("ctaText")}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>

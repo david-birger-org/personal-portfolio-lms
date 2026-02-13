@@ -16,18 +16,16 @@ export async function Navigation({ locale }: { locale: Locale }) {
   const menuItems = [
     { name: t("home"), href: "/#home" },
     { name: t("about"), href: "/about" },
-    { name: t("services"), href: "/#services" },
-    { name: t("contact"), href: "/#contact" },
+    { name: t("services"), href: "/services" },
+    { name: t("contact"), href: "/contact" },
   ];
 
   const breadcrumbSections = [
     { id: "home", label: t("home") },
     { id: "journey", label: tJourney("tag") },
     { id: "about", label: t("about") },
-    { id: "services", label: t("services") },
     { id: "testimonials", label: tTestimonials("tag") },
     { id: "cta", label: tCTA("tag") },
-    { id: "contact", label: t("contact") },
   ];
 
   return (
@@ -114,7 +112,7 @@ export async function Navigation({ locale }: { locale: Locale }) {
             ))}
             <LanguageSwitcherClient currentLocale={locale} />
             <Button asChild className="px-6">
-              <Link href="/#contact">{t("ctaText")}</Link>
+              <Link href="/contact">{t("ctaText")}</Link>
             </Button>
           </div>
         </div>

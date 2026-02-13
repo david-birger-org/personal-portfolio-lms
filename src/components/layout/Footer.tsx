@@ -10,16 +10,16 @@ export async function Footer() {
 
   const footerLinks: Record<string, Array<{ name: string; href: string }>> = {
     [t("servicesLinks.title")]: [
-      { name: t("servicesLinks.personalTraining"), href: "/#services" },
-      { name: t("servicesLinks.onlineCoaching"), href: "/#services" },
-      { name: t("servicesLinks.nutritionPlanning"), href: "/#services" },
-      { name: t("servicesLinks.transformationPrograms"), href: "/#services" },
+      { name: t("servicesLinks.personalTraining"), href: "/services" },
+      { name: t("servicesLinks.onlineCoaching"), href: "/services" },
+      { name: t("servicesLinks.nutritionPlanning"), href: "/services" },
+      { name: t("servicesLinks.transformationPrograms"), href: "/services" },
     ],
     [t("navigation.title")]: [
       { name: t("navigation.home"), href: "/#home" },
       { name: t("navigation.about"), href: "/about" },
-      { name: t("navigation.services"), href: "/#services" },
-      { name: t("navigation.contact"), href: "/#contact" },
+      { name: t("navigation.services"), href: "/services" },
+      { name: t("navigation.contact"), href: "/contact" },
     ],
   };
 
