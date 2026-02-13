@@ -8,10 +8,12 @@ import type { Locale } from "@/i18n/config";
 import { Link } from "@/i18n/routing";
 
 export async function Navigation({ locale }: { locale: Locale }) {
-  const t = await getTranslations("navigation");
-  const tJourney = await getTranslations("journey");
-  const tTestimonials = await getTranslations("testimonials");
-  const tCTA = await getTranslations("cta");
+  const [t, tJourney, tTestimonials, tCTA] = await Promise.all([
+    getTranslations("navigation"),
+    getTranslations("journey"),
+    getTranslations("testimonials"),
+    getTranslations("cta"),
+  ]);
 
   const menuItems = [
     { name: t("home"), href: "/#home" },

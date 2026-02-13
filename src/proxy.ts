@@ -83,6 +83,12 @@ function persistLocale(response: NextResponse, locale: Locale) {
 
 export default function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // Skip static files that slip through the matcher (e.g. /sw.js, /robots.txt)
+  if (pathname.includes(".")) {
+    return NextResponse.next();
+  }
+
   const localeInPath = getLocaleFromPathname(pathname);
 
   if (!localeInPath) {
@@ -112,9 +118,14 @@ export default function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Match all pathnames except for
-    // - … if they start with `/api`, `/_next` or `/_vercel`
-    // - … the ones containing a dot (e.g. `favicon.ico`)
-    "/((?!api|_next|_vercel|.*\\..*).*)",
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - _vercel (Vercel internals)
+     * - Files with extensions (favicon.ico, sw.js, robots.txt, etc.)
+     */
+    "/((?!api|_next/static|_next/image|_vercel|favicon\\.ico|sw\\.js|sitemap\\.xml|robots\\.txt|.*\\.[\\w]+$).*)",
   ],
 };
