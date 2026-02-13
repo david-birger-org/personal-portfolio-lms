@@ -227,4 +227,18 @@
   .font-ermilov {
     font-family: "Ermilov-Bold", var(--font-geist-sans), sans-serif;
   }
+
+  /* Scroll progress bar — pure CSS, zero JS, runs on compositor thread */
+  .scroll-progress {
+    transform: scaleX(0);
+    animation: scroll-progress-grow linear;
+    animation-timeline: scroll();
+    will-change: transform;
+  }
+
+  @keyframes scroll-progress-grow {
+    to {
+      transform: scaleX(1);
+    }
+  }
 }

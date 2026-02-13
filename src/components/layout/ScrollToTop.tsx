@@ -1,35 +1,35 @@
 "use client";
 
 import { ArrowUp } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
 export function ScrollToTop() {
-  const [isVisible, setIsVisible] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    let raf = 0;
+    const el = buttonRef.current;
+    if (!el) return;
+
+    let rafId = 0;
 
     const update = () => {
-      const next = window.scrollY > 300;
-      setIsVisible((prev) => (prev === next ? prev : next));
+      const visible = window.scrollY > 300;
+      el.dataset.visible = visible ? "true" : "false";
     };
 
     const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(update);
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(update);
     };
 
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
 
     return () => {
-      cancelAnimationFrame(raf);
+      cancelAnimationFrame(rafId);
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
     };
   }, []);
 
@@ -39,17 +39,14 @@ export function ScrollToTop() {
 
   return (
     <Button
+      ref={buttonRef}
       type="button"
       onClick={scrollToTop}
       aria-label="Scroll to top"
       variant="outline"
       size="icon"
-      className={cn(
-        "fixed right-4 bottom-4 z-50 border-neutral-200 bg-white text-neutral-800 shadow-sm transition-all duration-200 hover:bg-neutral-50 hover:text-neutral-900 md:right-8 md:bottom-8",
-        isVisible
-          ? "scale-100 opacity-100"
-          : "opacity-0 scale-90 pointer-events-none",
-      )}
+      data-visible="false"
+      className="fixed right-4 bottom-4 z-50 border-neutral-200 bg-white text-neutral-800 shadow-sm transition-all duration-200 hover:bg-neutral-50 hover:text-neutral-900 md:right-8 md:bottom-8 data-[visible=false]:opacity-0 data-[visible=false]:scale-90 data-[visible=false]:pointer-events-none data-[visible=true]:scale-100 data-[visible=true]:opacity-100"
     >
       <ArrowUp className="h-6 w-6" />
     </Button>

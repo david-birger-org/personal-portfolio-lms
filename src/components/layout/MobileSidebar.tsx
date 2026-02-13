@@ -1,7 +1,7 @@
 "use client";
 
 import { Menu, X } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { LanguageSwitcherClient } from "@/components/layout/LanguageSwitcherClient";
 import { Button } from "@/components/ui/button";
 import { CONTACT_FORM_HREF } from "@/constants/links";
@@ -25,22 +25,10 @@ export function MobileSidebar({
   sections,
 }: MobileSidebarProps) {
   const [open, setOpen] = useState(false);
-  const [collapsed, setCollapsed] = useState(false);
-  const [activeSectionId, setActiveSectionId] = useState(sections[0]?.id ?? "");
   const titleId = `${headerId}-mobile-nav-title-${locale}`;
-  const sectionRatiosRef = useRef<Record<string, number>>({});
-  const activeSectionIdRef = useRef(activeSectionId);
-
-  useEffect(() => {
-    activeSectionIdRef.current = activeSectionId;
-  }, [activeSectionId]);
-
-  const isMobileMediaQuery = useMemo(() => {
-    if (typeof window === "undefined") {
-      return null;
-    }
-    return window.matchMedia("(max-width: 767px)");
-  }, []);
+  const collapsedRef = useRef(false);
+  const activeSectionIdRef = useRef(sections[0]?.id ?? "");
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!open) {
@@ -55,44 +43,57 @@ export function MobileSidebar({
     };
   }, [open]);
 
+  // Collapse/expand header — pure DOM, no React state
   useEffect(() => {
     const headerEl = document.getElementById(headerId);
     if (!headerEl) {
       return;
     }
 
-    const mq = isMobileMediaQuery;
+    let mq: MediaQueryList | null = null;
+    if (typeof window !== "undefined") {
+      mq = window.matchMedia("(max-width: 767px)");
+    }
+
+    let rafId = 0;
 
     const updateCollapsed = () => {
       const isMobile = mq?.matches ?? true;
       if (!isMobile) {
         headerEl.dataset.mobileCollapsed = "false";
-        setCollapsed(false);
+        collapsedRef.current = false;
+        if (buttonRef.current) {
+          buttonRef.current.dataset.collapsed = "false";
+        }
         return;
       }
 
       const next = window.scrollY >= window.innerHeight;
       headerEl.dataset.mobileCollapsed = next ? "true" : "false";
-      setCollapsed(next);
+      collapsedRef.current = next;
+      if (buttonRef.current) {
+        buttonRef.current.dataset.collapsed = next ? "true" : "false";
+      }
     };
 
     updateCollapsed();
 
     const onScroll = () => {
-      requestAnimationFrame(updateCollapsed);
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(updateCollapsed);
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", updateCollapsed);
     mq?.addEventListener("change", updateCollapsed);
 
     return () => {
+      cancelAnimationFrame(rafId);
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", updateCollapsed);
       mq?.removeEventListener("change", updateCollapsed);
     };
-  }, [headerId, isMobileMediaQuery]);
+  }, [headerId]);
 
+  // Track active section — pure DOM, no React state
   useEffect(() => {
     if (!sections.length) {
       return;
@@ -106,12 +107,13 @@ export function MobileSidebar({
       return;
     }
 
-    const thresholds = [0, 0.1, 0.25, 0.5, 0.75, 1];
+    const sectionRatios: Record<string, number> = {};
+
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           const id = (entry.target as HTMLElement).id;
-          sectionRatiosRef.current[id] = entry.isIntersecting
+          sectionRatios[id] = entry.isIntersecting
             ? entry.intersectionRatio
             : 0;
         }
@@ -119,23 +121,32 @@ export function MobileSidebar({
         let bestId = activeSectionIdRef.current;
         let bestRatio = -1;
         for (const section of sections) {
-          const ratio = sectionRatiosRef.current[section.id] ?? 0;
+          const ratio = sectionRatios[section.id] ?? 0;
           if (ratio > bestRatio) {
             bestRatio = ratio;
             bestId = section.id;
           }
         }
 
-        if (!bestId) {
-          return;
+        if (bestId && bestId !== activeSectionIdRef.current) {
+          activeSectionIdRef.current = bestId;
+          // Update button title directly — no React re-render
+          if (buttonRef.current) {
+            const home = sections.find((s) => s.id === "home");
+            const active = sections.find((s) => s.id === bestId);
+            if (active) {
+              buttonRef.current.title =
+                active.id === "home"
+                  ? active.label
+                  : `${home?.label ?? "Home"} / ${active.label}`;
+            }
+          }
         }
-
-        setActiveSectionId((prev) => (prev === bestId ? prev : bestId));
       },
       {
         root: null,
         rootMargin: "-35% 0px -55% 0px",
-        threshold: thresholds,
+        threshold: [0, 0.25, 0.75],
       },
     );
 
@@ -148,33 +159,26 @@ export function MobileSidebar({
     };
   }, [sections]);
 
-  const activeBreadcrumb = useMemo(() => {
+  const initialBreadcrumb = useMemo(() => {
     const home = sections.find((s) => s.id === "home");
-    const active = sections.find((s) => s.id === activeSectionId);
-    if (!active) {
-      return home?.label ?? "";
-    }
-    if (active.id === "home") {
-      return active.label;
-    }
-    return `${home?.label ?? "Home"} / ${active.label}`;
-  }, [activeSectionId, sections]);
+    return home?.label ?? "Home";
+  }, [sections]);
+
+  const handleOpen = useCallback(() => setOpen(true), []);
+  const handleClose = useCallback(() => setOpen(false), []);
 
   return (
     <>
       <button
+        ref={buttonRef}
         type="button"
-        className={cn(
-          "md:hidden grid size-11 place-items-center text-gray-700 transition-all duration-200 hover:text-gray-900",
-          collapsed
-            ? "rounded-full bg-gray-900 text-white shadow-lg shadow-black/20"
-            : "rounded-none bg-transparent text-gray-700 shadow-none",
-        )}
+        className="md:hidden grid size-11 place-items-center text-gray-700 transition-all duration-200 hover:text-gray-900 rounded-none bg-transparent shadow-none data-[collapsed=true]:rounded-full data-[collapsed=true]:bg-gray-900 data-[collapsed=true]:text-white data-[collapsed=true]:shadow-lg data-[collapsed=true]:shadow-black/20"
         aria-label="Open navigation"
         aria-haspopup="dialog"
         aria-expanded={open}
-        title={activeBreadcrumb}
-        onClick={() => setOpen(true)}
+        title={initialBreadcrumb}
+        data-collapsed="false"
+        onClick={handleOpen}
       >
         <Menu className="h-6 w-6" />
       </button>
@@ -193,7 +197,7 @@ export function MobileSidebar({
             open ? "opacity-100" : "opacity-0",
           )}
           aria-label="Close menu"
-          onClick={() => setOpen(false)}
+          onClick={handleClose}
         />
 
         <div
@@ -213,7 +217,7 @@ export function MobileSidebar({
               type="button"
               className="rounded-xl p-2 text-gray-700 transition-colors hover:bg-gray-50 hover:text-gray-900"
               aria-label="Close menu"
-              onClick={() => setOpen(false)}
+              onClick={handleClose}
             >
               <X className="h-5 w-5" />
             </button>
@@ -225,7 +229,7 @@ export function MobileSidebar({
                 <Link
                   key={item.name}
                   href={item.href}
-                  onClick={() => setOpen(false)}
+                  onClick={handleClose}
                   className="rounded-2xl px-4 py-3 text-sm font-medium text-gray-800 transition-colors hover:bg-gray-50 hover:text-gray-900"
                 >
                   {item.name}
@@ -236,10 +240,10 @@ export function MobileSidebar({
             <div className="mt-6 flex items-center justify-between gap-3">
               <LanguageSwitcherClient
                 currentLocale={locale}
-                onSelect={() => setOpen(false)}
+                onSelect={handleClose}
               />
               <Button asChild className="px-5">
-                <Link href={CONTACT_FORM_HREF} onClick={() => setOpen(false)}>
+                <Link href={CONTACT_FORM_HREF} onClick={handleClose}>
                   {ctaText}
                 </Link>
               </Button>
