@@ -35,10 +35,16 @@ interface BiographySplitResult {
 
 const sloganText =
   "« ЯКЩО ТИ МОЖЕШ УЯВИТИ ЦЕ, ТО І МОЖЕШ ЗРОБИТИ – IF YOU CAN DREAM IT, YOU CAN DO IT »";
+const sloganTextUaInline =
+  "« ЯКЩО ТИ МОЖЕШ УЯВИТИ ЦЕ,\u00A0ТО І МОЖЕШ ЗРОБИТИ – IF YOU CAN DREAM IT, YOU CAN DO IT »";
 const wnbfWebsiteText = "wnbfukraine.com.ua";
 const wnbfWebsiteHref = "https://wnbfukraine.com.ua";
 
-function renderParagraphText(text: string) {
+function renderSlogan(locale: Locale) {
+  return locale === "ua" ? sloganTextUaInline : sloganText;
+}
+
+function renderParagraphText(text: string, locale: Locale) {
   const tokens = [sloganText, wnbfWebsiteText];
   const parts: React.ReactNode[] = [];
   let cursor = 0;
@@ -74,7 +80,7 @@ function renderParagraphText(text: string) {
           key={`slogan-${nextIndex}`}
           className="font-semibold text-neutral-900"
         >
-          {sloganText}
+          {renderSlogan(locale)}
         </span>,
       );
     } else {
@@ -229,9 +235,11 @@ function normalizeBiographyContent(
 function BiographySection({
   sections,
   imageAlt,
+  locale,
 }: {
   sections: BiographySectionData[];
   imageAlt: string;
+  locale: Locale;
 }) {
   return (
     <section>
@@ -273,7 +281,7 @@ function BiographySection({
                           paragraph.bold ? "font-semibold text-neutral-900" : ""
                         }
                       >
-                        {renderParagraphText(paragraph.text)}
+                        {renderParagraphText(paragraph.text, locale)}
                       </p>
                     ))}
                   </div>
@@ -307,9 +315,9 @@ export default async function AboutPage({
   return (
     <main className="min-h-screen bg-neutral-50 pt-28 pb-20 md:pt-32 md:pb-24">
       {introParagraphs.length > 0 ? (
-        <section className="mb-8 border-y border-neutral-200 bg-white py-6 sm:py-8 md:mb-10 md:py-10">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="space-y-4 text-sm leading-7 text-neutral-700 sm:text-base">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <section className="mb-8 rounded-3xl border border-neutral-200 bg-white py-6 sm:py-8 md:mb-10 md:py-10">
+            <div className="space-y-4 px-4 text-sm leading-7 text-neutral-700 sm:px-6 sm:text-base lg:px-8">
               {introParagraphs.map((paragraph) => (
                 <p
                   key={paragraph.id}
@@ -317,12 +325,12 @@ export default async function AboutPage({
                     paragraph.bold ? "font-semibold text-neutral-900" : ""
                   }
                 >
-                  {renderParagraphText(paragraph.text)}
+                  {renderParagraphText(paragraph.text, currentLocale)}
                 </p>
               ))}
             </div>
-          </div>
-        </section>
+          </section>
+        </div>
       ) : null}
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -370,6 +378,7 @@ export default async function AboutPage({
 
           <BiographySection
             sections={sections}
+            locale={currentLocale}
             imageAlt={
               currentLocale === "ua"
                 ? "Фотографія спортивного шляху"
