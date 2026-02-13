@@ -84,9 +84,12 @@ function persistLocale(response: NextResponse, locale: Locale) {
 export default function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Skip static files that slip through the matcher (e.g. /sw.js, /robots.txt)
-  if (pathname.includes(".")) {
-    return NextResponse.next();
+  // Reject file-extension requests that slip through the matcher.
+  // Returning a 404 here prevents them from hitting the [locale] catch-all
+  // segment, which would trigger next-intl's requestLocale → headers() call
+  // and cause a static-to-dynamic runtime error.
+  if (/\.\w+$/.test(pathname)) {
+    return new NextResponse(null, { status: 404 });
   }
 
   const localeInPath = getLocaleFromPathname(pathname);
