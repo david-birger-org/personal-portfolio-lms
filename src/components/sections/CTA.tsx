@@ -53,7 +53,7 @@ export async function CTA() {
 
             <div className="mt-10">
               <Button asChild size="lg" className="shadow-lg hover:shadow-xl">
-                <Link href="/contact">
+                <Link href="/contact#contact-form">
                   {t("button")}
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Link>

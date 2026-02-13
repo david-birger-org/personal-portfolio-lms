@@ -232,7 +232,7 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="py-32 md:py-40 bg-gray-50 relative overflow-hidden"
+      className="relative overflow-hidden bg-gray-50 py-20 md:py-28"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
@@ -379,11 +379,12 @@ export function Contact() {
           </motion.div>
 
           <motion.div
+            id="contact-form"
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as any }}
-            className="bg-white rounded-3xl border border-gray-200 p-8 lg:p-10"
+            className="scroll-mt-24 rounded-3xl border border-gray-200 bg-white p-8 lg:p-10"
           >
             {isSuccess ? (
               <motion.div

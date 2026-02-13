@@ -239,7 +239,10 @@ export function MobileSidebar({
                 onSelect={() => setOpen(false)}
               />
               <Button asChild className="px-5">
-                <Link href="/contact" onClick={() => setOpen(false)}>
+                <Link
+                  href="/contact#contact-form"
+                  onClick={() => setOpen(false)}
+                >
                   {ctaText}
                 </Link>
               </Button>

@@ -77,7 +77,7 @@ export async function Services({ isComingSoon = false }: ServicesProps) {
     <section
       id="services"
       className={cn(
-        "relative overflow-hidden py-32 md:py-40",
+        "relative overflow-hidden py-20 md:py-28",
         isComingSoon ? "bg-gray-100" : "bg-gray-50",
       )}
     >
@@ -168,7 +168,7 @@ export async function Services({ isComingSoon = false }: ServicesProps) {
                     variant="outline"
                     className="w-full border-gray-300 bg-white text-gray-900 hover:border-gray-400 hover:bg-gray-50"
                   >
-                    <Link href="/contact">{t("learnMore")}</Link>
+                    <Link href="/contact#contact-form">{t("learnMore")}</Link>
                   </Button>
                 )}
               </div>
@@ -231,7 +231,7 @@ export async function Services({ isComingSoon = false }: ServicesProps) {
                 size="lg"
                 className="h-auto w-full max-w-full whitespace-normal break-words text-center leading-snug sm:w-auto shadow-lg hover:shadow-xl"
               >
-                <Link href="/contact">{t("process.cta")}</Link>
+                <Link href="/contact#contact-form">{t("process.cta")}</Link>
               </Button>
             )}
           </div>
