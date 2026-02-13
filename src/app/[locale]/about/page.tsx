@@ -12,6 +12,10 @@ import type {
   BiographyContent,
   BiographyParagraph,
 } from "@/app/[locale]/about/types";
+import {
+  discoverBiographyImagesBySeries,
+  resolveBiographyImageGroup,
+} from "@/content/biography";
 import { resolveLocale } from "@/i18n/locale";
 
 export default async function AboutPage({
@@ -30,6 +34,10 @@ export default async function AboutPage({
     biography,
     currentLocale,
   );
+  const imagesBySeries = await discoverBiographyImagesBySeries();
+  const imageGroups = sections.map((section) =>
+    resolveBiographyImageGroup(section.title, imagesBySeries),
+  );
 
   return (
     <main className="min-h-screen bg-neutral-50 pt-28 pb-20 md:pt-32 md:pb-24">
@@ -46,6 +54,7 @@ export default async function AboutPage({
           <BiographyDesktopLegend sections={sections} locale={currentLocale} />
           <BiographySections
             sections={sections}
+            imageGroups={imageGroups}
             locale={currentLocale}
             imageAlt={
               currentLocale === "ua"
