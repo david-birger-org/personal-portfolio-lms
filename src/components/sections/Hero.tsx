@@ -33,13 +33,13 @@ export async function Hero({ locale }: { locale: string }) {
       </div>
 
       <div className="container relative z-10 mx-auto h-[calc(100svh-4rem)] px-4 sm:h-[calc(100svh-5rem)] sm:px-6 lg:px-8">
-        <div className="sticky top-[calc(env(safe-area-inset-top)+6rem)] z-20 mb-5 mx-auto w-fit rounded-full border border-white/20 bg-white/10 px-5 py-2 text-sm font-medium text-white backdrop-blur-md sm:top-[calc(env(safe-area-inset-top)+7rem)] sm:mb-6">
+        <div className="sticky top-[calc(env(safe-area-inset-top)+5rem)] z-20 mb-5 mx-auto w-fit rounded-full border border-white/20 bg-white/10 px-5 py-2 text-sm font-medium text-white backdrop-blur-md sm:top-[calc(env(safe-area-inset-top)+7rem)] sm:mb-6">
           {t("badge")}
         </div>
 
         <div
           className={cn(
-            "mx-auto mt-[40vh] text-center",
+            "mx-auto mt-[30vh] text-center sm:mt-[40vh]",
             locale === "ua" ? "max-w-5xl" : "max-w-4xl",
           )}
         >
@@ -55,7 +55,7 @@ export async function Hero({ locale }: { locale: string }) {
             <span className="block whitespace-nowrap">{t("titleLine2")}</span>
           </h1>
 
-          <p className="mb-10 mx-auto max-w-none px-2 text-lg leading-relaxed text-white/80 sm:max-w-2xl sm:px-0 sm:text-xl">
+          <p className="mb-8 mx-auto max-w-none px-2 text-lg leading-relaxed text-white/80 sm:mb-10 sm:max-w-2xl sm:px-0 sm:text-xl">
             {t("subtitle")}
           </p>
 
@@ -72,7 +72,7 @@ export async function Hero({ locale }: { locale: string }) {
             </Button>
           </div>
 
-          <div className="grid grid-cols-3 gap-3 sm:gap-6 mt-10 sm:mt-16 max-w-3xl mx-auto">
+          <div className="grid grid-cols-3 gap-3 mt-8 max-w-3xl mx-auto sm:mt-16 sm:gap-6">
             {stats.map((stat) => (
               <div
                 key={stat.key}
@@ -88,7 +88,7 @@ export async function Hero({ locale }: { locale: string }) {
         </div>
       </div>
 
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10">
+      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10">
         <div className="w-6 h-10 border-2 border-white/40 rounded-full flex items-start justify-center p-2">
           <div className="w-1 h-2 bg-white/60 rounded-full animate-bounce" />
         </div>
