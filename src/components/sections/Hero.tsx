@@ -18,11 +18,11 @@ export async function Hero({ locale }: { locale: string }) {
   return (
     <section
       id="home"
-      className="relative min-h-screen min-h-[100svh] flex items-center justify-center overflow-hidden pt-24 pb-24 sm:pt-28 sm:pb-28"
+      className="relative h-screen flex items-start justify-center overflow-x-hidden"
     >
       <div className="absolute inset-0">
         <Image
-          src="https://images.unsplash.com/photo-1591311630200-ffa9120a540f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxneW0lMjBlcXVpcG1lbnQlMjB3ZWlnaHRzJTIwdHJhaW5pbmd8ZW58MXx8fHwxNzY5NjkxNjgwfDA&ixlib=rb-4.1.0&q=80&w=1080"
+          src="/images/hero-1.jpg"
           alt="Fitness Training"
           fill
           priority
@@ -32,50 +32,30 @@ export async function Hero({ locale }: { locale: string }) {
         <div className="absolute inset-0 bg-linear-to-b from-black/60 via-black/40 to-black/70" />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="container relative z-10 mx-auto h-[calc(100svh-4rem)] px-4 sm:h-[calc(100svh-5rem)] sm:px-6 lg:px-8">
+        <div className="sticky top-[calc(env(safe-area-inset-top)+6rem)] z-20 mb-5 mx-auto w-fit rounded-full border border-white/20 bg-white/10 px-5 py-2 text-sm font-medium text-white backdrop-blur-md sm:top-[calc(env(safe-area-inset-top)+7rem)] sm:mb-6">
+          {t("badge")}
+        </div>
+
         <div
           className={cn(
-            "mx-auto text-center",
+            "mx-auto mt-[40vh] text-center",
             locale === "ua" ? "max-w-5xl" : "max-w-4xl",
           )}
         >
-          <div className="inline-block mb-5 sm:mb-6">
-            <div className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-5 py-2 rounded-full text-sm font-medium">
-              {t("badge")}
-            </div>
-          </div>
-
           <h1
             className={cn(
-              "font-ermilov mb-6 mx-auto w-fit text-white tracking-tight leading-[0.95]",
+              "font-ermilov mb-6 mx-auto flex w-full flex-col items-center text-center text-white tracking-tight leading-[0.95]",
               locale === "ua"
-                ? "text-3xl sm:text-6xl lg:text-7xl xl:text-8xl"
-                : "text-5xl sm:text-6xl lg:text-7xl xl:text-8xl",
+                ? "text-2xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-5xl 2xl:text-6xl"
+                : "text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-5xl 2xl:text-6xl",
             )}
           >
-            <span
-              className={cn("block", locale === "ua" && "whitespace-nowrap")}
-            >
-              {t("titleLine1")}
-            </span>
-            <span
-              className={cn("block", locale === "ua" && "whitespace-nowrap")}
-            >
-              {t("titleLine2")}
-            </span>
-            <span
-              className={cn("block", locale === "ua" && "whitespace-nowrap")}
-            >
-              {t("titleLine3")}
-            </span>
-            <span
-              className={cn("block", locale === "ua" && "whitespace-nowrap")}
-            >
-              {t("titleLine4")}
-            </span>
+            <span className="block whitespace-nowrap">{t("titleLine1")}</span>
+            <span className="block whitespace-nowrap">{t("titleLine2")}</span>
           </h1>
 
-          <p className="text-lg sm:text-xl text-white/80 mb-10 max-w-2xl mx-auto leading-relaxed">
+          <p className="mb-10 mx-auto max-w-none px-2 text-lg leading-relaxed text-white/80 sm:max-w-2xl sm:px-0 sm:text-xl">
             {t("subtitle")}
           </p>
 
@@ -108,7 +88,7 @@ export async function Hero({ locale }: { locale: string }) {
         </div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10">
         <div className="w-6 h-10 border-2 border-white/40 rounded-full flex items-start justify-center p-2">
           <div className="w-1 h-2 bg-white/60 rounded-full animate-bounce" />
         </div>

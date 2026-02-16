@@ -43,7 +43,7 @@ export async function About() {
             <div className="relative rounded-3xl overflow-hidden bg-gray-100">
               <div className="relative aspect-[4/5]">
                 <Image
-                  src="https://images.unsplash.com/photo-1758274539089-8b2bd10eee92?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmaXRuZXNzJTIwdHJhbnNmb3JtYXRpb24lMjB3b3Jrb3V0fGVufDF8fHx8MTc2OTcwNTMwNHww&ixlib=rb-4.1.0&q=80&w=1080"
+                  src="/images/hero-2.jpg"
                   alt="Fitness Training"
                   fill
                   sizes="(min-width: 1024px) 40vw, 100vw"
