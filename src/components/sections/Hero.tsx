@@ -88,7 +88,7 @@ export async function Hero({ locale }: { locale: string }) {
         </div>
       </div>
 
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10">
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10">
         <div className="w-6 h-10 border-2 border-white/40 rounded-full flex items-start justify-center p-2">
           <div className="w-1 h-2 bg-white/60 rounded-full animate-bounce" />
         </div>

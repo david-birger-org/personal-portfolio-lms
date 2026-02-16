@@ -103,24 +103,27 @@ export async function Services({ isComingSoon = false }: ServicesProps) {
               )}
             >
               <div className="aspect-video relative overflow-hidden bg-gray-100">
-                <Image
-                  src={service.image}
-                  alt={service.title}
-                  fill
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  className={cn(
-                    "object-cover transition-transform duration-700 ease-out",
-                    isComingSoon ? "" : "group-hover:scale-105",
-                  )}
-                />
-                <div
-                  className={cn(
-                    "absolute inset-0 bg-gradient-to-t from-black/30 to-transparent transition-opacity duration-500",
-                    isComingSoon
-                      ? "opacity-100"
-                      : "opacity-0 group-hover:opacity-100",
-                  )}
-                />
+                {isComingSoon ? (
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-linear-to-br from-gray-100 via-gray-50 to-gray-100">
+                    <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-dashed border-gray-300 bg-white/80">
+                      <service.icon className="h-8 w-8 text-gray-500" />
+                    </div>
+                    <p className="text-sm font-medium uppercase tracking-[0.14em] text-gray-500">
+                      {t("comingSoon")}
+                    </p>
+                  </div>
+                ) : (
+                  <>
+                    <Image
+                      src={service.image}
+                      alt={service.title}
+                      fill
+                      sizes="(min-width: 1024px) 50vw, 100vw"
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                  </>
+                )}
                 <div className="absolute bottom-4 left-4 bg-white rounded-2xl p-3">
                   <service.icon className="w-6 h-6 text-gray-900" />
                 </div>
