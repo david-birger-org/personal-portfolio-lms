@@ -103,10 +103,7 @@ export default function proxy(request: NextRequest) {
         ? `/${preferredLocale}`
         : `/${preferredLocale}${pathname}`;
 
-    const response =
-      pathname === "/"
-        ? NextResponse.rewrite(redirectUrl)
-        : NextResponse.redirect(redirectUrl);
+    const response = NextResponse.redirect(redirectUrl);
     persistLocale(response, preferredLocale);
 
     return response;
