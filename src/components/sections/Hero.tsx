@@ -18,7 +18,7 @@ export async function Hero({ locale }: { locale: string }) {
   return (
     <section
       id="home"
-      className="relative flex min-h-[calc(100svh-4rem)] items-start justify-center overflow-x-hidden sm:min-h-[calc(100svh-5rem)]"
+      className="relative flex min-h-[min(calc(100svh-4rem),1792px)] items-start justify-center overflow-x-hidden sm:min-h-[min(calc(100svh-5rem),1792px)]"
     >
       <div className="absolute inset-0">
         <Image
@@ -27,12 +27,13 @@ export async function Hero({ locale }: { locale: string }) {
           fill
           priority
           sizes="100vw"
+          style={{ maxHeight: "1792px" }}
           className="object-cover"
         />
         <div className="absolute inset-0 bg-linear-to-b from-black/60 via-black/40 to-black/70" />
       </div>
 
-      <div className="container relative z-10 mx-auto min-h-[calc(100svh-4rem)] px-4 pb-24 sm:min-h-[calc(100svh-5rem)] sm:px-6 sm:pb-20 lg:px-8">
+      <div className="container relative z-10 mx-auto min-h-[min(calc(100svh-4rem),1792px)] px-4 pb-24 sm:min-h-[min(calc(100svh-5rem),1792px)] sm:px-6 sm:pb-20 lg:px-8">
         <div
           className={cn(
             "mx-auto mt-[36vh] text-center sm:mt-[44vh]",
