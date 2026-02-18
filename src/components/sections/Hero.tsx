@@ -18,7 +18,7 @@ export async function Hero({ locale }: { locale: string }) {
   return (
     <section
       id="home"
-      className="relative h-screen flex items-start justify-center overflow-x-hidden"
+      className="relative flex min-h-[calc(100svh-4rem)] items-start justify-center overflow-x-hidden sm:min-h-[calc(100svh-5rem)]"
     >
       <div className="absolute inset-0">
         <Image
@@ -32,20 +32,20 @@ export async function Hero({ locale }: { locale: string }) {
         <div className="absolute inset-0 bg-linear-to-b from-black/60 via-black/40 to-black/70" />
       </div>
 
-      <div className="container relative z-10 mx-auto h-[calc(100svh-4rem)] px-4 sm:h-[calc(100svh-5rem)] sm:px-6 lg:px-8">
-        <div className="sticky top-[calc(env(safe-area-inset-top)+5rem)] z-20 mb-5 mx-auto w-fit rounded-full border border-white/20 bg-white/10 px-5 py-2 text-sm font-medium text-white backdrop-blur-md sm:top-[calc(env(safe-area-inset-top)+7rem)] sm:mb-6">
-          {t("badge")}
-        </div>
-
+      <div className="container relative z-10 mx-auto min-h-[calc(100svh-4rem)] px-4 pb-24 sm:min-h-[calc(100svh-5rem)] sm:px-6 sm:pb-20 lg:px-8">
         <div
           className={cn(
-            "mx-auto mt-[30vh] text-center sm:mt-[40vh]",
+            "mx-auto mt-[36vh] text-center sm:mt-[44vh]",
             locale === "ua" ? "max-w-5xl" : "max-w-4xl",
           )}
         >
+          <div className="mb-3 mx-auto w-fit rounded-full border border-white/20 bg-white/10 px-5 py-2 text-xs font-medium text-white backdrop-blur-md sm:mb-4 sm:text-sm">
+            {t("badge")}
+          </div>
+
           <h1
             className={cn(
-              "font-ermilov mb-6 mx-auto flex w-full flex-col items-center text-center text-white tracking-tight leading-[0.95]",
+              "font-ermilov mb-4 mx-auto flex w-full flex-col items-center text-center text-white tracking-tight leading-[0.95] sm:mb-5",
               locale === "ua"
                 ? "text-2xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-5xl 2xl:text-6xl"
                 : "text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-5xl 2xl:text-6xl",
@@ -55,7 +55,7 @@ export async function Hero({ locale }: { locale: string }) {
             <span className="block whitespace-nowrap">{t("titleLine2")}</span>
           </h1>
 
-          <p className="mb-8 mx-auto max-w-none px-2 text-lg leading-relaxed text-white/80 sm:mb-10 sm:max-w-2xl sm:px-0 sm:text-xl">
+          <p className="mb-5 mx-auto max-w-none px-2 text-lg leading-snug text-white/80 sm:mb-7 sm:max-w-2xl sm:px-0 sm:text-xl sm:leading-relaxed">
             {t("subtitle")}
           </p>
 
@@ -86,11 +86,11 @@ export async function Hero({ locale }: { locale: string }) {
             ))}
           </div>
         </div>
-      </div>
 
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10">
-        <div className="w-6 h-10 border-2 border-white/40 rounded-full flex items-start justify-center p-2">
-          <div className="w-1 h-2 bg-white/60 rounded-full animate-bounce" />
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+          <div className="w-6 h-10 border-2 border-white/40 rounded-full flex items-start justify-center p-2">
+            <div className="w-1 h-2 bg-white/60 rounded-full animate-bounce" />
+          </div>
         </div>
       </div>
     </section>

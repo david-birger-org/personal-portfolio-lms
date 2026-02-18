@@ -4,7 +4,7 @@
     "logoAccent": "Birger",
     "home": "Home",
     "about": "About",
-    "services": "Services",
+    "services": "Collaboration",
     "contact": "Contact",
     "ctaText": "Book Consultation"
   },
@@ -251,11 +251,11 @@
     "cards": [
       {
         "title": "Early Foundation",
-        "description": "Kickboxing from age 6, then water polo, rugby, and football built my physical and mental base: discipline, resilience, and consistency."
+        "description": "Kickboxing from age 6, then water polo, rugby, and football built my physical and mental base: discipline, resilience, and consistency. And from the age of 16, I began my path in strength training."
       },
       {
-        "title": "WNBF Ukraine Mission",
-        "description": "I chose natural bodybuilding in 2013, then founded WNBF Ukraine in 2021 to provide athletes in Ukraine with a fair, professional, drug-tested platform."
+        "title": "Natural Bodybuilding in Ukraine",
+        "description": "In 2021, WNBF Ukraine was founded - the official representation of the World Natural Bodybuilding Federation (WNBF). Since then, Ukrainian athletes have had the opportunity to participate in international tournaments, competing under fair conditions and a two-level doping control system."
       },
       {
         "title": "Path of Neptune Coaching",
