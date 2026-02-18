@@ -12,6 +12,9 @@ import { Footer } from "@/components/layout/Footer";
 import { Navigation } from "@/components/layout/Navigation";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
 
+export const dynamic = "force-static";
+export const dynamicParams = false;
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],

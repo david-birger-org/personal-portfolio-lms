@@ -1,7 +1,5 @@
-"use client";
-
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/routing";
 
 export default function NotFound() {
   return (

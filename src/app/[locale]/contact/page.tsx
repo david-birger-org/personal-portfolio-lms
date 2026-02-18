@@ -3,6 +3,8 @@ import { Contact } from "@/components/sections/Contact";
 import { isLocale } from "@/i18n/locale";
 import { routing } from "@/i18n/routing";
 
+export const dynamic = "force-static";
+
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }

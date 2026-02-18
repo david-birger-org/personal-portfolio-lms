@@ -5,6 +5,8 @@ import { Hero } from "@/components/sections/Hero";
 import { Journey } from "@/components/sections/Journey";
 import { Testimonials } from "@/components/sections/Testimonials";
 
+export const dynamic = "force-static";
+
 export default async function Home({
   params,
 }: {

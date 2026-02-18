@@ -18,6 +18,8 @@ import {
 } from "@/content/biography";
 import { resolveLocale } from "@/i18n/locale";
 
+export const dynamic = "force-static";
+
 export default async function AboutPage({
   params,
 }: {
@@ -34,7 +36,7 @@ export default async function AboutPage({
     biography,
     currentLocale,
   );
-  const imagesBySeries = await discoverBiographyImagesBySeries();
+  const imagesBySeries = discoverBiographyImagesBySeries();
   const imageGroups = sections.map((section) =>
     resolveBiographyImageGroup(section.title, imagesBySeries),
   );

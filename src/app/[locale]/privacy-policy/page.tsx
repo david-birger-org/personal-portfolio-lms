@@ -3,6 +3,8 @@ import { LegalDocument } from "@/components/legal/LegalDocument";
 import { legalContent } from "@/content/legal";
 import { resolveLocale } from "@/i18n/locale";
 
+export const dynamic = "force-static";
+
 export async function generateMetadata({
   params,
 }: {

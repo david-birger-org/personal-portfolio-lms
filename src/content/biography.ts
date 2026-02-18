@@ -1,10 +1,10 @@
-import { readdir } from "node:fs/promises";
-import path from "node:path";
+import {
+  BIOGRAPHY_IMAGES_BY_SERIES,
+  type BiographyImageGroup,
+} from "@/content/biography-images";
 
-export type BiographyImageGroup = [string] | [string, string];
 export type BiographyImageSelection = BiographyImageGroup | [];
 
-const BIOGRAPHY_IMAGE_PATTERN = /^(.*?)-(1|2)\.(jpe?g|png|webp|avif)$/i;
 const BIOGRAPHY_SECTION_IMAGE_ALIASES: Record<string, string> = {
   childhood: "childhood",
   adolescence: "adolescence",
@@ -44,63 +44,11 @@ function normalizeSectionHeading(value: string) {
   return normalizeToken(value).replace(/-/g, " ");
 }
 
-export async function discoverBiographyImagesBySeries(): Promise<
-  Record<string, BiographyImageGroup>
+export function discoverBiographyImagesBySeries(): Record<
+  string,
+  BiographyImageGroup
 > {
-  const imagesDirectory = path.join(process.cwd(), "public", "images");
-  const files = await readdir(imagesDirectory, { withFileTypes: true });
-
-  const groupedFiles = new Map<string, { first?: string; second?: string }>();
-
-  for (const file of files) {
-    if (!file.isFile()) {
-      continue;
-    }
-
-    const match = file.name.match(BIOGRAPHY_IMAGE_PATTERN);
-    if (!match) {
-      continue;
-    }
-
-    const series = normalizeToken(match[1]);
-    const slot = match[2];
-    const current = groupedFiles.get(series) ?? {};
-
-    if (slot === "1") {
-      current.first = file.name;
-    }
-
-    if (slot === "2") {
-      current.second = file.name;
-    }
-
-    groupedFiles.set(series, current);
-  }
-
-  const imagesBySeries: Record<string, BiographyImageGroup> = {};
-
-  for (const [series, group] of [...groupedFiles.entries()].sort(([a], [b]) =>
-    a.localeCompare(b),
-  )) {
-    if (group.first && group.second) {
-      imagesBySeries[series] = [
-        `/images/${group.first}`,
-        `/images/${group.second}`,
-      ];
-      continue;
-    }
-
-    if (group.first) {
-      imagesBySeries[series] = [`/images/${group.first}`];
-      continue;
-    }
-
-    if (group.second) {
-      imagesBySeries[series] = [`/images/${group.second}`];
-    }
-  }
-
-  return imagesBySeries;
+  return BIOGRAPHY_IMAGES_BY_SERIES;
 }
 
 export function resolveBiographyImageGroup(
