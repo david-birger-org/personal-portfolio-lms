@@ -58,7 +58,7 @@
     ]
   },
   "services": {
-    "tag": "My Services",
+    "tag": "Coaching Tracks",
     "title": "Professional Coaching",
     "titleAccent": "Programs & Services",
     "description": "Choose the coaching format that matches your goal, schedule, and current level - from first steps to competitive stage readiness.",
@@ -288,7 +288,7 @@
       "title": "Navigation",
       "home": "Home",
       "about": "About Me",
-      "services": "My Services",
+      "services": "Coaching Tracks",
       "contact": "Contacts"
     },
     "servicesLinks": {
