@@ -2,7 +2,7 @@
 
 import { CheckCircle2, Send } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -27,6 +27,15 @@ type CountryCode = (typeof CONTACT_COUNTRIES)[number]["code"];
 
 const SOCIAL_HANDLE_PATTERN = /^@?[a-zA-Z0-9._]{2,32}$/;
 
+type PhoneNumberParser = (
+  phone: string,
+  country?: CountryCode,
+) =>
+  | {
+      isValid: () => boolean;
+    }
+  | undefined;
+
 export function ContactFormClient() {
   const t = useTranslations("contact");
   const [formData, setFormData] = useState({
@@ -42,8 +51,44 @@ export function ContactFormClient() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const parsePhoneNumberRef = useRef<PhoneNumberParser | null>(null);
 
-  const validateForm = async () => {
+  useEffect(() => {
+    const idleScheduler = globalThis as typeof globalThis & {
+      requestIdleCallback?: (
+        callback: () => void,
+        options?: { timeout?: number },
+      ) => number;
+      cancelIdleCallback?: (handle: number) => void;
+    };
+
+    const loadPhoneParser = () => {
+      void import("libphonenumber-js/min")
+        .then((module) => {
+          parsePhoneNumberRef.current = module.parsePhoneNumberFromString;
+        })
+        .catch(() => {
+          parsePhoneNumberRef.current = null;
+        });
+    };
+
+    if (idleScheduler.requestIdleCallback && idleScheduler.cancelIdleCallback) {
+      const idleId = idleScheduler.requestIdleCallback(loadPhoneParser, {
+        timeout: 1200,
+      });
+
+      return () => {
+        idleScheduler.cancelIdleCallback?.(idleId);
+      };
+    }
+
+    const timeoutId = window.setTimeout(loadPhoneParser, 300);
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
+  }, []);
+
+  const validateForm = () => {
     const newErrors: Record<string, string> = {};
 
     if (!formData.firstName.trim()) {
@@ -64,15 +109,21 @@ export function ContactFormClient() {
       newErrors.phone = t("form.validation.phoneRequired");
     } else {
       try {
-        const { parsePhoneNumberFromString } = await import(
-          "libphonenumber-js/min"
-        );
-        const parsed = parsePhoneNumberFromString(
-          formData.phone,
-          formData.country,
-        );
-        if (!parsed?.isValid()) {
-          newErrors.phone = t("form.validation.phoneInvalid");
+        const parsePhoneNumberFromString = parsePhoneNumberRef.current;
+        if (parsePhoneNumberFromString) {
+          const parsed = parsePhoneNumberFromString(
+            formData.phone,
+            formData.country,
+          );
+
+          if (!parsed?.isValid()) {
+            newErrors.phone = t("form.validation.phoneInvalid");
+          }
+        } else {
+          const digits = formData.phone.replace(/\D/g, "");
+          if (digits.length < 8) {
+            newErrors.phone = t("form.validation.phoneInvalid");
+          }
         }
       } catch {
         const digits = formData.phone.replace(/\D/g, "");
@@ -113,7 +164,7 @@ export function ContactFormClient() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!(await validateForm())) {
+    if (!validateForm()) {
       return;
     }
 
