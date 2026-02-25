@@ -33,6 +33,27 @@ export async function Testimonials() {
           className="mb-20"
         />
 
+        <div className="mx-auto mb-12 max-w-5xl rounded-3xl border border-gray-200 bg-gray-50 p-6 text-center sm:p-8">
+          <div className="text-sm font-semibold tracking-wide text-gray-600 uppercase">
+            {t("stats.rating")}
+          </div>
+          <div className="mt-2 text-5xl font-semibold tracking-tight text-gray-900 sm:text-6xl">
+            4.9/5
+          </div>
+          <div className="mt-3 flex justify-center gap-1.5">
+            {[
+              "rating-star-1",
+              "rating-star-2",
+              "rating-star-3",
+              "rating-star-4",
+              "rating-star-5",
+            ].map((key) => (
+              <Star key={key} className="w-5 h-5 fill-gray-900 text-gray-900" />
+            ))}
+          </div>
+          <p className="mt-3 text-sm text-gray-600">{t("description")}</p>
+        </div>
+
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {testimonials.map((testimonial) => (
             <div

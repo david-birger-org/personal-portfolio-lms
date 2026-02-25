@@ -1,9 +1,12 @@
 import { ScrollProgress } from "@/components/layout/ScrollProgress";
 import { About } from "@/components/sections/About";
+import { Contact } from "@/components/sections/Contact";
 import { CTA } from "@/components/sections/CTA";
 import { Hero } from "@/components/sections/Hero";
 import { Journey } from "@/components/sections/Journey";
+import { Services } from "@/components/sections/Services";
 import { Testimonials } from "@/components/sections/Testimonials";
+import { Trust } from "@/components/sections/Trust";
 
 export const dynamic = "force-static";
 
@@ -20,10 +23,13 @@ export default async function Home({
 
       <main>
         <Hero locale={locale} />
-        <Journey />
+        <Trust />
         <About />
+        <Journey />
+        <Services />
         <Testimonials />
         <CTA />
+        <Contact compact />
       </main>
     </div>
   );

@@ -36,7 +36,7 @@ type PhoneNumberParser = (
     }
   | undefined;
 
-export function ContactFormClient() {
+export function ContactFormClient({ compact = false }: { compact?: boolean }) {
   const t = useTranslations("contact");
   const [formData, setFormData] = useState({
     firstName: "",
@@ -95,7 +95,7 @@ export function ContactFormClient() {
       newErrors.firstName = t("form.validation.firstNameRequired");
     }
 
-    if (!formData.lastName.trim()) {
+    if (!compact && !formData.lastName.trim()) {
       newErrors.lastName = t("form.validation.lastNameRequired");
     }
 
@@ -105,9 +105,9 @@ export function ContactFormClient() {
       newErrors.email = t("form.validation.emailInvalid");
     }
 
-    if (!formData.phone.trim()) {
+    if (!compact && !formData.phone.trim()) {
       newErrors.phone = t("form.validation.phoneRequired");
-    } else {
+    } else if (!compact) {
       try {
         const parsePhoneNumberFromString = parsePhoneNumberRef.current;
         if (parsePhoneNumberFromString) {
@@ -133,18 +133,20 @@ export function ContactFormClient() {
       }
     }
 
-    if (!formData.preferredContactMethod.trim()) {
+    if (!compact && !formData.preferredContactMethod.trim()) {
       newErrors.preferredContactMethod = t(
         "form.validation.preferredContactMethodRequired",
       );
     }
 
     if (
+      !compact &&
       ["instagram", "telegram"].includes(formData.preferredContactMethod) &&
       !formData.social.trim()
     ) {
       newErrors.social = t("form.validation.socialRequired");
     } else if (
+      !compact &&
       formData.social.trim() &&
       !SOCIAL_HANDLE_PATTERN.test(formData.social.trim())
     ) {
@@ -283,23 +285,25 @@ export function ContactFormClient() {
               ) : null}
             </div>
 
-            <div>
-              <Label htmlFor="lastName" className="mb-2 block text-gray-900">
-                {t("form.lastNameLabel")}
-              </Label>
-              <Input
-                id="lastName"
-                name="lastName"
-                type="text"
-                value={formData.lastName}
-                onChange={handleChange}
-                className={`rounded-2xl border-gray-300 ${errors.lastName ? "border-red-500" : ""}`}
-                placeholder={t("form.lastNamePlaceholder")}
-              />
-              {errors.lastName ? (
-                <p className="mt-2 text-sm text-red-600">{errors.lastName}</p>
-              ) : null}
-            </div>
+            {!compact && (
+              <div>
+                <Label htmlFor="lastName" className="mb-2 block text-gray-900">
+                  {t("form.lastNameLabel")}
+                </Label>
+                <Input
+                  id="lastName"
+                  name="lastName"
+                  type="text"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  className={`rounded-2xl border-gray-300 ${errors.lastName ? "border-red-500" : ""}`}
+                  placeholder={t("form.lastNamePlaceholder")}
+                />
+                {errors.lastName ? (
+                  <p className="mt-2 text-sm text-red-600">{errors.lastName}</p>
+                ) : null}
+              </div>
+            )}
           </div>
 
           <div>
@@ -320,108 +324,114 @@ export function ContactFormClient() {
             ) : null}
           </div>
 
-          <div className="grid gap-4 md:grid-cols-2">
-            <div>
-              <Label className="mb-2 block text-gray-900">
-                {t("form.countryLabel")}
-              </Label>
-              <Select
-                value={formData.country}
-                onValueChange={handleCountryChange}
-              >
-                <SelectTrigger className="rounded-2xl border-gray-300">
-                  <SelectValue placeholder={t("form.countryPlaceholder")} />
-                </SelectTrigger>
-                <SelectContent>
-                  {CONTACT_COUNTRIES.map((country) => (
-                    <SelectItem key={country.code} value={country.code}>
-                      {`${t(`form.countries.${country.labelKey}`)} (${country.dialCode})`}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+          {!compact && (
+            <div className="grid gap-4 md:grid-cols-2">
+              <div>
+                <Label className="mb-2 block text-gray-900">
+                  {t("form.countryLabel")}
+                </Label>
+                <Select
+                  value={formData.country}
+                  onValueChange={handleCountryChange}
+                >
+                  <SelectTrigger className="rounded-2xl border-gray-300">
+                    <SelectValue placeholder={t("form.countryPlaceholder")} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {CONTACT_COUNTRIES.map((country) => (
+                      <SelectItem key={country.code} value={country.code}>
+                        {`${t(`form.countries.${country.labelKey}`)} (${country.dialCode})`}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
 
-            <div>
-              <Label htmlFor="phone" className="mb-2 block text-gray-900">
-                {t("form.phoneLabel")}
-              </Label>
-              <Input
-                id="phone"
-                name="phone"
-                type="tel"
-                value={formData.phone}
-                onChange={handlePhoneChange}
-                className={`rounded-2xl border-gray-300 ${errors.phone ? "border-red-500" : ""}`}
-                placeholder={t("form.phonePlaceholder", {
-                  countryCode:
-                    CONTACT_COUNTRIES.find(
-                      (country) => country.code === formData.country,
-                    )?.dialCode ?? "+380",
-                })}
-              />
-              {errors.phone ? (
-                <p className="mt-2 text-sm text-red-600">{errors.phone}</p>
-              ) : null}
-            </div>
-          </div>
-
-          <div>
-            <Label className="mb-2 block text-gray-900">
-              {t("form.preferredContactMethodLabel")}
-            </Label>
-            <Select
-              value={formData.preferredContactMethod}
-              onValueChange={handlePreferredContactMethodChange}
-            >
-              <SelectTrigger
-                className={`rounded-2xl border-gray-300 ${
-                  errors.preferredContactMethod ? "border-red-500" : ""
-                }`}
-              >
-                <SelectValue
-                  placeholder={t("form.preferredContactMethodPlaceholder")}
+              <div>
+                <Label htmlFor="phone" className="mb-2 block text-gray-900">
+                  {t("form.phoneLabel")}
+                </Label>
+                <Input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  value={formData.phone}
+                  onChange={handlePhoneChange}
+                  className={`rounded-2xl border-gray-300 ${errors.phone ? "border-red-500" : ""}`}
+                  placeholder={t("form.phonePlaceholder", {
+                    countryCode:
+                      CONTACT_COUNTRIES.find(
+                        (country) => country.code === formData.country,
+                      )?.dialCode ?? "+380",
+                  })}
                 />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="sms">
-                  {t("form.contactMethods.sms")}
-                </SelectItem>
-                <SelectItem value="instagram">
-                  {t("form.contactMethods.instagram")}
-                </SelectItem>
-                <SelectItem value="telegram">
-                  {t("form.contactMethods.telegram")}
-                </SelectItem>
-                <SelectItem value="phoneCall">
-                  {t("form.contactMethods.phoneCall")}
-                </SelectItem>
-              </SelectContent>
-            </Select>
-            {errors.preferredContactMethod ? (
-              <p className="mt-2 text-sm text-red-600">
-                {errors.preferredContactMethod}
-              </p>
-            ) : null}
-          </div>
+                {errors.phone ? (
+                  <p className="mt-2 text-sm text-red-600">{errors.phone}</p>
+                ) : null}
+              </div>
+            </div>
+          )}
 
-          <div>
-            <Label htmlFor="social" className="mb-2 block text-gray-900">
-              {t("form.socialLabel")}
-            </Label>
-            <Input
-              id="social"
-              name="social"
-              type="text"
-              value={formData.social}
-              onChange={handleChange}
-              className={`rounded-2xl border-gray-300 ${errors.social ? "border-red-500" : ""}`}
-              placeholder={t("form.socialPlaceholder")}
-            />
-            {errors.social ? (
-              <p className="mt-2 text-sm text-red-600">{errors.social}</p>
-            ) : null}
-          </div>
+          {!compact && (
+            <>
+              <div>
+                <Label className="mb-2 block text-gray-900">
+                  {t("form.preferredContactMethodLabel")}
+                </Label>
+                <Select
+                  value={formData.preferredContactMethod}
+                  onValueChange={handlePreferredContactMethodChange}
+                >
+                  <SelectTrigger
+                    className={`rounded-2xl border-gray-300 ${
+                      errors.preferredContactMethod ? "border-red-500" : ""
+                    }`}
+                  >
+                    <SelectValue
+                      placeholder={t("form.preferredContactMethodPlaceholder")}
+                    />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="sms">
+                      {t("form.contactMethods.sms")}
+                    </SelectItem>
+                    <SelectItem value="instagram">
+                      {t("form.contactMethods.instagram")}
+                    </SelectItem>
+                    <SelectItem value="telegram">
+                      {t("form.contactMethods.telegram")}
+                    </SelectItem>
+                    <SelectItem value="phoneCall">
+                      {t("form.contactMethods.phoneCall")}
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+                {errors.preferredContactMethod ? (
+                  <p className="mt-2 text-sm text-red-600">
+                    {errors.preferredContactMethod}
+                  </p>
+                ) : null}
+              </div>
+
+              <div>
+                <Label htmlFor="social" className="mb-2 block text-gray-900">
+                  {t("form.socialLabel")}
+                </Label>
+                <Input
+                  id="social"
+                  name="social"
+                  type="text"
+                  value={formData.social}
+                  onChange={handleChange}
+                  className={`rounded-2xl border-gray-300 ${errors.social ? "border-red-500" : ""}`}
+                  placeholder={t("form.socialPlaceholder")}
+                />
+                {errors.social ? (
+                  <p className="mt-2 text-sm text-red-600">{errors.social}</p>
+                ) : null}
+              </div>
+            </>
+          )}
 
           <div>
             <Label htmlFor="message" className="mb-2 block text-gray-900">
