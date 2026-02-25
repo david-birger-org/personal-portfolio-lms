@@ -9,12 +9,6 @@ import { cn } from "@/lib/utils";
 export async function Hero({ locale }: { locale: string }) {
   const t = await getTranslations("hero");
 
-  const stats = [
-    { number: "300+", label: t("stats.clients"), key: "clients" },
-    { number: "10+", label: t("stats.experience"), key: "experience" },
-    { number: "98%", label: t("stats.success"), key: "success" },
-  ];
-
   return (
     <section
       id="home"
@@ -44,62 +38,48 @@ export async function Hero({ locale }: { locale: string }) {
       <div className="container relative z-10 mx-auto min-h-svh px-4 pb-24 sm:px-6 sm:pb-20 md:max-h-[1420px] lg:px-8">
         <div
           className={cn(
-            "mx-auto mt-[34vh] text-center sm:mt-[42vh] md:mx-0 md:mt-[24vh] md:text-left lg:mt-[22vh]",
+            "mt-[39vh] text-center sm:mt-[45vh] md:mt-[20vh] md:flex md:min-h-[52svh] md:flex-col md:justify-center md:gap-6 md:text-left",
             locale === "ua"
               ? "max-w-5xl md:max-w-4xl"
               : "max-w-4xl md:max-w-3xl",
           )}
         >
-          <div className="mb-3 mx-auto w-fit rounded-full border border-white/20 bg-white/10 px-5 py-2 text-xs font-medium text-white backdrop-blur-md sm:mb-4 sm:text-sm md:mx-0">
-            {t("badge")}
-          </div>
+          <div>
+            <div className="mb-3 mx-auto w-fit rounded-full border border-white/20 bg-white/10 px-5 py-2 text-xs font-medium text-white backdrop-blur-md sm:mb-4 sm:text-sm md:mx-0">
+              {t("badge")}
+            </div>
 
-          <h1
-            className={cn(
-              "font-ermilov mb-4 mx-auto flex w-full flex-col items-center text-center leading-[0.95] tracking-tight text-white sm:mb-5 md:mx-0 md:items-start md:text-left",
-              locale === "ua"
-                ? "text-2xl sm:text-4xl md:text-3xl lg:text-5xl xl:text-5xl 2xl:text-6xl [@media(min-width:1024px)_and_(max-width:1199px)_and_(max-height:800px)]:text-[2.25rem] [@media(min-width:1200px)_and_(max-height:800px)]:text-4xl"
-                : "text-3xl sm:text-4xl md:text-3xl lg:text-5xl xl:text-5xl 2xl:text-6xl [@media(min-width:1024px)_and_(max-width:1199px)_and_(max-height:800px)]:text-[2.25rem] [@media(min-width:1200px)_and_(max-height:800px)]:text-4xl",
-            )}
-          >
-            <span className="block whitespace-nowrap">{t("titleLine1")}</span>
-            <span className="block whitespace-nowrap">{t("titleLine2")}</span>
-          </h1>
-
-          <p className="mb-5 mx-auto max-w-none px-2 text-base leading-snug text-white/80 sm:mb-7 sm:max-w-2xl sm:px-0 sm:text-lg sm:leading-relaxed md:mx-0 md:max-w-xl md:text-sm md:leading-relaxed md:text-left lg:max-w-2xl lg:text-lg [@media(min-width:1024px)_and_(max-width:1199px)_and_(max-height:800px)]:text-xs [@media(min-width:1200px)_and_(max-height:800px)]:text-base">
-            {t("subtitle")}
-          </p>
-
-          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row md:justify-start">
-            <Button
-              asChild
-              size="lg"
-              className="bg-yellow-400 text-gray-950 shadow-lg hover:bg-yellow-300 hover:shadow-xl"
+            <h1
+              className={cn(
+                "font-ermilov mb-4 flex w-full flex-col items-center text-center leading-[0.95] tracking-tight text-white sm:mb-5 md:items-start md:text-left",
+                locale === "ua"
+                  ? "text-2xl sm:text-4xl md:text-3xl lg:text-5xl xl:text-5xl 2xl:text-6xl [@media(min-width:1024px)_and_(max-width:1199px)_and_(max-height:800px)]:text-[2.25rem] [@media(min-width:1200px)_and_(max-height:800px)]:text-4xl"
+                  : "text-3xl sm:text-4xl md:text-3xl lg:text-5xl xl:text-5xl 2xl:text-6xl [@media(min-width:1024px)_and_(max-width:1199px)_and_(max-height:800px)]:text-[2.25rem] [@media(min-width:1200px)_and_(max-height:800px)]:text-4xl",
+              )}
             >
-              <Link href={CONTACT_FORM_HREF}>
-                {t("ctaText")}
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
-            </Button>
-          </div>
+              <span className="block whitespace-nowrap">{t("titleLine1")}</span>
+              <span className="block whitespace-nowrap">{t("titleLine2")}</span>
+            </h1>
 
-          <div className="mx-auto mt-8 grid max-w-3xl grid-cols-3 gap-3 sm:mt-16 sm:gap-6 md:mx-0 md:mt-10 md:max-w-xl md:gap-3 lg:mt-16 lg:max-w-2xl lg:gap-6">
-            {stats.map((stat) => (
-              <div
-                key={stat.key}
-                className="rounded-2xl border border-white/20 bg-white/10 p-4 text-center backdrop-blur-md sm:p-6 md:p-3.5 lg:p-6"
+            <p className="mb-5 max-w-none px-2 text-base leading-snug text-white/80 sm:mb-7 sm:max-w-2xl sm:px-0 sm:text-lg sm:leading-relaxed md:max-w-xl md:text-sm md:leading-relaxed lg:max-w-2xl lg:text-lg [@media(min-width:1024px)_and_(max-width:1199px)_and_(max-height:800px)]:text-xs [@media(min-width:1200px)_and_(max-height:800px)]:text-base">
+              {t("subtitle")}
+            </p>
+
+            <div className="flex flex-col items-center justify-center gap-4 sm:flex-row md:items-start md:justify-start">
+              <Button
+                asChild
+                size="lg"
+                className="border border-white/65 bg-white/20 text-white shadow-[0_14px_36px_-18px_rgba(2,6,23,0.8)] backdrop-blur-md hover:bg-white/30 hover:shadow-[0_18px_44px_-20px_rgba(2,6,23,0.85)]"
               >
-                <div className="mb-1 text-3xl font-semibold text-white sm:text-4xl md:text-3xl lg:text-5xl [@media(min-width:1024px)_and_(max-width:1199px)_and_(max-height:800px)]:text-3xl [@media(min-width:1200px)_and_(max-height:800px)]:text-4xl">
-                  {stat.number}
-                </div>
-                <div className="text-sm text-white/70 md:text-xs lg:text-sm [@media(min-width:1024px)_and_(max-width:1199px)_and_(max-height:800px)]:text-[11px] [@media(min-width:1200px)_and_(max-height:800px)]:text-xs">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
+                <Link href={CONTACT_FORM_HREF}>
+                  {t("ctaText")}
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Link>
+              </Button>
+            </div>
           </div>
 
-          <p className="mx-auto mt-6 max-w-2xl px-2 text-sm font-medium tracking-wide text-white/85 sm:px-0 sm:text-base md:mx-0 md:max-w-xl md:text-sm md:text-left lg:max-w-2xl lg:text-base [@media(min-width:1024px)_and_(max-width:1199px)_and_(max-height:800px)]:text-xs [@media(min-width:1200px)_and_(max-height:800px)]:text-sm">
+          <p className="mt-6 max-w-2xl px-2 text-sm font-medium tracking-wide text-white/85 sm:px-0 sm:text-base md:mt-0 md:max-w-xl md:text-sm lg:max-w-2xl lg:text-base [@media(min-width:1024px)_and_(max-width:1199px)_and_(max-height:800px)]:text-xs [@media(min-width:1200px)_and_(max-height:800px)]:text-sm">
             {t("motivation")}
           </p>
         </div>
