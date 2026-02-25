@@ -2,6 +2,7 @@ import { Facebook, Instagram, Mail, Twitter, Youtube } from "lucide-react";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 
+import { CONTACT_FORM_HREF, SERVICES_SECTION_HREF } from "@/constants/links";
 import { Link } from "@/i18n/routing";
 
 export async function Footer() {
@@ -10,16 +11,25 @@ export async function Footer() {
 
   const footerLinks: Record<string, Array<{ name: string; href: string }>> = {
     [t("servicesLinks.title")]: [
-      { name: t("servicesLinks.personalTraining"), href: "/services" },
-      { name: t("servicesLinks.onlineCoaching"), href: "/services" },
-      { name: t("servicesLinks.nutritionPlanning"), href: "/services" },
-      { name: t("servicesLinks.transformationPrograms"), href: "/services" },
+      {
+        name: t("servicesLinks.personalTraining"),
+        href: SERVICES_SECTION_HREF,
+      },
+      { name: t("servicesLinks.onlineCoaching"), href: SERVICES_SECTION_HREF },
+      {
+        name: t("servicesLinks.nutritionPlanning"),
+        href: SERVICES_SECTION_HREF,
+      },
+      {
+        name: t("servicesLinks.transformationPrograms"),
+        href: SERVICES_SECTION_HREF,
+      },
     ],
     [t("navigation.title")]: [
       { name: t("navigation.home"), href: "/#home" },
       { name: t("navigation.about"), href: "/about" },
-      { name: t("navigation.services"), href: "/services" },
-      { name: t("navigation.contact"), href: "/contact" },
+      { name: t("navigation.services"), href: SERVICES_SECTION_HREF },
+      { name: t("navigation.contact"), href: CONTACT_FORM_HREF },
     ],
   };
 

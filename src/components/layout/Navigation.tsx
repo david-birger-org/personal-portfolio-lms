@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { LanguageSwitcherClient } from "@/components/layout/LanguageSwitcherClient";
 import { MobileSidebar } from "@/components/layout/MobileSidebar";
 import { Button } from "@/components/ui/button";
-import { CONTACT_FORM_HREF } from "@/constants/links";
+import { CONTACT_FORM_HREF, SERVICES_SECTION_HREF } from "@/constants/links";
 import type { Locale } from "@/i18n/config";
 import { Link } from "@/i18n/routing";
 
@@ -18,16 +18,18 @@ export async function Navigation({ locale }: { locale: Locale }) {
   const menuItems = [
     { name: t("home"), href: "/#home" },
     { name: t("about"), href: "/about" },
-    { name: t("services"), href: "/services" },
-    { name: t("contact"), href: "/contact" },
+    { name: t("services"), href: SERVICES_SECTION_HREF },
+    { name: t("contact"), href: CONTACT_FORM_HREF },
   ];
 
   const breadcrumbSections = [
     { id: "home", label: t("home") },
-    { id: "journey", label: tJourney("tag") },
     { id: "about", label: t("about") },
+    { id: "journey", label: tJourney("tag") },
+    { id: "services", label: t("services") },
     { id: "testimonials", label: tTestimonials("tag") },
     { id: "cta", label: tCTA("tag") },
+    { id: "contact", label: t("contact") },
   ];
 
   return (
