@@ -12,10 +12,10 @@ const SECTION_HEADINGS: Record<BiographyLocale, string[]> = {
     "Childhood",
     "Adolescence",
     "Beginning in the Gym",
-    "Interest in Bodybuilding and First Competitions",
-    "Development of Natural Bodybuilding in Ukraine",
+    "Bodybuilding Debut",
+    "The Formation of Natural Bodybuilding in Ukraine",
     "Earning WNBF Pro Status and the First International Tournament",
-    "Path of Neptune",
+    "Neptune’s Way",
     "Memorable 2025 Competitive Season",
   ],
   ua: [
