@@ -32,23 +32,17 @@
     "tag": "ABOUT ME",
     "title": "Dedicated to Your",
     "titleAccent": "Success",
-    "description": "My journey spans from kickboxing at age 6 to President of WNBF Ukraine, WNBF Pro athlete, and Vice World Champion. I combine elite competition experience, the Path of Neptune philosophy, and practical coaching that delivers measurable outcomes.",
+    "description": "From kickboxing at age 6 to President of WNBF Ukraine, WNBF Pro, and Vice World Champion. I combine competitive experience, the Path of Neptune philosophy, and practical coaching for real results.",
     "readFullBiography": "Read Full Biography",
     "achievements": [
       {
-        "name": "President of WNBF Ukraine (since 2021)"
+        "name": "Organizer of international tournaments in Ukraine, including \"Path of Neptune\""
       },
       {
-        "name": "WNBF Vice World Champion in Bodybuilding (2023) and Classic Physique (2025)"
+        "name": "WNBF Vice World Champion in the Bodybuilding and Classic Physique categories"
       },
       {
-        "name": "WNBF Pro athlete in two divisions: Bodybuilding and Classic Physique"
-      },
-      {
-        "name": "Organizer of international natural bodybuilding tournaments in Ukraine, including “Path of Neptune”"
-      },
-      {
-        "name": "20+ years in sport and coaching practice since 2016"
+        "name": "WNBF Pro in two categories: Bodybuilding and Classic Physique"
       }
     ],
     "stats": {
@@ -131,6 +125,22 @@
     ],
     "includesLabel": "Includes",
     "forWhoLabel": "Who it is for",
+    "inquiry": {
+      "title": "Send a Request",
+      "nameLabel": "Your Name",
+      "namePlaceholder": "Enter your name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "Enter your email",
+      "phoneLabel": "Phone Number",
+      "phonePlaceholder": "Enter your phone number",
+      "sendButton": "Send Request",
+      "sendingButton": "Sending...",
+      "successMessage": "Thanks! Your request was sent. I will contact you soon.",
+      "errorMessage": "Could not send your request right now. Please try again.",
+      "invalidEmailMessage": "Enter a valid email",
+      "invalidPhoneMessage": "Enter a valid phone number",
+      "atLeastOneContactMessage": "Fill in at least email or phone"
+    },
     "process": {
       "title": "How It Works",
       "description": "A clear three-step process built for consistency, progress, and long-term results.",
@@ -218,11 +228,13 @@
         "emailInvalid": "Please enter a valid email",
         "phoneRequired": "Phone number is required",
         "phoneInvalid": "Please enter a valid phone number",
+        "atLeastOneContactRequired": "Please provide at least email or phone number",
         "preferredContactMethodRequired": "Please select a preferred contact method",
         "socialRequired": "Social handle is required for Instagram or Telegram",
         "socialInvalid": "Use 2-32 characters: letters, numbers, dot, underscore",
         "messageRequired": "Message is required",
-        "messageMinLength": "Message must be at least 10 characters"
+        "messageMinLength": "Message must be at least 10 characters",
+        "submitFailed": "Failed to send your message. Please try again."
       },
       "success": {
         "title": "Message Sent!",

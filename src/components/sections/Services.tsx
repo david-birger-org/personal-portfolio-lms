@@ -1,17 +1,7 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { SectionHeader } from "@/components/sections/SectionHeader";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { CONTACT_FORM_HREF } from "@/constants/links";
-import { Link } from "@/i18n/routing";
+import { ServiceCardDialog } from "@/components/sections/ServiceCardDialog";
 import { cn } from "@/lib/utils";
 
 export async function Services() {
@@ -44,6 +34,24 @@ export async function Services() {
     features: string[];
     forWho?: string[];
   }>;
+  const dialogLabels = {
+    includesLabel: t("includesLabel"),
+    forWhoLabel: t("forWhoLabel"),
+    inquiryTitle: t("inquiry.title"),
+    nameLabel: t("inquiry.nameLabel"),
+    namePlaceholder: t("inquiry.namePlaceholder"),
+    emailLabel: t("inquiry.emailLabel"),
+    emailPlaceholder: t("inquiry.emailPlaceholder"),
+    phoneLabel: t("inquiry.phoneLabel"),
+    phonePlaceholder: t("inquiry.phonePlaceholder"),
+    sendButton: t("inquiry.sendButton"),
+    sendingButton: t("inquiry.sendingButton"),
+    successMessage: t("inquiry.successMessage"),
+    errorMessage: t("inquiry.errorMessage"),
+    invalidEmailMessage: t("inquiry.invalidEmailMessage"),
+    invalidPhoneMessage: t("inquiry.invalidPhoneMessage"),
+    atLeastOneContactMessage: t("inquiry.atLeastOneContactMessage"),
+  };
   const getPreview = (description: string) => {
     const firstPart = description.split(/[.!?]/)[0]?.trim();
 
@@ -75,8 +83,15 @@ export async function Services() {
               items.length % 2 === 1 && index === items.length - 1;
 
             return (
-              <Dialog key={item.title}>
-                <DialogTrigger asChild>
+              <ServiceCardDialog
+                key={item.title}
+                id={`service-${index}`}
+                title={item.title}
+                description={item.description}
+                features={item.features}
+                forWho={item.forWho}
+                labels={dialogLabels}
+                trigger={
                   <button
                     type="button"
                     className={cn(
@@ -108,64 +123,8 @@ export async function Services() {
                       </span>
                     </div>
                   </button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-2xl">
-                  <div className="space-y-4">
-                    <DialogHeader className="gap-3 border-b border-slate-200/80 pb-4 pr-10">
-                      <DialogTitle className="text-xl tracking-tight text-slate-900 sm:text-2xl">
-                        {item.title}
-                      </DialogTitle>
-                      <DialogDescription className="text-sm leading-relaxed text-slate-600 sm:text-base">
-                        {item.description}
-                      </DialogDescription>
-                    </DialogHeader>
-
-                    <div className="max-h-[52vh] space-y-4 overflow-y-auto py-1 pr-1">
-                      <div className="rounded-2xl border border-slate-200/80 bg-white/85 p-4 sm:p-5">
-                        <h4 className="mb-3 text-xs font-semibold tracking-[0.14em] text-slate-500 uppercase">
-                          {t("includesLabel")}
-                        </h4>
-                        <ul className="space-y-2.5">
-                          {item.features.map((feature) => (
-                            <li
-                              key={`${item.title}-${feature}`}
-                              className="flex items-start gap-2 text-sm leading-relaxed text-slate-700"
-                            >
-                              <span className="mt-2 h-1.5 w-1.5 rounded-full bg-slate-400" />
-                              <span>{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      {item.forWho?.length ? (
-                        <div className="rounded-2xl border border-slate-200/80 bg-slate-50/70 p-4 sm:p-5">
-                          <h4 className="mb-3 text-xs font-semibold tracking-[0.14em] text-slate-500 uppercase">
-                            {t("forWhoLabel")}
-                          </h4>
-                          <ul className="space-y-2.5">
-                            {item.forWho.map((audience) => (
-                              <li
-                                key={`${item.title}-${audience}`}
-                                className="flex items-start gap-2 text-sm leading-relaxed text-slate-700"
-                              >
-                                <span className="mt-2 h-1.5 w-1.5 rounded-full bg-slate-400" />
-                                <span>{audience}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ) : null}
-                    </div>
-
-                    <div className="border-t border-slate-200/80 pt-4">
-                      <Button asChild className="w-full">
-                        <Link href={CONTACT_FORM_HREF}>{t("process.cta")}</Link>
-                      </Button>
-                    </div>
-                  </div>
-                </DialogContent>
-              </Dialog>
+                }
+              />
             );
           })}
         </div>

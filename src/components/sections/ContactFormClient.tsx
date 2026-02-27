@@ -2,91 +2,34 @@
 
 import { CheckCircle2, Send } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { CONTACT_FORM_ID } from "@/constants/links";
 
-const CONTACT_COUNTRIES = [
-  { code: "UA", dialCode: "+380", labelKey: "ua" },
-  { code: "US", dialCode: "+1", labelKey: "us" },
-  { code: "PL", dialCode: "+48", labelKey: "pl" },
-  { code: "DE", dialCode: "+49", labelKey: "de" },
-] as const;
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-type CountryCode = (typeof CONTACT_COUNTRIES)[number]["code"];
+function isPhoneValid(value: string) {
+  return value.replace(/\D/g, "").length >= 7;
+}
 
-const SOCIAL_HANDLE_PATTERN = /^@?[a-zA-Z0-9._]{2,32}$/;
-
-type PhoneNumberParser = (
-  phone: string,
-  country?: CountryCode,
-) =>
-  | {
-      isValid: () => boolean;
-    }
-  | undefined;
-
-export function ContactFormClient({ compact = false }: { compact?: boolean }) {
+export function ContactFormClient({
+  compact: _compact = false,
+}: {
+  compact?: boolean;
+}) {
   const t = useTranslations("contact");
   const [formData, setFormData] = useState({
     firstName: "",
-    lastName: "",
     email: "",
-    country: "UA" as CountryCode,
     phone: "",
-    preferredContactMethod: "",
-    social: "",
     message: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const parsePhoneNumberRef = useRef<PhoneNumberParser | null>(null);
-
-  useEffect(() => {
-    const idleScheduler = globalThis as typeof globalThis & {
-      requestIdleCallback?: (
-        callback: () => void,
-        options?: { timeout?: number },
-      ) => number;
-      cancelIdleCallback?: (handle: number) => void;
-    };
-
-    const loadPhoneParser = () => {
-      void import("libphonenumber-js/min")
-        .then((module) => {
-          parsePhoneNumberRef.current = module.parsePhoneNumberFromString;
-        })
-        .catch(() => {
-          parsePhoneNumberRef.current = null;
-        });
-    };
-
-    if (idleScheduler.requestIdleCallback && idleScheduler.cancelIdleCallback) {
-      const idleId = idleScheduler.requestIdleCallback(loadPhoneParser, {
-        timeout: 1200,
-      });
-
-      return () => {
-        idleScheduler.cancelIdleCallback?.(idleId);
-      };
-    }
-
-    const timeoutId = window.setTimeout(loadPhoneParser, 300);
-    return () => {
-      window.clearTimeout(timeoutId);
-    };
-  }, []);
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -95,62 +38,16 @@ export function ContactFormClient({ compact = false }: { compact?: boolean }) {
       newErrors.firstName = t("form.validation.firstNameRequired");
     }
 
-    if (!compact && !formData.lastName.trim()) {
-      newErrors.lastName = t("form.validation.lastNameRequired");
-    }
-
-    if (!formData.email.trim()) {
-      newErrors.email = t("form.validation.emailRequired");
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    if (formData.email.trim() && !EMAIL_PATTERN.test(formData.email.trim())) {
       newErrors.email = t("form.validation.emailInvalid");
     }
 
-    if (!compact && !formData.phone.trim()) {
-      newErrors.phone = t("form.validation.phoneRequired");
-    } else if (!compact) {
-      try {
-        const parsePhoneNumberFromString = parsePhoneNumberRef.current;
-        if (parsePhoneNumberFromString) {
-          const parsed = parsePhoneNumberFromString(
-            formData.phone,
-            formData.country,
-          );
-
-          if (!parsed?.isValid()) {
-            newErrors.phone = t("form.validation.phoneInvalid");
-          }
-        } else {
-          const digits = formData.phone.replace(/\D/g, "");
-          if (digits.length < 8) {
-            newErrors.phone = t("form.validation.phoneInvalid");
-          }
-        }
-      } catch {
-        const digits = formData.phone.replace(/\D/g, "");
-        if (digits.length < 8) {
-          newErrors.phone = t("form.validation.phoneInvalid");
-        }
-      }
+    if (formData.phone.trim() && !isPhoneValid(formData.phone.trim())) {
+      newErrors.phone = t("form.validation.phoneInvalid");
     }
 
-    if (!compact && !formData.preferredContactMethod.trim()) {
-      newErrors.preferredContactMethod = t(
-        "form.validation.preferredContactMethodRequired",
-      );
-    }
-
-    if (
-      !compact &&
-      ["instagram", "telegram"].includes(formData.preferredContactMethod) &&
-      !formData.social.trim()
-    ) {
-      newErrors.social = t("form.validation.socialRequired");
-    } else if (
-      !compact &&
-      formData.social.trim() &&
-      !SOCIAL_HANDLE_PATTERN.test(formData.social.trim())
-    ) {
-      newErrors.social = t("form.validation.socialInvalid");
+    if (!formData.email.trim() && !formData.phone.trim()) {
+      newErrors.contact = t("form.validation.atLeastOneContactRequired");
     }
 
     if (!formData.message.trim()) {
@@ -163,8 +60,8 @@ export function ContactFormClient({ compact = false }: { compact?: boolean }) {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
 
     if (!validateForm()) {
       return;
@@ -172,82 +69,65 @@ export function ContactFormClient({ compact = false }: { compact?: boolean }) {
 
     setIsSubmitting(true);
 
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName: formData.firstName.trim(),
+          email: formData.email.trim(),
+          phone: formData.phone.trim(),
+          message: formData.message.trim(),
+        }),
+      });
 
-    setIsSubmitting(false);
-    setIsSuccess(true);
+      if (!response.ok) {
+        throw new Error("Failed to submit contact form");
+      }
 
-    setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      country: "UA",
-      phone: "",
-      preferredContactMethod: "",
-      social: "",
-      message: "",
-    });
+      setIsSuccess(true);
+      setFormData({
+        firstName: "",
+        email: "",
+        phone: "",
+        message: "",
+      });
 
-    setTimeout(() => {
-      setIsSuccess(false);
-    }, 5000);
+      setTimeout(() => {
+        setIsSuccess(false);
+      }, 5000);
+    } catch {
+      setErrors({ form: t("form.validation.submitFailed") });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
-    const { name, value } = e.target;
+    const { name, value } = event.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    if (errors[name]) {
+    if (errors[name] || errors.contact || errors.form) {
       setErrors((prev) => {
         const nextErrors = { ...prev };
         delete nextErrors[name];
+        delete nextErrors.contact;
+        delete nextErrors.form;
         return nextErrors;
       });
     }
   };
 
-  const handlePreferredContactMethodChange = (value: string) => {
-    setFormData((prev) => ({ ...prev, preferredContactMethod: value }));
-    if (errors.preferredContactMethod) {
-      setErrors((prev) => {
-        const nextErrors = { ...prev };
-        delete nextErrors.preferredContactMethod;
-        return nextErrors;
-      });
-    }
-  };
-
-  const handleCountryChange = (value: string) => {
-    const country = value as CountryCode;
-
-    setFormData((prev) => ({
-      ...prev,
-      country,
-      phone: prev.phone,
-    }));
-
-    if (errors.phone) {
-      setErrors((prev) => {
-        const nextErrors = { ...prev };
-        delete nextErrors.phone;
-        return nextErrors;
-      });
-    }
-  };
-
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const sanitized = e.target.value.replace(/[^\d+()\-\s]/g, "");
-    setFormData((prev) => ({ ...prev, phone: sanitized }));
-
-    if (errors.phone) {
-      setErrors((prev) => {
-        const nextErrors = { ...prev };
-        delete nextErrors.phone;
-        return nextErrors;
-      });
-    }
-  };
+  const hasAnyContact =
+    formData.email.trim().length > 0 || formData.phone.trim().length > 0;
+  const canSubmit =
+    formData.firstName.trim().length > 0 &&
+    formData.message.trim().length >= 10 &&
+    hasAnyContact &&
+    !isSubmitting;
 
   return (
     <div
@@ -266,172 +146,67 @@ export function ContactFormClient({ compact = false }: { compact?: boolean }) {
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid gap-4 md:grid-cols-2">
-            <div>
-              <Label htmlFor="firstName" className="mb-2 block text-gray-900">
-                {t("form.firstNameLabel")}
-              </Label>
-              <Input
-                id="firstName"
-                name="firstName"
-                type="text"
-                value={formData.firstName}
-                onChange={handleChange}
-                className={`rounded-2xl border-gray-300 ${errors.firstName ? "border-red-500" : ""}`}
-                placeholder={t("form.firstNamePlaceholder")}
-              />
-              {errors.firstName ? (
-                <p className="mt-2 text-sm text-red-600">{errors.firstName}</p>
-              ) : null}
-            </div>
-
-            {!compact && (
-              <div>
-                <Label htmlFor="lastName" className="mb-2 block text-gray-900">
-                  {t("form.lastNameLabel")}
-                </Label>
-                <Input
-                  id="lastName"
-                  name="lastName"
-                  type="text"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  className={`rounded-2xl border-gray-300 ${errors.lastName ? "border-red-500" : ""}`}
-                  placeholder={t("form.lastNamePlaceholder")}
-                />
-                {errors.lastName ? (
-                  <p className="mt-2 text-sm text-red-600">{errors.lastName}</p>
-                ) : null}
-              </div>
-            )}
-          </div>
-
           <div>
-            <Label htmlFor="email" className="mb-2 block text-gray-900">
-              {t("form.emailLabel")}
+            <Label htmlFor="firstName" className="mb-2 block text-gray-900">
+              {t("form.firstNameLabel")}
             </Label>
             <Input
-              id="email"
-              name="email"
-              type="email"
-              value={formData.email}
+              id="firstName"
+              name="firstName"
+              type="text"
+              value={formData.firstName}
               onChange={handleChange}
-              className={`rounded-2xl border-gray-300 ${errors.email ? "border-red-500" : ""}`}
-              placeholder={t("form.emailPlaceholder")}
+              className={`rounded-2xl border-gray-300 ${errors.firstName ? "border-red-500" : ""}`}
+              placeholder={t("form.firstNamePlaceholder")}
             />
-            {errors.email ? (
-              <p className="mt-2 text-sm text-red-600">{errors.email}</p>
+            {errors.firstName ? (
+              <p className="mt-2 text-sm text-red-600">{errors.firstName}</p>
             ) : null}
           </div>
 
-          {!compact && (
-            <div className="grid gap-4 md:grid-cols-2">
-              <div>
-                <Label className="mb-2 block text-gray-900">
-                  {t("form.countryLabel")}
-                </Label>
-                <Select
-                  value={formData.country}
-                  onValueChange={handleCountryChange}
-                >
-                  <SelectTrigger className="rounded-2xl border-gray-300">
-                    <SelectValue placeholder={t("form.countryPlaceholder")} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {CONTACT_COUNTRIES.map((country) => (
-                      <SelectItem key={country.code} value={country.code}>
-                        {`${t(`form.countries.${country.labelKey}`)} (${country.dialCode})`}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div>
-                <Label htmlFor="phone" className="mb-2 block text-gray-900">
-                  {t("form.phoneLabel")}
-                </Label>
-                <Input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={handlePhoneChange}
-                  className={`rounded-2xl border-gray-300 ${errors.phone ? "border-red-500" : ""}`}
-                  placeholder={t("form.phonePlaceholder", {
-                    countryCode:
-                      CONTACT_COUNTRIES.find(
-                        (country) => country.code === formData.country,
-                      )?.dialCode ?? "+380",
-                  })}
-                />
-                {errors.phone ? (
-                  <p className="mt-2 text-sm text-red-600">{errors.phone}</p>
-                ) : null}
-              </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            <div>
+              <Label htmlFor="email" className="mb-2 block text-gray-900">
+                {t("form.emailLabel")}
+              </Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+                className={`rounded-2xl border-gray-300 ${errors.email ? "border-red-500" : ""}`}
+                placeholder={t("form.emailPlaceholder")}
+              />
+              {errors.email ? (
+                <p className="mt-2 text-sm text-red-600">{errors.email}</p>
+              ) : null}
             </div>
-          )}
 
-          {!compact && (
-            <>
-              <div>
-                <Label className="mb-2 block text-gray-900">
-                  {t("form.preferredContactMethodLabel")}
-                </Label>
-                <Select
-                  value={formData.preferredContactMethod}
-                  onValueChange={handlePreferredContactMethodChange}
-                >
-                  <SelectTrigger
-                    className={`rounded-2xl border-gray-300 ${
-                      errors.preferredContactMethod ? "border-red-500" : ""
-                    }`}
-                  >
-                    <SelectValue
-                      placeholder={t("form.preferredContactMethodPlaceholder")}
-                    />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="sms">
-                      {t("form.contactMethods.sms")}
-                    </SelectItem>
-                    <SelectItem value="instagram">
-                      {t("form.contactMethods.instagram")}
-                    </SelectItem>
-                    <SelectItem value="telegram">
-                      {t("form.contactMethods.telegram")}
-                    </SelectItem>
-                    <SelectItem value="phoneCall">
-                      {t("form.contactMethods.phoneCall")}
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-                {errors.preferredContactMethod ? (
-                  <p className="mt-2 text-sm text-red-600">
-                    {errors.preferredContactMethod}
-                  </p>
-                ) : null}
-              </div>
+            <div>
+              <Label htmlFor="phone" className="mb-2 block text-gray-900">
+                {t("form.phoneLabel")}
+              </Label>
+              <Input
+                id="phone"
+                name="phone"
+                type="tel"
+                value={formData.phone}
+                onChange={handleChange}
+                className={`rounded-2xl border-gray-300 ${errors.phone ? "border-red-500" : ""}`}
+                placeholder={t("form.phonePlaceholder", {
+                  countryCode: "+380",
+                })}
+              />
+              {errors.phone ? (
+                <p className="mt-2 text-sm text-red-600">{errors.phone}</p>
+              ) : null}
+            </div>
+          </div>
 
-              <div>
-                <Label htmlFor="social" className="mb-2 block text-gray-900">
-                  {t("form.socialLabel")}
-                </Label>
-                <Input
-                  id="social"
-                  name="social"
-                  type="text"
-                  value={formData.social}
-                  onChange={handleChange}
-                  className={`rounded-2xl border-gray-300 ${errors.social ? "border-red-500" : ""}`}
-                  placeholder={t("form.socialPlaceholder")}
-                />
-                {errors.social ? (
-                  <p className="mt-2 text-sm text-red-600">{errors.social}</p>
-                ) : null}
-              </div>
-            </>
-          )}
+          {errors.contact ? (
+            <p className="text-sm text-red-600">{errors.contact}</p>
+          ) : null}
 
           <div>
             <Label htmlFor="message" className="mb-2 block text-gray-900">
@@ -455,7 +230,7 @@ export function ContactFormClient({ compact = false }: { compact?: boolean }) {
           <Button
             size="lg"
             type="submit"
-            disabled={isSubmitting}
+            disabled={!canSubmit}
             className="w-full disabled:cursor-not-allowed"
           >
             {isSubmitting ? (
@@ -470,6 +245,10 @@ export function ContactFormClient({ compact = false }: { compact?: boolean }) {
               </>
             )}
           </Button>
+
+          {errors.form ? (
+            <p className="text-sm text-red-600">{errors.form}</p>
+          ) : null}
         </form>
       )}
     </div>
