@@ -29,7 +29,7 @@ export async function Hero({ locale }: { locale: string }) {
           fill
           priority
           sizes="(min-width: 768px) 100vw"
-          className="hidden object-cover object-right md:block [@media(min-width:768px)_and_(max-height:1420px)]:object-contain [@media(min-width:768px)_and_(max-height:1420px)]:object-right"
+          className="hidden object-contain object-right md:block"
         />
         <div className="absolute inset-0 bg-linear-to-b from-black/60 via-black/35 to-black/75" />
         <div className="absolute inset-0 bg-linear-to-r from-black/65 via-black/25 to-black/45 lg:from-black/75 lg:via-black/30 lg:to-black/35" />
