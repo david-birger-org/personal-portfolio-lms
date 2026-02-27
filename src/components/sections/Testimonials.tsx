@@ -108,25 +108,6 @@ export async function Testimonials() {
             </div>
           ))}
         </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-24 max-w-5xl mx-auto">
-          {[
-            { number: "500+", label: t("stats.clients"), key: "clients" },
-            { number: "98%", label: t("stats.success"), key: "success" },
-            { number: "10K+", label: t("stats.workouts"), key: "workouts" },
-            { number: "4.9/5", label: t("stats.rating"), key: "rating" },
-          ].map((stat) => (
-            <div
-              key={stat.key}
-              className="text-center p-8 bg-gray-50 border border-gray-200 rounded-3xl"
-            >
-              <div className="text-3xl md:text-4xl font-semibold text-gray-900 mb-2">
-                {stat.number}
-              </div>
-              <div className="text-sm text-gray-600">{stat.label}</div>
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   );
