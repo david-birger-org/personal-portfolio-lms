@@ -1,39 +1,49 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { SectionHeader } from "@/components/sections/SectionHeader";
-import { ServiceCardDialog } from "@/components/sections/ServiceCardDialog";
+import {
+  ServiceDialogManager,
+  type ServiceItem,
+} from "@/components/sections/ServiceCardDialog";
 import { cn } from "@/lib/utils";
+
+const productCards = [
+  {
+    src: "/images/product-1.jpg",
+    imageClassName: "object-cover object-top",
+  },
+  {
+    src: "/images/product-2.jpg",
+    imageClassName: "object-cover object-top",
+  },
+  {
+    src: "/images/product-3.jpg",
+    imageClassName: "object-cover object-top md:object-top",
+  },
+  {
+    src: "/images/product-4.jpg",
+    imageClassName: "object-cover object-[center_25%] md:object-[center_15%]",
+  },
+  {
+    src: "/images/product-5.jpg",
+    imageClassName: "object-cover object-[center_53%] md:object-[center_25%]",
+  },
+] as const;
+
+function getPreview(description: string) {
+  const firstPart = description.split(/[.!?]/)[0]?.trim();
+
+  if (!firstPart) {
+    return description;
+  }
+
+  return `${firstPart}.`;
+}
 
 export async function Services() {
   const t = await getTranslations("services");
-  const productCards = [
-    {
-      src: "/images/product-1.jpg",
-      imageClassName: "object-cover object-top",
-    },
-    {
-      src: "/images/product-2.jpg",
-      imageClassName: "object-cover object-top",
-    },
-    {
-      src: "/images/product-3.jpg",
-      imageClassName: "object-cover object-top md:object-top",
-    },
-    {
-      src: "/images/product-4.jpg",
-      imageClassName: "object-cover object-[center_25%] md:object-[center_15%]",
-    },
-    {
-      src: "/images/product-5.jpg",
-      imageClassName: "object-cover object-[center_53%] md:object-[center_25%]",
-    },
-  ] as const;
-  const items = t.raw("items") as Array<{
-    title: string;
-    description: string;
-    features: string[];
-    forWho?: string[];
-  }>;
+  const items = t.raw("items") as ServiceItem[];
+  const learnMoreLabel = t("learnMore");
   const dialogLabels = {
     includesLabel: t("includesLabel"),
     forWhoLabel: t("forWhoLabel"),
@@ -51,15 +61,6 @@ export async function Services() {
     invalidEmailMessage: t("inquiry.invalidEmailMessage"),
     invalidPhoneMessage: t("inquiry.invalidPhoneMessage"),
     atLeastOneContactMessage: t("inquiry.atLeastOneContactMessage"),
-  };
-  const getPreview = (description: string) => {
-    const firstPart = description.split(/[.!?]/)[0]?.trim();
-
-    if (!firstPart) {
-      return description;
-    }
-
-    return `${firstPart}.`;
   };
 
   return (
@@ -79,55 +80,45 @@ export async function Services() {
         <div className="mx-auto grid max-w-6xl gap-5 md:grid-cols-2 md:gap-6">
           {items.map((item, index) => {
             const productCard = productCards[index % productCards.length];
-            const isUnpairedLastCard =
-              items.length % 2 === 1 && index === items.length - 1;
+            const cardKey = item.title.slice(0, 40);
 
             return (
-              <ServiceCardDialog
-                key={item.title}
-                id={`service-${index}`}
-                title={item.title}
-                description={item.description}
-                features={item.features}
-                forWho={item.forWho}
-                labels={dialogLabels}
-                trigger={
-                  <button
-                    type="button"
-                    className={cn(
-                      "w-full cursor-pointer rounded-3xl border border-gray-200 bg-white p-5 text-left shadow-[0_15px_40px_-30px_rgba(15,23,42,0.35)] transition-all duration-300 hover:-translate-y-0.5 hover:border-gray-300 hover:shadow-[0_20px_48px_-28px_rgba(15,23,42,0.4)] focus-visible:ring-2 focus-visible:ring-slate-300 focus-visible:outline-none md:p-6",
-                      isUnpairedLastCard &&
-                        "md:col-span-2 md:mx-auto md:w-[calc(50%-0.75rem)]",
-                    )}
-                  >
-                    <div className="relative mb-5 aspect-[4/3] overflow-hidden rounded-2xl border border-gray-200 bg-gray-50">
-                      <Image
-                        src={productCard.src}
-                        alt={item.title}
-                        fill
-                        sizes="(min-width: 768px) 50vw, 100vw"
-                        className={productCard.imageClassName}
-                      />
-                    </div>
+              <button
+                key={cardKey}
+                type="button"
+                data-service-index={index}
+                className={cn(
+                  "w-full cursor-pointer rounded-3xl border border-gray-200 bg-white p-5 text-left shadow-[0_15px_40px_-30px_rgba(15,23,42,0.35)] transition-all duration-300 hover:-translate-y-0.5 hover:border-gray-300 hover:shadow-[0_20px_48px_-28px_rgba(15,23,42,0.4)] focus-visible:ring-2 focus-visible:ring-slate-300 focus-visible:outline-none md:p-6",
+                )}
+              >
+                <div className="relative mb-5 aspect-[4/3] overflow-hidden rounded-2xl border border-gray-200 bg-gray-50">
+                  <Image
+                    src={productCard.src}
+                    alt={item.title}
+                    fill
+                    sizes="(min-width: 768px) 50vw, 100vw"
+                    className={productCard.imageClassName}
+                  />
+                </div>
 
-                    <h3 className="text-xl font-semibold tracking-tight text-gray-900">
-                      {item.title}
-                    </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-gray-600">
-                      {getPreview(item.description)}
-                    </p>
+                <h3 className="text-xl font-semibold tracking-tight text-gray-900">
+                  {item.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                  {getPreview(item.description)}
+                </p>
 
-                    <div className="mt-5">
-                      <span className="inline-flex items-center rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-900 shadow-sm">
-                        {t("learnMore")}
-                      </span>
-                    </div>
-                  </button>
-                }
-              />
+                <div className="mt-5">
+                  <span className="inline-flex items-center rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-900 shadow-sm">
+                    {learnMoreLabel}
+                  </span>
+                </div>
+              </button>
             );
           })}
         </div>
+
+        <ServiceDialogManager items={items} labels={dialogLabels} />
       </div>
     </section>
   );

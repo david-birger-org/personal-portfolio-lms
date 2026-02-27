@@ -1,6 +1,6 @@
 "use client";
 
-import type { FormEvent, ReactNode } from "react";
+import type { FormEvent } from "react";
 import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,7 +9,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -33,14 +32,16 @@ interface DialogLabels {
   atLeastOneContactMessage: string;
 }
 
-interface ServiceCardDialogProps {
-  id: string;
+export interface ServiceItem {
   title: string;
   description: string;
   features: string[];
   forWho?: string[];
+}
+
+interface ServiceDialogManagerProps {
+  items: ServiceItem[];
   labels: DialogLabels;
-  trigger: ReactNode;
 }
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -59,18 +60,11 @@ function isContactValid(value: string) {
   return digits.length >= 7;
 }
 
-export function ServiceCardDialog({
-  id,
-  title,
-  description,
-  features,
-  forWho,
+export function ServiceDialogManager({
+  items,
   labels,
-  trigger,
-}: ServiceCardDialogProps) {
-  const fieldIdBase = useMemo(() => `${id}-inquiry`, [id]);
-  const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
+}: ServiceDialogManagerProps) {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -78,6 +72,12 @@ export function ServiceCardDialog({
   const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+
+  const activeItem = activeIndex !== null ? items[activeIndex] : null;
+  const fieldIdBase = useMemo(
+    () => (activeItem ? `${activeItem.title}-inquiry` : ""),
+    [activeItem],
+  );
 
   const hasName = useMemo(() => name.trim().length > 0, [name]);
   const hasEmail = useMemo(() => email.trim().length > 0, [email]);
@@ -95,8 +95,24 @@ export function ServiceCardDialog({
     hasName && hasAnyContact && emailValid && phoneValid && !isSubmitting;
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    const handleCardClick = (event: MouseEvent) => {
+      const trigger = (event.target as HTMLElement).closest(
+        "[data-service-index]",
+      );
+      if (!trigger) {
+        return;
+      }
+      const index = Number(trigger.getAttribute("data-service-index"));
+      if (!Number.isNaN(index) && index >= 0 && index < items.length) {
+        setActiveIndex(index);
+      }
+    };
+
+    document.addEventListener("click", handleCardClick);
+    return () => {
+      document.removeEventListener("click", handleCardClick);
+    };
+  }, [items.length]);
 
   useEffect(() => {
     if (!showSuccessAlert) {
@@ -120,11 +136,18 @@ export function ServiceCardDialog({
     setSubmitError(null);
   };
 
+  const handleOpenChange = (open: boolean) => {
+    if (!open) {
+      setActiveIndex(null);
+      resetForm();
+    }
+  };
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setHasAttemptedSubmit(true);
 
-    if (!canSubmit) {
+    if (!canSubmit || !activeItem) {
       return;
     }
 
@@ -143,7 +166,7 @@ export function ServiceCardDialog({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          service: title,
+          service: activeItem.title,
           name: name.trim(),
           email: email.trim(),
           phone: phone.trim(),
@@ -154,7 +177,7 @@ export function ServiceCardDialog({
         throw new Error("Failed to submit service request");
       }
 
-      setOpen(false);
+      setActiveIndex(null);
       resetForm();
       setShowSuccessAlert(true);
     } catch {
@@ -167,18 +190,16 @@ export function ServiceCardDialog({
 
   return (
     <>
-      {!mounted ? trigger : null}
-      {mounted ? (
-        <Dialog open={open} onOpenChange={setOpen}>
-          <DialogTrigger asChild>{trigger}</DialogTrigger>
-          <DialogContent className="sm:max-w-2xl">
+      <Dialog open={activeIndex !== null} onOpenChange={handleOpenChange}>
+        <DialogContent className="sm:max-w-2xl">
+          {activeItem ? (
             <div className="space-y-4">
               <DialogHeader className="gap-3 border-b border-slate-200/80 pb-4 pr-10">
                 <DialogTitle className="text-xl tracking-tight text-slate-900 sm:text-2xl">
-                  {title}
+                  {activeItem.title}
                 </DialogTitle>
                 <DialogDescription className="text-sm leading-relaxed text-slate-600 sm:text-base">
-                  {description}
+                  {activeItem.description}
                 </DialogDescription>
               </DialogHeader>
 
@@ -188,9 +209,9 @@ export function ServiceCardDialog({
                     {labels.includesLabel}
                   </h4>
                   <ul className="space-y-2.5">
-                    {features.map((feature) => (
+                    {activeItem.features.map((feature) => (
                       <li
-                        key={`${title}-${feature}`}
+                        key={`${activeItem.title}-${feature}`}
                         className="flex items-start gap-2 text-sm leading-relaxed text-slate-700"
                       >
                         <span className="mt-2 h-1.5 w-1.5 rounded-full bg-slate-400" />
@@ -200,15 +221,15 @@ export function ServiceCardDialog({
                   </ul>
                 </div>
 
-                {forWho?.length ? (
+                {activeItem.forWho?.length ? (
                   <div className="rounded-2xl border border-slate-200/80 bg-slate-50/70 p-4 sm:p-5">
                     <h4 className="mb-3 text-xs font-semibold tracking-[0.14em] text-slate-500 uppercase">
                       {labels.forWhoLabel}
                     </h4>
                     <ul className="space-y-2.5">
-                      {forWho.map((audience) => (
+                      {activeItem.forWho.map((audience) => (
                         <li
-                          key={`${title}-${audience}`}
+                          key={`${activeItem.title}-${audience}`}
                           className="flex items-start gap-2 text-sm leading-relaxed text-slate-700"
                         >
                           <span className="mt-2 h-1.5 w-1.5 rounded-full bg-slate-400" />
@@ -303,9 +324,9 @@ export function ServiceCardDialog({
                 </Button>
               </form>
             </div>
-          </DialogContent>
-        </Dialog>
-      ) : null}
+          ) : null}
+        </DialogContent>
+      </Dialog>
 
       {showSuccessAlert ? (
         <div className="fixed right-4 bottom-4 z-[70] max-w-xs rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-900 shadow-lg">
