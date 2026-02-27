@@ -1,7 +1,7 @@
 "use client";
 
 import type { FormEvent, ReactNode } from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -68,8 +68,9 @@ export function ServiceCardDialog({
   labels,
   trigger,
 }: ServiceCardDialogProps) {
-  const fieldIdBase = `${id}-inquiry`;
+  const fieldIdBase = useMemo(() => `${id}-inquiry`, [id]);
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -78,14 +79,24 @@ export function ServiceCardDialog({
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
-  const hasName = name.trim().length > 0;
-  const hasEmail = email.trim().length > 0;
-  const hasPhone = phone.trim().length > 0;
+  const hasName = useMemo(() => name.trim().length > 0, [name]);
+  const hasEmail = useMemo(() => email.trim().length > 0, [email]);
+  const hasPhone = useMemo(() => phone.trim().length > 0, [phone]);
   const hasAnyContact = hasEmail || hasPhone;
-  const emailValid = !hasEmail || EMAIL_PATTERN.test(email.trim());
-  const phoneValid = !hasPhone || isContactValid(phone);
+  const emailValid = useMemo(
+    () => (!hasEmail ? true : EMAIL_PATTERN.test(email.trim())),
+    [email, hasEmail],
+  );
+  const phoneValid = useMemo(
+    () => (!hasPhone ? true : isContactValid(phone)),
+    [phone, hasPhone],
+  );
   const canSubmit =
     hasName && hasAnyContact && emailValid && phoneValid && !isSubmitting;
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!showSuccessAlert) {
@@ -156,142 +167,145 @@ export function ServiceCardDialog({
 
   return (
     <>
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild>{trigger}</DialogTrigger>
-        <DialogContent className="sm:max-w-2xl">
-          <div className="space-y-4">
-            <DialogHeader className="gap-3 border-b border-slate-200/80 pb-4 pr-10">
-              <DialogTitle className="text-xl tracking-tight text-slate-900 sm:text-2xl">
-                {title}
-              </DialogTitle>
-              <DialogDescription className="text-sm leading-relaxed text-slate-600 sm:text-base">
-                {description}
-              </DialogDescription>
-            </DialogHeader>
+      {!mounted ? trigger : null}
+      {mounted ? (
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogTrigger asChild>{trigger}</DialogTrigger>
+          <DialogContent className="sm:max-w-2xl">
+            <div className="space-y-4">
+              <DialogHeader className="gap-3 border-b border-slate-200/80 pb-4 pr-10">
+                <DialogTitle className="text-xl tracking-tight text-slate-900 sm:text-2xl">
+                  {title}
+                </DialogTitle>
+                <DialogDescription className="text-sm leading-relaxed text-slate-600 sm:text-base">
+                  {description}
+                </DialogDescription>
+              </DialogHeader>
 
-            <div className="max-h-[52vh] space-y-4 overflow-y-auto py-1 pr-1">
-              <div className="rounded-2xl border border-slate-200/80 bg-white/85 p-4 sm:p-5">
-                <h4 className="mb-3 text-xs font-semibold tracking-[0.14em] text-slate-500 uppercase">
-                  {labels.includesLabel}
-                </h4>
-                <ul className="space-y-2.5">
-                  {features.map((feature) => (
-                    <li
-                      key={`${title}-${feature}`}
-                      className="flex items-start gap-2 text-sm leading-relaxed text-slate-700"
-                    >
-                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-slate-400" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {forWho?.length ? (
-                <div className="rounded-2xl border border-slate-200/80 bg-slate-50/70 p-4 sm:p-5">
+              <div className="max-h-[52vh] space-y-4 overflow-y-auto py-1 pr-1">
+                <div className="rounded-2xl border border-slate-200/80 bg-white/85 p-4 sm:p-5">
                   <h4 className="mb-3 text-xs font-semibold tracking-[0.14em] text-slate-500 uppercase">
-                    {labels.forWhoLabel}
+                    {labels.includesLabel}
                   </h4>
                   <ul className="space-y-2.5">
-                    {forWho.map((audience) => (
+                    {features.map((feature) => (
                       <li
-                        key={`${title}-${audience}`}
+                        key={`${title}-${feature}`}
                         className="flex items-start gap-2 text-sm leading-relaxed text-slate-700"
                       >
                         <span className="mt-2 h-1.5 w-1.5 rounded-full bg-slate-400" />
-                        <span>{audience}</span>
+                        <span>{feature}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
-              ) : null}
+
+                {forWho?.length ? (
+                  <div className="rounded-2xl border border-slate-200/80 bg-slate-50/70 p-4 sm:p-5">
+                    <h4 className="mb-3 text-xs font-semibold tracking-[0.14em] text-slate-500 uppercase">
+                      {labels.forWhoLabel}
+                    </h4>
+                    <ul className="space-y-2.5">
+                      {forWho.map((audience) => (
+                        <li
+                          key={`${title}-${audience}`}
+                          className="flex items-start gap-2 text-sm leading-relaxed text-slate-700"
+                        >
+                          <span className="mt-2 h-1.5 w-1.5 rounded-full bg-slate-400" />
+                          <span>{audience}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+              </div>
+
+              <form
+                onSubmit={handleSubmit}
+                className="space-y-3 border-t border-slate-200/80 pt-4"
+              >
+                <h4 className="text-sm font-semibold text-slate-900">
+                  {labels.inquiryTitle}
+                </h4>
+
+                <div className="space-y-2">
+                  <Label
+                    htmlFor={`${fieldIdBase}-name`}
+                    className="text-slate-800"
+                  >
+                    {labels.nameLabel}
+                  </Label>
+                  <Input
+                    id={`${fieldIdBase}-name`}
+                    value={name}
+                    onChange={(event) => setName(event.target.value)}
+                    placeholder={labels.namePlaceholder}
+                    className="border-slate-300"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label
+                    htmlFor={`${fieldIdBase}-email`}
+                    className="text-slate-800"
+                  >
+                    {labels.emailLabel}
+                  </Label>
+                  <Input
+                    id={`${fieldIdBase}-email`}
+                    type="email"
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                    placeholder={labels.emailPlaceholder}
+                    className="border-slate-300"
+                  />
+                  {hasAttemptedSubmit && hasEmail && !emailValid ? (
+                    <p className="text-xs text-red-600">
+                      {labels.invalidEmailMessage}
+                    </p>
+                  ) : null}
+                </div>
+
+                <div className="space-y-2">
+                  <Label
+                    htmlFor={`${fieldIdBase}-phone`}
+                    className="text-slate-800"
+                  >
+                    {labels.phoneLabel}
+                  </Label>
+                  <Input
+                    id={`${fieldIdBase}-phone`}
+                    type="tel"
+                    value={phone}
+                    onChange={(event) => setPhone(event.target.value)}
+                    placeholder={labels.phonePlaceholder}
+                    className="border-slate-300"
+                  />
+                  {hasAttemptedSubmit && hasPhone && !phoneValid ? (
+                    <p className="text-xs text-red-600">
+                      {labels.invalidPhoneMessage}
+                    </p>
+                  ) : null}
+                </div>
+
+                {hasAttemptedSubmit && !hasAnyContact ? (
+                  <p className="text-xs text-red-600">
+                    {labels.atLeastOneContactMessage}
+                  </p>
+                ) : null}
+
+                {submitError ? (
+                  <p className="text-sm text-red-600">{submitError}</p>
+                ) : null}
+
+                <Button type="submit" className="w-full" disabled={!canSubmit}>
+                  {isSubmitting ? labels.sendingButton : labels.sendButton}
+                </Button>
+              </form>
             </div>
-
-            <form
-              onSubmit={handleSubmit}
-              className="space-y-3 border-t border-slate-200/80 pt-4"
-            >
-              <h4 className="text-sm font-semibold text-slate-900">
-                {labels.inquiryTitle}
-              </h4>
-
-              <div className="space-y-2">
-                <Label
-                  htmlFor={`${fieldIdBase}-name`}
-                  className="text-slate-800"
-                >
-                  {labels.nameLabel}
-                </Label>
-                <Input
-                  id={`${fieldIdBase}-name`}
-                  value={name}
-                  onChange={(event) => setName(event.target.value)}
-                  placeholder={labels.namePlaceholder}
-                  className="border-slate-300"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label
-                  htmlFor={`${fieldIdBase}-email`}
-                  className="text-slate-800"
-                >
-                  {labels.emailLabel}
-                </Label>
-                <Input
-                  id={`${fieldIdBase}-email`}
-                  type="email"
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                  placeholder={labels.emailPlaceholder}
-                  className="border-slate-300"
-                />
-                {hasAttemptedSubmit && hasEmail && !emailValid ? (
-                  <p className="text-xs text-red-600">
-                    {labels.invalidEmailMessage}
-                  </p>
-                ) : null}
-              </div>
-
-              <div className="space-y-2">
-                <Label
-                  htmlFor={`${fieldIdBase}-phone`}
-                  className="text-slate-800"
-                >
-                  {labels.phoneLabel}
-                </Label>
-                <Input
-                  id={`${fieldIdBase}-phone`}
-                  type="tel"
-                  value={phone}
-                  onChange={(event) => setPhone(event.target.value)}
-                  placeholder={labels.phonePlaceholder}
-                  className="border-slate-300"
-                />
-                {hasAttemptedSubmit && hasPhone && !phoneValid ? (
-                  <p className="text-xs text-red-600">
-                    {labels.invalidPhoneMessage}
-                  </p>
-                ) : null}
-              </div>
-
-              {hasAttemptedSubmit && !hasAnyContact ? (
-                <p className="text-xs text-red-600">
-                  {labels.atLeastOneContactMessage}
-                </p>
-              ) : null}
-
-              {submitError ? (
-                <p className="text-sm text-red-600">{submitError}</p>
-              ) : null}
-
-              <Button type="submit" className="w-full" disabled={!canSubmit}>
-                {isSubmitting ? labels.sendingButton : labels.sendButton}
-              </Button>
-            </form>
-          </div>
-        </DialogContent>
-      </Dialog>
+          </DialogContent>
+        </Dialog>
+      ) : null}
 
       {showSuccessAlert ? (
         <div className="fixed right-4 bottom-4 z-[70] max-w-xs rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-900 shadow-lg">
