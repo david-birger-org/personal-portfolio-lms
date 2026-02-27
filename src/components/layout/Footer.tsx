@@ -1,4 +1,4 @@
-import { Instagram, Mail, Youtube } from "lucide-react";
+import { Facebook, Instagram, Music2, Youtube } from "lucide-react";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 
@@ -36,14 +36,23 @@ export async function Footer() {
   const socialLinks = [
     {
       icon: Instagram,
-      href: "https://www.instagram.com/birger_david",
+      href: "https://www.instagram.com/birger_david?igsh=MTMya2pjcmw5OG14NQ%3D%3D&utm_source=qr",
       label: "Instagram",
     },
-    { icon: Youtube, href: "#", label: "YouTube" },
     {
-      icon: Mail,
-      href: "mailto:davidbirgercoaching@gmail.com",
-      label: "Email",
+      icon: Facebook,
+      href: "https://www.facebook.com/share/19aYQXXbL2/?mibextid=wwXIfr",
+      label: "Facebook",
+    },
+    {
+      icon: Music2,
+      href: "https://www.tiktok.com/@birger_david?_r=1&_t=ZS-94HFORdwXO1",
+      label: "TikTok",
+    },
+    {
+      icon: Youtube,
+      href: "https://youtube.com/@wnbfukraine?si=-uqFoW2w9K61oZ77",
+      label: "YouTube",
     },
   ];
 

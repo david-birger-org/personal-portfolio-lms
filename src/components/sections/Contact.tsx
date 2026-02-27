@@ -1,4 +1,12 @@
-import { Facebook, Instagram, Mail, MapPin, Phone, Send } from "lucide-react";
+import {
+  Facebook,
+  Instagram,
+  Mail,
+  MapPin,
+  Music2,
+  Phone,
+  Youtube,
+} from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 import { ContactFormClient } from "@/components/sections/ContactFormClient";
@@ -112,13 +120,22 @@ export async function Contact({ compact = false }: { compact?: boolean } = {}) {
                     <Facebook className="h-6 w-6 text-[#1877F2] transition-colors group-hover:text-[#0C5DC6]" />
                   </a>
                   <a
-                    href={t("socials.telegram")}
+                    href={t("socials.tiktok")}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group flex h-12 w-12 items-center justify-center rounded-2xl border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md"
-                    aria-label="Telegram"
+                    aria-label="TikTok"
                   >
-                    <Send className="h-5 w-5 text-[#0088cc] transition-colors group-hover:text-[#006699]" />
+                    <Music2 className="h-5 w-5 text-gray-900 transition-colors group-hover:text-gray-700" />
+                  </a>
+                  <a
+                    href={t("socials.youtube")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex h-12 w-12 items-center justify-center rounded-2xl border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md"
+                    aria-label="YouTube"
+                  >
+                    <Youtube className="h-6 w-6 text-[#FF0000] transition-colors group-hover:text-[#CC0000]" />
                   </a>
                 </div>
               </div>
