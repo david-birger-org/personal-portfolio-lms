@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Mail, Twitter, Youtube } from "lucide-react";
+import { Instagram, Mail, Youtube } from "lucide-react";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 
@@ -34,11 +34,17 @@ export async function Footer() {
   };
 
   const socialLinks = [
-    { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Twitter, href: "#", label: "Twitter" },
+    {
+      icon: Instagram,
+      href: "https://www.instagram.com/birger_david",
+      label: "Instagram",
+    },
     { icon: Youtube, href: "#", label: "YouTube" },
-    { icon: Mail, href: "mailto:coach@fitcoach.com", label: "Email" },
+    {
+      icon: Mail,
+      href: "mailto:davidbirgercoaching@gmail.com",
+      label: "Email",
+    },
   ];
 
   return (
