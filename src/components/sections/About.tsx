@@ -40,7 +40,7 @@ export async function About() {
               description={t("description")}
               align="left"
               className="mb-8"
-              titleClassName="mb-0"
+              titleClassName="mb-4"
               descriptionClassName="mb-0"
             />
 
