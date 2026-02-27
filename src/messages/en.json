@@ -69,46 +69,68 @@
     "description": "Choose the coaching format that matches your goal, schedule, and current level - from first steps to competitive stage readiness.",
     "items": [
       {
-        "title": "Personal Training",
-        "description": "In-person one-on-one sessions focused on technique, progression, and measurable strength outcomes",
+        "title": "ONLINE COACHING",
+        "description": "Structured online coaching with personalized progress control",
         "features": [
-          "Movement assessment",
-          "Technique and posing cues",
-          "Progressive overload strategy",
-          "Weekly performance reviews"
+          "Training plan with exercise descriptions and demo videos",
+          "Recommendations for sports nutrition and supplements",
+          "Nutrition plan with protein/fat/carb adjustments based on your goal",
+          "Progress and physique report reviews",
+          "Consultations when needed"
+        ],
+        "forWho": [
+          "Athletes preparing for natural bodybuilding competitions or planning their debut",
+          "Active people who want to maintain strong physical shape"
         ]
       },
       {
-        "title": "Online Coaching",
-        "description": "Structured online coaching with direct feedback and accountability wherever you are",
+        "title": "INDIVIDUAL POSING LESSONS FOR BODYBUILDING AND CLASSIC PHYSIQUE CATEGORIES",
+        "description": "Private posing lessons for competitive categories",
         "features": [
-          "Video check-ins",
-          "Training and cardio tracking",
-          "Priority chat support",
-          "Weekly plan adjustments"
+          "Mandatory pose practice and judging criteria breakdown",
+          "Transitions between poses",
+          "Static work and pose holding",
+          "Full custom routine from A to Z: music selection, unique pose selection, and comfortable transitions"
         ]
       },
       {
-        "title": "Nutrition Planning",
-        "description": "Evidence-based nutrition built around your lifestyle, digestion, and training demands",
+        "title": "PERSONAL TRAINING IN LVIV",
+        "description": "In-person one-on-one sessions in Lviv with full support",
         "features": [
-          "Macros and calorie periodization",
-          "Meal timing strategy",
-          "Travel and restaurant protocol",
-          "Supplement guidance"
+          "Training process setup based on your goal",
+          "Nutrition setup and eating habit work",
+          "Exercise technique practice",
+          "Psychological support"
+        ],
+        "forWho": [
+          "People who need a mentor and direct control of the training process",
+          "Athletes preparing for natural bodybuilding competitions from A to Z (training, nutrition, and full stage support)",
+          "People who want to learn or improve safe training technique without injury risk"
         ]
       },
       {
-        "title": "Body Transformation",
-        "description": "Long-term transformation coaching to reshape your body and habits step by step",
+        "title": "INDIVIDUAL TRAINING PLAN / NUTRITION PLAN (OR COMBO)",
+        "description": "A standalone or combined plan tailored to your goal, experience, and lifestyle",
         "features": [
-          "12- and 24-week roadmaps",
-          "Body composition tracking",
-          "Mindset and accountability coaching",
-          "Lifestyle systems for retention"
+          "Training plan file with split structure, strength-training principles, warm-up, rest, and execution tempo",
+          "Separate working plan with exercise names, sets, reps, tempo, and technique video links",
+          "Nutrition plan with individualized protein/fat/carb targets based on your goal plus meal examples"
+        ]
+      },
+      {
+        "title": "INDIVIDUAL CONSULTATION",
+        "description": "A one-time consultation on any topic within my professional expertise",
+        "features": [
+          "Training setup and training-plan creation",
+          "Natural bodybuilding contest preparation",
+          "Nutrition and nutriceutical guidance",
+          "Psychology and motivation",
+          "Eating behavior"
         ]
       }
     ],
+    "includesLabel": "Includes",
+    "forWhoLabel": "Who it is for",
     "process": {
       "title": "How It Works",
       "description": "A clear three-step process built for consistency, progress, and long-term results.",
