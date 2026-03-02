@@ -59,7 +59,7 @@ export async function Contact({ compact = false }: { compact?: boolean } = {}) {
           className={`mx-auto grid gap-12 ${compact ? "max-w-3xl" : "max-w-6xl lg:grid-cols-2"}`}
         >
           {!compact && (
-            <div className="flex h-full flex-col">
+            <div className="order-2 flex h-full flex-col lg:order-1">
               <div className="mb-10">
                 <h3 className="mb-4 text-2xl tracking-tight text-gray-900 sm:text-3xl">
                   {t("info.infoTitle")}
@@ -161,7 +161,9 @@ export async function Contact({ compact = false }: { compact?: boolean } = {}) {
             </div>
           )}
 
-          <ContactFormClient compact={compact} />
+          <div className="order-1 lg:order-2">
+            <ContactFormClient compact={compact} />
+          </div>
         </div>
       </div>
     </section>

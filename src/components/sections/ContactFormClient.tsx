@@ -15,7 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { CONTACT_FORM_ID } from "@/constants/links";
+import { CONTACT_FORM_FIELD_ID, CONTACT_FORM_ID } from "@/constants/links";
 
 const CONTACT_COUNTRIES = [
   { code: "UA", dialCode: "+380", labelKey: "ua" },
@@ -57,6 +57,7 @@ export function ContactFormClient({ compact = false }: { compact?: boolean }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const parsePhoneNumberRef = useRef<PhoneNumberParser | null>(null);
+  const formContainerRef = useRef<HTMLDivElement>(null);
   const firstNameFieldRef = useRef<HTMLInputElement>(null);
   const hasProgramPrefill = selectedProgramMessage.length > 0;
 
@@ -100,6 +101,27 @@ export function ContactFormClient({ compact = false }: { compact?: boolean }) {
   }, []);
 
   useEffect(() => {
+    const hash = window.location.hash;
+    if (
+      hash !== `#${CONTACT_FORM_ID}` &&
+      hash !== `#${CONTACT_FORM_FIELD_ID}`
+    ) {
+      return;
+    }
+
+    requestAnimationFrame(() => {
+      const formContainer = formContainerRef.current;
+      const firstNameField = firstNameFieldRef.current;
+      if (!formContainer || !firstNameField) {
+        return;
+      }
+
+      formContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+      firstNameField.focus({ preventScroll: true });
+    });
+  }, []);
+
+  useEffect(() => {
     if (!selectedProgram) {
       return;
     }
@@ -114,13 +136,14 @@ export function ContactFormClient({ compact = false }: { compact?: boolean }) {
     window.history.replaceState(window.history.state, "", nextUrl);
 
     requestAnimationFrame(() => {
+      const formContainer = formContainerRef.current;
       const firstNameField = firstNameFieldRef.current;
-      if (!firstNameField) {
+      if (!formContainer || !firstNameField) {
         return;
       }
 
-      firstNameField.scrollIntoView({ behavior: "smooth", block: "center" });
-      firstNameField.focus();
+      formContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+      firstNameField.focus({ preventScroll: true });
     });
   }, [selectedProgram]);
 
@@ -315,6 +338,7 @@ export function ContactFormClient({ compact = false }: { compact?: boolean }) {
 
   return (
     <div
+      ref={formContainerRef}
       id={CONTACT_FORM_ID}
       className="scroll-mt-24 rounded-3xl border border-gray-200 bg-white p-8 lg:p-10"
     >

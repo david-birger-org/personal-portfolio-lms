@@ -2,7 +2,7 @@ import Image from "next/image";
 import { getLocale, getTranslations } from "next-intl/server";
 import { SectionHeader } from "@/components/sections/SectionHeader";
 import { Button } from "@/components/ui/button";
-import { CONTACT_FORM_HREF, CONTACT_FORM_ID } from "@/constants/links";
+import { CONTACT_FORM_ID, CONTACT_PAGE_HREF } from "@/constants/links";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
@@ -74,7 +74,7 @@ export async function Services() {
                     className="w-full border border-white/80 bg-white/90 text-slate-900 shadow-lg backdrop-blur-xs hover:bg-white"
                   >
                     <Link
-                      href={`${CONTACT_FORM_HREF}?program=${encodeURIComponent(service.title)}#${CONTACT_FORM_ID}`}
+                      href={`${CONTACT_PAGE_HREF}?program=${encodeURIComponent(service.title)}#${CONTACT_FORM_ID}`}
                     >
                       {t("learnMore")}
                     </Link>
