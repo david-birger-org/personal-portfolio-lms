@@ -1,12 +1,12 @@
+import Link from "next/link";
 import type { Locale } from "@/i18n/config";
 import { localeNames, locales } from "@/i18n/config";
-import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
 interface LanguageSwitcherViewProps {
   className?: string;
   currentLocale: Locale;
-  href: string;
+  hrefByLocale: Record<Locale, string>;
   onSelect?: () => void;
   scroll?: boolean;
 }
@@ -14,7 +14,7 @@ interface LanguageSwitcherViewProps {
 export function LanguageSwitcherView({
   className,
   currentLocale,
-  href,
+  hrefByLocale,
   onSelect,
   scroll,
 }: LanguageSwitcherViewProps) {
@@ -23,8 +23,7 @@ export function LanguageSwitcherView({
       {locales.map((locale) => (
         <Link
           key={locale}
-          href={href}
-          locale={locale}
+          href={hrefByLocale[locale]}
           scroll={scroll}
           onClick={onSelect}
           className={cn(
