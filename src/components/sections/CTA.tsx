@@ -1,13 +1,13 @@
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { SectionHeader } from "@/components/sections/SectionHeader";
 import { Button } from "@/components/ui/button";
 import { CONTACT_FORM_HREF } from "@/constants/links";
 import { Link } from "@/i18n/routing";
 
-export async function CTA() {
-  const [t, locale] = await Promise.all([getTranslations("cta"), getLocale()]);
+export async function CTA({ locale }: { locale: string }) {
+  const t = await getTranslations("cta");
   const imageLocale = locale === "ua" ? "ua" : "en";
   const features = t.raw("features") as string[];
 

@@ -32,7 +32,7 @@ export default async function Home({
           <Testimonials />
         </Suspense>
         <Suspense fallback={null}>
-          <CTA />
+          <CTA locale={locale} />
         </Suspense>
       </main>
     </div>

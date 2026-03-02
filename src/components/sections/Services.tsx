@@ -1,16 +1,13 @@
 import Image from "next/image";
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { SectionHeader } from "@/components/sections/SectionHeader";
 import { Button } from "@/components/ui/button";
 import { CONTACT_FORM_ID, CONTACT_PAGE_HREF } from "@/constants/links";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
-export async function Services() {
-  const [t, locale] = await Promise.all([
-    getTranslations("services"),
-    getLocale(),
-  ]);
+export async function Services({ locale }: { locale: string }) {
+  const t = await getTranslations("services");
   const imageLocale = locale === "ua" ? "ua" : "en";
   const serviceCards = [
     {
