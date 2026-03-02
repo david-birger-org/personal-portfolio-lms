@@ -4,7 +4,6 @@ import {
   Mail,
   MapPin,
   Music2,
-  Phone,
   Youtube,
 } from "lucide-react";
 import { getTranslations } from "next-intl/server";
@@ -36,13 +35,6 @@ async function ContactSection({ variant }: { variant: ContactVariant }) {
       value: t("info.email.value"),
       link: `mailto:${t("info.email.value")}`,
       key: "email",
-    },
-    {
-      icon: Phone,
-      title: t("info.phone.title"),
-      value: t("info.phone.value"),
-      link: `tel:${t("info.phone.value").replace(/\s/g, "")}`,
-      key: "phone",
     },
     {
       icon: MapPin,
