@@ -75,7 +75,11 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className="scroll-smooth">
       <body className={`${inter.variable} antialiased`}>
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider
+          key={locale}
+          locale={locale}
+          messages={messages}
+        >
           <Navigation locale={locale} />
           {children}
           <Footer />
