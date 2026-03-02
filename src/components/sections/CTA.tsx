@@ -7,8 +7,7 @@ import { CONTACT_FORM_HREF } from "@/constants/links";
 import { Link } from "@/i18n/routing";
 
 export async function CTA() {
-  const t = await getTranslations("cta");
-  const locale = await getLocale();
+  const [t, locale] = await Promise.all([getTranslations("cta"), getLocale()]);
   const imageLocale = locale === "ua" ? "ua" : "en";
   const features = t.raw("features") as string[];
 

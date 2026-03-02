@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import { LanguageSwitcherView } from "@/components/layout/LanguageSwitcherView";
 import type { Locale } from "@/i18n/config";
@@ -18,28 +19,15 @@ export function LanguageSwitcherClient({
   onSelect,
 }: LanguageSwitcherClientProps) {
   const pathname = usePathname();
-  const [search, setSearch] = useState("");
+  const searchParams = useSearchParams();
+  const search = searchParams.toString();
   const [hash, setHash] = useState("");
 
   useEffect(() => {
-    const updateLocationParts = () => {
-      setSearch(window.location.search);
-      setHash(window.location.hash);
-    };
-
-    updateLocationParts();
-    window.addEventListener("hashchange", updateLocationParts);
-    window.addEventListener("popstate", updateLocationParts);
-
-    return () => {
-      window.removeEventListener("hashchange", updateLocationParts);
-      window.removeEventListener("popstate", updateLocationParts);
-    };
+    setHash(window.location.hash);
   }, []);
 
-  const href = useMemo(() => {
-    return `${pathname}${search}${hash}`;
-  }, [hash, pathname, search]);
+  const href = `${pathname}${search ? `?${search}` : ""}${hash}`;
 
   return (
     <LanguageSwitcherView

@@ -27,7 +27,6 @@ export async function Hero({ locale }: { locale: string }) {
           src="/images/hero-1-desk.jpg"
           alt="Fitness Training"
           fill
-          priority
           sizes="(min-width: 768px) 100vw"
           className="hidden object-contain object-right md:block"
         />

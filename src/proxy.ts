@@ -109,14 +109,7 @@ export default function proxy(request: NextRequest) {
     return response;
   }
 
-  const response = nextIntlMiddleware(request);
-  const cookieLocale = request.cookies.get(LOCALE_COOKIE_NAME)?.value;
-
-  if (cookieLocale !== localeInPath) {
-    persistLocale(response, localeInPath);
-  }
-
-  return response;
+  return nextIntlMiddleware(request);
 }
 
 export const config = {

@@ -7,8 +7,10 @@ import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
 export async function Services() {
-  const t = await getTranslations("services");
-  const locale = await getLocale();
+  const [t, locale] = await Promise.all([
+    getTranslations("services"),
+    getLocale(),
+  ]);
   const imageLocale = locale === "ua" ? "ua" : "en";
   const serviceCards = [
     {

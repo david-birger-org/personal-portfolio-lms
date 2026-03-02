@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { LanguageSwitcherClient } from "@/components/layout/LanguageSwitcherClient";
-import { MobileSidebar } from "@/components/layout/MobileSidebar";
+import { MobileSidebarLazy } from "@/components/layout/MobileSidebarLazy";
 import { Button } from "@/components/ui/button";
 import { CONTACT_FORM_HREF, SERVICES_SECTION_HREF } from "@/constants/links";
 import type { Locale } from "@/i18n/config";
@@ -49,7 +49,6 @@ export async function Navigation({ locale }: { locale: Locale }) {
                 fill
                 sizes="64px"
                 className="object-contain"
-                priority
               />
             </div>
             <div className="relative h-6 w-32">
@@ -59,12 +58,11 @@ export async function Navigation({ locale }: { locale: Locale }) {
                 fill
                 sizes="128px"
                 className="object-contain object-left"
-                priority
               />
             </div>
           </Link>
 
-          <MobileSidebar
+          <MobileSidebarLazy
             headerId="site-header"
             locale={locale}
             ctaText={t("ctaText")}
@@ -86,7 +84,6 @@ export async function Navigation({ locale }: { locale: Locale }) {
                 fill
                 sizes="(min-width: 1280px) 80px, (min-width: 1024px) 64px, 56px"
                 className="object-contain"
-                priority
               />
             </div>
             <div className="relative h-6 w-32 lg:h-7 lg:w-36 xl:h-7 xl:w-40">
@@ -96,7 +93,6 @@ export async function Navigation({ locale }: { locale: Locale }) {
                 fill
                 sizes="(min-width: 1280px) 160px, (min-width: 1024px) 144px, 128px"
                 className="object-contain object-left"
-                priority
               />
             </div>
           </Link>

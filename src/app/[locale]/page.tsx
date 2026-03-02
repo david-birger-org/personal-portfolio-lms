@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import { ScrollProgress } from "@/components/layout/ScrollProgress";
 import { About } from "@/components/sections/About";
 import { CTA } from "@/components/sections/CTA";
@@ -20,10 +22,18 @@ export default async function Home({
 
       <main>
         <Hero locale={locale} />
-        <About />
-        <Journey />
-        <Testimonials />
-        <CTA />
+        <Suspense fallback={null}>
+          <About />
+        </Suspense>
+        <Suspense fallback={null}>
+          <Journey />
+        </Suspense>
+        <Suspense fallback={null}>
+          <Testimonials />
+        </Suspense>
+        <Suspense fallback={null}>
+          <CTA />
+        </Suspense>
       </main>
     </div>
   );
