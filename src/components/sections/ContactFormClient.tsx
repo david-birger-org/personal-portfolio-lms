@@ -4,6 +4,7 @@ import { CheckCircle2, Send } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,17 +17,34 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { CONTACT_FORM_FIELD_ID, CONTACT_FORM_ID } from "@/constants/links";
+import {
+  CONTACT_COUNTRIES,
+  type CountryCode,
+  SOCIAL_HANDLE_PATTERN,
+} from "@/lib/contact-form/constants";
+import type { ContactPayload } from "@/lib/contact-form/schema";
 
-const CONTACT_COUNTRIES = [
-  { code: "UA", dialCode: "+380", labelKey: "ua" },
-  { code: "US", dialCode: "+1", labelKey: "us" },
-  { code: "PL", dialCode: "+48", labelKey: "pl" },
-  { code: "DE", dialCode: "+49", labelKey: "de" },
-] as const;
+interface ContactFormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  country: CountryCode;
+  phone: string;
+  preferredContactMethod: "" | ContactPayload["preferredContactMethod"];
+  social: string;
+  message: string;
+}
 
-type CountryCode = (typeof CONTACT_COUNTRIES)[number]["code"];
-
-const SOCIAL_HANDLE_PATTERN = /^@?[a-zA-Z0-9._]{2,32}$/;
+const INITIAL_FORM_DATA: ContactFormData = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  country: "UA",
+  phone: "",
+  preferredContactMethod: "",
+  social: "",
+  message: "",
+};
 
 type PhoneNumberParser = (
   phone: string,
@@ -37,20 +55,26 @@ type PhoneNumberParser = (
     }
   | undefined;
 
-export function ContactFormClient({ compact = false }: { compact?: boolean }) {
+type ContactFormVariant = "full" | "compact";
+
+interface ContactFormClientVariantProps {
+  variant: ContactFormVariant;
+}
+
+export function ContactFormClient() {
+  return <ContactFormClientVariant variant="full" />;
+}
+
+export function CompactContactFormClient() {
+  return <ContactFormClientVariant variant="compact" />;
+}
+
+function ContactFormClientVariant({ variant }: ContactFormClientVariantProps) {
   const t = useTranslations("contact");
   const searchParams = useSearchParams();
   const selectedProgram = searchParams.get("program")?.trim() ?? "";
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    country: "UA" as CountryCode,
-    phone: "",
-    preferredContactMethod: "",
-    social: "",
-    message: "",
-  });
+  const isCompact = variant === "compact";
+  const [formData, setFormData] = useState<ContactFormData>(INITIAL_FORM_DATA);
   const [selectedProgramMessage, setSelectedProgramMessage] = useState("");
   const [isMounted, setIsMounted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -154,7 +178,7 @@ export function ContactFormClient({ compact = false }: { compact?: boolean }) {
       newErrors.firstName = t("form.validation.firstNameRequired");
     }
 
-    if (!formData.lastName.trim()) {
+    if (!isCompact && !formData.lastName.trim()) {
       newErrors.lastName = t("form.validation.lastNameRequired");
     }
 
@@ -164,9 +188,9 @@ export function ContactFormClient({ compact = false }: { compact?: boolean }) {
       newErrors.email = t("form.validation.emailInvalid");
     }
 
-    if (!formData.phone.trim()) {
+    if (!isCompact && !formData.phone.trim()) {
       newErrors.phone = t("form.validation.phoneRequired");
-    } else {
+    } else if (formData.phone.trim()) {
       try {
         const parsePhoneNumberFromString = parsePhoneNumberRef.current;
         if (parsePhoneNumberFromString) {
@@ -192,7 +216,7 @@ export function ContactFormClient({ compact = false }: { compact?: boolean }) {
       }
     }
 
-    if (!formData.preferredContactMethod.trim()) {
+    if (!isCompact && !formData.preferredContactMethod.trim()) {
       newErrors.preferredContactMethod = t(
         "form.validation.preferredContactMethodRequired",
       );
@@ -256,16 +280,7 @@ export function ContactFormClient({ compact = false }: { compact?: boolean }) {
       }
 
       setIsSuccess(true);
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        country: "UA",
-        phone: "",
-        preferredContactMethod: "",
-        social: "",
-        message: "",
-      });
+      setFormData(INITIAL_FORM_DATA);
 
       setTimeout(() => {
         setIsSuccess(false);
@@ -293,7 +308,11 @@ export function ContactFormClient({ compact = false }: { compact?: boolean }) {
   };
 
   const handlePreferredContactMethodChange = (value: string) => {
-    setFormData((prev) => ({ ...prev, preferredContactMethod: value }));
+    setFormData((prev) => ({
+      ...prev,
+      preferredContactMethod:
+        value as ContactFormData["preferredContactMethod"],
+    }));
     if (errors.preferredContactMethod) {
       setErrors((prev) => {
         const nextErrors = { ...prev };
@@ -374,7 +393,7 @@ export function ContactFormClient({ compact = false }: { compact?: boolean }) {
               ) : null}
             </div>
 
-            {!compact ? (
+            {!isCompact ? (
               <div>
                 <Label htmlFor="lastName" className="mb-2 block text-gray-900">
                   {t("form.lastNameLabel")}
@@ -413,7 +432,7 @@ export function ContactFormClient({ compact = false }: { compact?: boolean }) {
             ) : null}
           </div>
 
-          {!compact ? (
+          {!isCompact ? (
             <div className="grid gap-4 md:grid-cols-2">
               <div>
                 <Label className="mb-2 block text-gray-900">
@@ -470,7 +489,7 @@ export function ContactFormClient({ compact = false }: { compact?: boolean }) {
             </div>
           ) : null}
 
-          {!compact ? (
+          {!isCompact ? (
             <>
               <div>
                 <Label className="mb-2 block text-gray-900">

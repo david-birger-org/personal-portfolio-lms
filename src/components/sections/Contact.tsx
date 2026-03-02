@@ -9,11 +9,25 @@ import {
 } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
-import { ContactFormClient } from "@/components/sections/ContactFormClient";
+import {
+  CompactContactFormClient,
+  ContactFormClient,
+} from "@/components/sections/ContactFormClient";
 import { SectionHeader } from "@/components/sections/SectionHeader";
 
-export async function Contact({ compact = false }: { compact?: boolean } = {}) {
+type ContactVariant = "full" | "compact";
+
+export async function Contact() {
+  return <ContactSection variant="full" />;
+}
+
+export async function CompactContact() {
+  return <ContactSection variant="compact" />;
+}
+
+async function ContactSection({ variant }: { variant: ContactVariant }) {
   const t = await getTranslations("contact");
+  const isCompact = variant === "compact";
 
   const contactInfo = [
     {
@@ -52,13 +66,13 @@ export async function Contact({ compact = false }: { compact?: boolean } = {}) {
           title={t("title")}
           titleAccent={t("titleAccent")}
           description={t("description")}
-          className={compact ? "mb-12" : "mb-20"}
+          className={isCompact ? "mb-12" : "mb-20"}
         />
 
         <div
-          className={`mx-auto grid gap-12 ${compact ? "max-w-3xl" : "max-w-6xl lg:grid-cols-2"}`}
+          className={`mx-auto grid gap-12 ${isCompact ? "max-w-3xl" : "max-w-6xl lg:grid-cols-2"}`}
         >
-          {!compact && (
+          {!isCompact && (
             <div className="order-2 flex h-full flex-col lg:order-1">
               <div className="mb-10">
                 <h3 className="mb-4 text-2xl tracking-tight text-gray-900 sm:text-3xl">
@@ -162,7 +176,7 @@ export async function Contact({ compact = false }: { compact?: boolean } = {}) {
           )}
 
           <div className="order-1 lg:order-2">
-            <ContactFormClient compact={compact} />
+            {isCompact ? <CompactContactFormClient /> : <ContactFormClient />}
           </div>
         </div>
       </div>
