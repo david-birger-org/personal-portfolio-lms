@@ -33,6 +33,7 @@ interface ContactFormData {
   preferredContactMethod: "" | ContactPayload["preferredContactMethod"];
   social: string;
   message: string;
+  website: string;
 }
 
 const INITIAL_FORM_DATA: ContactFormData = {
@@ -44,6 +45,7 @@ const INITIAL_FORM_DATA: ContactFormData = {
   preferredContactMethod: "",
   social: "",
   message: "",
+  website: "",
 };
 
 type PhoneNumberParser = (
@@ -272,6 +274,7 @@ function ContactFormClientVariant({ variant }: ContactFormClientVariantProps) {
           message: hasProgramPrefill
             ? selectedProgramMessage
             : formData.message.trim(),
+          website: formData.website,
         }),
       });
 
@@ -373,6 +376,17 @@ function ContactFormClientVariant({ variant }: ContactFormClientVariantProps) {
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-6">
+          <input
+            type="text"
+            name="website"
+            value={formData.website}
+            onChange={handleChange}
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            className="hidden"
+          />
+
           <div className="grid gap-4 md:grid-cols-2">
             <div>
               <Label htmlFor="firstName" className="mb-2 block text-gray-900">

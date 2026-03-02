@@ -47,11 +47,18 @@ function getTransporter(
 }
 
 export function getDestinationEmail() {
-  return (
-    process.env.MAIL_SEND_TO ??
-    process.env.SERVICE_REQUEST_TO ??
-    DEFAULT_DESTINATION_EMAIL
-  );
+  const destination =
+    process.env.MAIL_SEND_TO ?? process.env.SERVICE_REQUEST_TO ?? null;
+
+  if (destination) {
+    return destination;
+  }
+
+  if (process.env.NODE_ENV === "production") {
+    return null;
+  }
+
+  return DEFAULT_DESTINATION_EMAIL;
 }
 
 export async function sendTransactionalMail({
@@ -68,11 +75,19 @@ export async function sendTransactionalMail({
     return { ok: false as const, reason: "missing_config" as const };
   }
 
+  const destinationEmail = getDestinationEmail();
+  if (!destinationEmail) {
+    return {
+      ok: false as const,
+      reason: "missing_destination" as const,
+    };
+  }
+
   try {
     const mailer = getTransporter(config);
     await mailer.sendMail({
       from: config.fromAddress,
-      to: getDestinationEmail(),
+      to: destinationEmail,
       subject,
       text,
       replyTo: replyTo && EMAIL_PATTERN.test(replyTo) ? replyTo : undefined,
