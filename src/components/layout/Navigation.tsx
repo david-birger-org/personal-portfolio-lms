@@ -26,10 +26,8 @@ export async function Navigation({ locale }: { locale: Locale }) {
     { id: "home", label: t("home") },
     { id: "about", label: t("about") },
     { id: "journey", label: tJourney("tag") },
-    { id: "services", label: t("services") },
     { id: "testimonials", label: tTestimonials("tag") },
     { id: "cta", label: tCTA("tag") },
-    { id: "contact", label: t("contact") },
   ];
 
   return (
