@@ -1,6 +1,6 @@
 import type { Variants } from "motion/react";
 
-export const EASE_CUSTOM = [0.22, 1, 0.36, 1] as any;
+export const EASE_CUSTOM = [0.22, 1, 0.36, 1] as const;
 
 export const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 24 },
