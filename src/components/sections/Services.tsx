@@ -1,67 +1,37 @@
 import Image from "next/image";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { SectionHeader } from "@/components/sections/SectionHeader";
-import {
-  ServiceDialogManager,
-  type ServiceItem,
-} from "@/components/sections/ServiceCardDialog";
+import { Button } from "@/components/ui/button";
+import { CONTACT_FORM_HREF, CONTACT_FORM_ID } from "@/constants/links";
+import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
-
-const productCards = [
-  {
-    src: "/images/product-1.jpg",
-    imageClassName: "object-cover object-top",
-  },
-  {
-    src: "/images/product-2.jpg",
-    imageClassName: "object-cover object-top",
-  },
-  {
-    src: "/images/product-3.jpg",
-    imageClassName: "object-cover object-top md:object-top",
-  },
-  {
-    src: "/images/product-4.jpg",
-    imageClassName: "object-cover object-[center_25%] md:object-[center_15%]",
-  },
-  {
-    src: "/images/product-5.jpg",
-    imageClassName: "object-cover object-[center_53%] md:object-[center_25%]",
-  },
-] as const;
-
-function getPreview(description: string) {
-  const firstPart = description.split(/[.!?]/)[0]?.trim();
-
-  if (!firstPart) {
-    return description;
-  }
-
-  return `${firstPart}.`;
-}
 
 export async function Services() {
   const t = await getTranslations("services");
-  const items = t.raw("items") as ServiceItem[];
-  const learnMoreLabel = t("learnMore");
-  const dialogLabels = {
-    includesLabel: t("includesLabel"),
-    forWhoLabel: t("forWhoLabel"),
-    inquiryTitle: t("inquiry.title"),
-    nameLabel: t("inquiry.nameLabel"),
-    namePlaceholder: t("inquiry.namePlaceholder"),
-    emailLabel: t("inquiry.emailLabel"),
-    emailPlaceholder: t("inquiry.emailPlaceholder"),
-    phoneLabel: t("inquiry.phoneLabel"),
-    phonePlaceholder: t("inquiry.phonePlaceholder"),
-    sendButton: t("inquiry.sendButton"),
-    sendingButton: t("inquiry.sendingButton"),
-    successMessage: t("inquiry.successMessage"),
-    errorMessage: t("inquiry.errorMessage"),
-    invalidEmailMessage: t("inquiry.invalidEmailMessage"),
-    invalidPhoneMessage: t("inquiry.invalidPhoneMessage"),
-    atLeastOneContactMessage: t("inquiry.atLeastOneContactMessage"),
-  };
+  const locale = await getLocale();
+  const imageLocale = locale === "ua" ? "ua" : "en";
+  const serviceCards = [
+    {
+      title: "ONLINE COACHING",
+      image: `/images/${imageLocale}/coworking-1.jpg`,
+    },
+    {
+      title: "PERSONAL TRAINING - LVIV",
+      image: `/images/${imageLocale}/coworking-2.jpg`,
+    },
+    {
+      title: "INDIVIDUAL POSING LESSONS - BODYBUILDING & CLASSIC",
+      image: `/images/${imageLocale}/coworking-3.jpg`,
+    },
+    {
+      title: "INDIVIDUAL CONSULTATION Online - video call",
+      image: `/images/${imageLocale}/coworking-4.jpg`,
+    },
+    {
+      title: "INDIVIDUAL TRAINING PLAN /NUTRITION PLAN (OR COMBINED PACKAGE)",
+      image: `/images/${imageLocale}/coworking-5.jpg`,
+    },
+  ];
 
   return (
     <section
@@ -77,48 +47,43 @@ export async function Services() {
           className="mb-12 md:mb-16"
         />
 
-        <div className="mx-auto grid max-w-6xl gap-5 md:grid-cols-2 md:gap-6">
-          {items.map((item, index) => {
-            const productCard = productCards[index % productCards.length];
-            const cardKey = item.title.slice(0, 40);
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-6 lg:gap-6">
+          {serviceCards.map((service, index) => (
+            <div
+              key={service.title}
+              className={cn(
+                "group relative overflow-hidden rounded-3xl border border-gray-200 bg-black lg:col-span-2",
+                index === 3 && "lg:col-start-2",
+                index === 4 && "lg:col-start-4",
+              )}
+            >
+              <div className="relative aspect-[4/5] bg-[#050a26]">
+                <Image
+                  src={service.image}
+                  alt={service.title}
+                  fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                  className="object-contain transition-transform duration-500 group-hover:scale-[1.02]"
+                />
+                <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/35 group-focus-within:bg-black/35" />
 
-            return (
-              <button
-                key={cardKey}
-                type="button"
-                data-service-index={index}
-                className={cn(
-                  "w-full cursor-pointer rounded-3xl border border-gray-200 bg-white p-5 text-left shadow-[0_15px_40px_-30px_rgba(15,23,42,0.35)] transition-all duration-300 hover:-translate-y-0.5 hover:border-gray-300 hover:shadow-[0_20px_48px_-28px_rgba(15,23,42,0.4)] focus-visible:ring-2 focus-visible:ring-slate-300 focus-visible:outline-none md:p-6",
-                )}
-              >
-                <div className="relative mb-5 aspect-[4/3] overflow-hidden rounded-2xl border border-gray-200 bg-gray-50">
-                  <Image
-                    src={productCard.src}
-                    alt={item.title}
-                    fill
-                    sizes="(min-width: 768px) 50vw, 100vw"
-                    className={productCard.imageClassName}
-                  />
+                <div className="absolute inset-x-4 bottom-4 opacity-100 transition duration-300 md:pointer-events-none md:translate-y-2 md:opacity-0 md:group-hover:pointer-events-auto md:group-hover:translate-y-0 md:group-hover:opacity-100 md:group-focus-within:pointer-events-auto md:group-focus-within:translate-y-0 md:group-focus-within:opacity-100">
+                  <Button
+                    asChild
+                    size="sm"
+                    className="w-full border border-white/80 bg-white/90 text-slate-900 shadow-lg backdrop-blur-xs hover:bg-white"
+                  >
+                    <Link
+                      href={`${CONTACT_FORM_HREF}?program=${encodeURIComponent(service.title)}#${CONTACT_FORM_ID}`}
+                    >
+                      {t("learnMore")}
+                    </Link>
+                  </Button>
                 </div>
-
-                <h3 className="text-xl font-semibold tracking-tight text-gray-900">
-                  {item.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-gray-600">
-                  {getPreview(item.description)}
-                </p>
-
-                <div className="mt-5">
-                  <span className="inline-flex items-center rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-900 shadow-sm">
-                    {learnMoreLabel}
-                  </span>
-                </div>
-              </button>
-            );
-          })}
+              </div>
+            </div>
+          ))}
         </div>
-
-        <ServiceDialogManager items={items} labels={dialogLabels} />
       </div>
     </section>
   );

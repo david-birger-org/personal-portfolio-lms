@@ -1,6 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { SectionHeader } from "@/components/sections/SectionHeader";
 import { Button } from "@/components/ui/button";
 import { CONTACT_FORM_HREF } from "@/constants/links";
@@ -8,6 +8,8 @@ import { Link } from "@/i18n/routing";
 
 export async function CTA() {
   const t = await getTranslations("cta");
+  const locale = await getLocale();
+  const imageLocale = locale === "ua" ? "ua" : "en";
   const features = t.raw("features") as string[];
 
   return (
@@ -62,7 +64,7 @@ export async function CTA() {
           <div className="order-1 lg:order-2">
             <div className="relative rounded-3xl overflow-hidden shadow-2xl">
               <Image
-                src="/promo-image.jpg"
+                src={`/images/${imageLocale}/promo-image.jpg`}
                 alt="Transform Your Body - David Birger"
                 width={800}
                 height={1000}
