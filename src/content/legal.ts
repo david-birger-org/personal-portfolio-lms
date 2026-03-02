@@ -401,7 +401,3 @@ export const legalContent: Record<Locale, LegalContent> = {
     },
   },
 };
-
-export function getLegalDoc(locale: Locale, id: LegalDocId) {
-  return legalContent[locale].docs[id];
-}

@@ -107,5 +107,3 @@ export const serviceRequestSchema = z
       });
     }
   });
-
-export type ServiceRequestPayload = z.infer<typeof serviceRequestSchema>;
