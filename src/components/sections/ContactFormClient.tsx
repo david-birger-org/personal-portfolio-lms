@@ -1,35 +1,128 @@
 "use client";
 
 import { CheckCircle2, Send } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { CONTACT_FORM_ID } from "@/constants/links";
 
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const CONTACT_COUNTRIES = [
+  { code: "UA", dialCode: "+380", labelKey: "ua" },
+  { code: "US", dialCode: "+1", labelKey: "us" },
+  { code: "PL", dialCode: "+48", labelKey: "pl" },
+  { code: "DE", dialCode: "+49", labelKey: "de" },
+] as const;
 
-function isPhoneValid(value: string) {
-  return value.replace(/\D/g, "").length >= 7;
-}
+type CountryCode = (typeof CONTACT_COUNTRIES)[number]["code"];
 
-export function ContactFormClient({
-  compact: _compact = false,
-}: {
-  compact?: boolean;
-}) {
+const SOCIAL_HANDLE_PATTERN = /^@?[a-zA-Z0-9._]{2,32}$/;
+
+type PhoneNumberParser = (
+  phone: string,
+  country?: CountryCode,
+) =>
+  | {
+      isValid: () => boolean;
+    }
+  | undefined;
+
+export function ContactFormClient({ compact = false }: { compact?: boolean }) {
   const t = useTranslations("contact");
+  const searchParams = useSearchParams();
+  const selectedProgram = searchParams.get("program")?.trim() ?? "";
   const [formData, setFormData] = useState({
     firstName: "",
+    lastName: "",
     email: "",
+    country: "UA" as CountryCode,
     phone: "",
+    preferredContactMethod: "",
+    social: "",
     message: "",
   });
+  const [selectedProgramMessage, setSelectedProgramMessage] = useState("");
+  const [isMounted, setIsMounted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const parsePhoneNumberRef = useRef<PhoneNumberParser | null>(null);
+  const firstNameFieldRef = useRef<HTMLInputElement>(null);
+  const hasProgramPrefill = selectedProgramMessage.length > 0;
+
+  useEffect(() => {
+    const idleScheduler = globalThis as typeof globalThis & {
+      requestIdleCallback?: (
+        callback: () => void,
+        options?: { timeout?: number },
+      ) => number;
+      cancelIdleCallback?: (handle: number) => void;
+    };
+
+    const loadPhoneParser = () => {
+      void import("libphonenumber-js/min")
+        .then((module) => {
+          parsePhoneNumberRef.current = module.parsePhoneNumberFromString;
+        })
+        .catch(() => {
+          parsePhoneNumberRef.current = null;
+        });
+    };
+
+    if (idleScheduler.requestIdleCallback && idleScheduler.cancelIdleCallback) {
+      const idleId = idleScheduler.requestIdleCallback(loadPhoneParser, {
+        timeout: 1200,
+      });
+
+      return () => {
+        idleScheduler.cancelIdleCallback?.(idleId);
+      };
+    }
+
+    const timeoutId = window.setTimeout(loadPhoneParser, 300);
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
+  }, []);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!selectedProgram) {
+      return;
+    }
+
+    const programMessage = `Hi David, I would like to discuss this program: ${selectedProgram}.`;
+    setSelectedProgramMessage(programMessage);
+
+    const url = new URL(window.location.href);
+    url.searchParams.delete("program");
+    const query = url.searchParams.toString();
+    const nextUrl = `${url.pathname}${query ? `?${query}` : ""}${url.hash}`;
+    window.history.replaceState(window.history.state, "", nextUrl);
+
+    requestAnimationFrame(() => {
+      const firstNameField = firstNameFieldRef.current;
+      if (!firstNameField) {
+        return;
+      }
+
+      firstNameField.scrollIntoView({ behavior: "smooth", block: "center" });
+      firstNameField.focus();
+    });
+  }, [selectedProgram]);
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -38,22 +131,68 @@ export function ContactFormClient({
       newErrors.firstName = t("form.validation.firstNameRequired");
     }
 
-    if (formData.email.trim() && !EMAIL_PATTERN.test(formData.email.trim())) {
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = t("form.validation.lastNameRequired");
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = t("form.validation.emailRequired");
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = t("form.validation.emailInvalid");
     }
 
-    if (formData.phone.trim() && !isPhoneValid(formData.phone.trim())) {
-      newErrors.phone = t("form.validation.phoneInvalid");
+    if (!formData.phone.trim()) {
+      newErrors.phone = t("form.validation.phoneRequired");
+    } else {
+      try {
+        const parsePhoneNumberFromString = parsePhoneNumberRef.current;
+        if (parsePhoneNumberFromString) {
+          const parsed = parsePhoneNumberFromString(
+            formData.phone,
+            formData.country,
+          );
+
+          if (!parsed?.isValid()) {
+            newErrors.phone = t("form.validation.phoneInvalid");
+          }
+        } else {
+          const digits = formData.phone.replace(/\D/g, "");
+          if (digits.length < 8) {
+            newErrors.phone = t("form.validation.phoneInvalid");
+          }
+        }
+      } catch {
+        const digits = formData.phone.replace(/\D/g, "");
+        if (digits.length < 8) {
+          newErrors.phone = t("form.validation.phoneInvalid");
+        }
+      }
     }
 
-    if (!formData.email.trim() && !formData.phone.trim()) {
-      newErrors.contact = t("form.validation.atLeastOneContactRequired");
+    if (!formData.preferredContactMethod.trim()) {
+      newErrors.preferredContactMethod = t(
+        "form.validation.preferredContactMethodRequired",
+      );
     }
 
-    if (!formData.message.trim()) {
-      newErrors.message = t("form.validation.messageRequired");
-    } else if (formData.message.trim().length < 10) {
-      newErrors.message = t("form.validation.messageMinLength");
+    if (
+      ["instagram", "telegram"].includes(formData.preferredContactMethod) &&
+      !formData.social.trim()
+    ) {
+      newErrors.social = t("form.validation.socialRequired");
+    } else if (
+      formData.social.trim() &&
+      !SOCIAL_HANDLE_PATTERN.test(formData.social.trim())
+    ) {
+      newErrors.social = t("form.validation.socialInvalid");
+    }
+
+    if (!hasProgramPrefill) {
+      if (!formData.message.trim()) {
+        newErrors.message = t("form.validation.messageRequired");
+      } else if (formData.message.trim().length < 10) {
+        newErrors.message = t("form.validation.messageMinLength");
+      }
     }
 
     setErrors(newErrors);
@@ -77,9 +216,15 @@ export function ContactFormClient({
         },
         body: JSON.stringify({
           firstName: formData.firstName.trim(),
+          lastName: formData.lastName.trim(),
           email: formData.email.trim(),
+          country: formData.country,
           phone: formData.phone.trim(),
-          message: formData.message.trim(),
+          preferredContactMethod: formData.preferredContactMethod,
+          social: formData.social.trim(),
+          message: hasProgramPrefill
+            ? selectedProgramMessage
+            : formData.message.trim(),
         }),
       });
 
@@ -90,8 +235,12 @@ export function ContactFormClient({
       setIsSuccess(true);
       setFormData({
         firstName: "",
+        lastName: "",
         email: "",
+        country: "UA",
         phone: "",
+        preferredContactMethod: "",
+        social: "",
         message: "",
       });
 
@@ -110,24 +259,59 @@ export function ContactFormClient({
   ) => {
     const { name, value } = event.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    if (errors[name] || errors.contact || errors.form) {
+    if (errors[name] || errors.form) {
       setErrors((prev) => {
         const nextErrors = { ...prev };
         delete nextErrors[name];
-        delete nextErrors.contact;
         delete nextErrors.form;
         return nextErrors;
       });
     }
   };
 
-  const hasAnyContact =
-    formData.email.trim().length > 0 || formData.phone.trim().length > 0;
-  const canSubmit =
-    formData.firstName.trim().length > 0 &&
-    formData.message.trim().length >= 10 &&
-    hasAnyContact &&
-    !isSubmitting;
+  const handlePreferredContactMethodChange = (value: string) => {
+    setFormData((prev) => ({ ...prev, preferredContactMethod: value }));
+    if (errors.preferredContactMethod) {
+      setErrors((prev) => {
+        const nextErrors = { ...prev };
+        delete nextErrors.preferredContactMethod;
+        return nextErrors;
+      });
+    }
+  };
+
+  const handleCountryChange = (value: string) => {
+    const country = value as CountryCode;
+
+    setFormData((prev) => ({
+      ...prev,
+      country,
+      phone: prev.phone,
+    }));
+
+    if (errors.phone) {
+      setErrors((prev) => {
+        const nextErrors = { ...prev };
+        delete nextErrors.phone;
+        return nextErrors;
+      });
+    }
+  };
+
+  const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const sanitized = event.target.value.replace(/[^\d+()\-\s]/g, "");
+    setFormData((prev) => ({ ...prev, phone: sanitized }));
+
+    if (errors.phone) {
+      setErrors((prev) => {
+        const nextErrors = { ...prev };
+        delete nextErrors.phone;
+        return nextErrors;
+      });
+    }
+  };
+
+  const canSubmit = !isSubmitting;
 
   return (
     <div
@@ -146,86 +330,217 @@ export function ContactFormClient({
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <Label htmlFor="firstName" className="mb-2 block text-gray-900">
-              {t("form.firstNameLabel")}
-            </Label>
-            <Input
-              id="firstName"
-              name="firstName"
-              type="text"
-              value={formData.firstName}
-              onChange={handleChange}
-              className={`rounded-2xl border-gray-300 ${errors.firstName ? "border-red-500" : ""}`}
-              placeholder={t("form.firstNamePlaceholder")}
-            />
-            {errors.firstName ? (
-              <p className="mt-2 text-sm text-red-600">{errors.firstName}</p>
-            ) : null}
-          </div>
-
           <div className="grid gap-4 md:grid-cols-2">
             <div>
-              <Label htmlFor="email" className="mb-2 block text-gray-900">
-                {t("form.emailLabel")}
+              <Label htmlFor="firstName" className="mb-2 block text-gray-900">
+                {t("form.firstNameLabel")}
               </Label>
               <Input
-                id="email"
-                name="email"
-                type="email"
-                value={formData.email}
+                ref={firstNameFieldRef}
+                id="firstName"
+                name="firstName"
+                type="text"
+                value={formData.firstName}
                 onChange={handleChange}
-                className={`rounded-2xl border-gray-300 ${errors.email ? "border-red-500" : ""}`}
-                placeholder={t("form.emailPlaceholder")}
+                className={`rounded-2xl border-gray-300 ${errors.firstName ? "border-red-500" : ""}`}
+                placeholder={t("form.firstNamePlaceholder")}
               />
-              {errors.email ? (
-                <p className="mt-2 text-sm text-red-600">{errors.email}</p>
+              {errors.firstName ? (
+                <p className="mt-2 text-sm text-red-600">{errors.firstName}</p>
               ) : null}
             </div>
 
-            <div>
-              <Label htmlFor="phone" className="mb-2 block text-gray-900">
-                {t("form.phoneLabel")}
-              </Label>
-              <Input
-                id="phone"
-                name="phone"
-                type="tel"
-                value={formData.phone}
-                onChange={handleChange}
-                className={`rounded-2xl border-gray-300 ${errors.phone ? "border-red-500" : ""}`}
-                placeholder={t("form.phonePlaceholder", {
-                  countryCode: "+380",
-                })}
-              />
-              {errors.phone ? (
-                <p className="mt-2 text-sm text-red-600">{errors.phone}</p>
-              ) : null}
-            </div>
-          </div>
-
-          {errors.contact ? (
-            <p className="text-sm text-red-600">{errors.contact}</p>
-          ) : null}
-
-          <div>
-            <Label htmlFor="message" className="mb-2 block text-gray-900">
-              {t("form.messageLabel")}
-            </Label>
-            <Textarea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              className={`min-h-[150px] rounded-2xl border-gray-300 ${
-                errors.message ? "border-red-500" : ""
-              }`}
-              placeholder={t("form.messagePlaceholder")}
-            />
-            {errors.message ? (
-              <p className="mt-2 text-sm text-red-600">{errors.message}</p>
+            {!compact ? (
+              <div>
+                <Label htmlFor="lastName" className="mb-2 block text-gray-900">
+                  {t("form.lastNameLabel")}
+                </Label>
+                <Input
+                  id="lastName"
+                  name="lastName"
+                  type="text"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  className={`rounded-2xl border-gray-300 ${errors.lastName ? "border-red-500" : ""}`}
+                  placeholder={t("form.lastNamePlaceholder")}
+                />
+                {errors.lastName ? (
+                  <p className="mt-2 text-sm text-red-600">{errors.lastName}</p>
+                ) : null}
+              </div>
             ) : null}
           </div>
+
+          <div>
+            <Label htmlFor="email" className="mb-2 block text-gray-900">
+              {t("form.emailLabel")}
+            </Label>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              className={`rounded-2xl border-gray-300 ${errors.email ? "border-red-500" : ""}`}
+              placeholder={t("form.emailPlaceholder")}
+            />
+            {errors.email ? (
+              <p className="mt-2 text-sm text-red-600">{errors.email}</p>
+            ) : null}
+          </div>
+
+          {!compact ? (
+            <div className="grid gap-4 md:grid-cols-2">
+              <div>
+                <Label className="mb-2 block text-gray-900">
+                  {t("form.countryLabel")}
+                </Label>
+                {isMounted ? (
+                  <Select
+                    value={formData.country}
+                    onValueChange={handleCountryChange}
+                  >
+                    <SelectTrigger className="rounded-2xl border-gray-300">
+                      <SelectValue placeholder={t("form.countryPlaceholder")} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {CONTACT_COUNTRIES.map((country) => (
+                        <SelectItem key={country.code} value={country.code}>
+                          {`${t(`form.countries.${country.labelKey}`)} (${country.dialCode})`}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                ) : (
+                  <Input
+                    type="text"
+                    readOnly
+                    value={`${t(`form.countries.${CONTACT_COUNTRIES.find((country) => country.code === formData.country)?.labelKey ?? "ua"}`)} (${CONTACT_COUNTRIES.find((country) => country.code === formData.country)?.dialCode ?? "+380"})`}
+                    className="rounded-2xl border-gray-300"
+                  />
+                )}
+              </div>
+
+              <div>
+                <Label htmlFor="phone" className="mb-2 block text-gray-900">
+                  {t("form.phoneLabel")}
+                </Label>
+                <Input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  value={formData.phone}
+                  onChange={handlePhoneChange}
+                  className={`rounded-2xl border-gray-300 ${errors.phone ? "border-red-500" : ""}`}
+                  placeholder={t("form.phonePlaceholder", {
+                    countryCode:
+                      CONTACT_COUNTRIES.find(
+                        (country) => country.code === formData.country,
+                      )?.dialCode ?? "+380",
+                  })}
+                />
+                {errors.phone ? (
+                  <p className="mt-2 text-sm text-red-600">{errors.phone}</p>
+                ) : null}
+              </div>
+            </div>
+          ) : null}
+
+          {!compact ? (
+            <>
+              <div>
+                <Label className="mb-2 block text-gray-900">
+                  {t("form.preferredContactMethodLabel")}
+                </Label>
+                {isMounted ? (
+                  <Select
+                    value={formData.preferredContactMethod}
+                    onValueChange={handlePreferredContactMethodChange}
+                  >
+                    <SelectTrigger
+                      className={`rounded-2xl border-gray-300 ${
+                        errors.preferredContactMethod ? "border-red-500" : ""
+                      }`}
+                    >
+                      <SelectValue
+                        placeholder={t(
+                          "form.preferredContactMethodPlaceholder",
+                        )}
+                      />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="sms">
+                        {t("form.contactMethods.sms")}
+                      </SelectItem>
+                      <SelectItem value="instagram">
+                        {t("form.contactMethods.instagram")}
+                      </SelectItem>
+                      <SelectItem value="telegram">
+                        {t("form.contactMethods.telegram")}
+                      </SelectItem>
+                      <SelectItem value="phoneCall">
+                        {t("form.contactMethods.phoneCall")}
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                ) : (
+                  <Input
+                    type="text"
+                    readOnly
+                    value=""
+                    placeholder={t("form.preferredContactMethodPlaceholder")}
+                    className={`rounded-2xl border-gray-300 ${
+                      errors.preferredContactMethod ? "border-red-500" : ""
+                    }`}
+                  />
+                )}
+                {errors.preferredContactMethod ? (
+                  <p className="mt-2 text-sm text-red-600">
+                    {errors.preferredContactMethod}
+                  </p>
+                ) : null}
+              </div>
+
+              <div>
+                <Label htmlFor="social" className="mb-2 block text-gray-900">
+                  {t("form.socialLabel")}
+                </Label>
+                <Input
+                  id="social"
+                  name="social"
+                  type="text"
+                  value={formData.social}
+                  onChange={handleChange}
+                  className={`rounded-2xl border-gray-300 ${errors.social ? "border-red-500" : ""}`}
+                  placeholder={t("form.socialPlaceholder")}
+                />
+                {errors.social ? (
+                  <p className="mt-2 text-sm text-red-600">{errors.social}</p>
+                ) : null}
+              </div>
+            </>
+          ) : null}
+
+          {hasProgramPrefill ? null : (
+            <div>
+              <Label htmlFor="message" className="mb-2 block text-gray-900">
+                {t("form.messageLabel")}
+              </Label>
+              <Textarea
+                id="message"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                className={`min-h-[150px] rounded-2xl border-gray-300 ${
+                  errors.message ? "border-red-500" : ""
+                }`}
+                placeholder={t("form.messagePlaceholder")}
+              />
+              {errors.message ? (
+                <p className="mt-2 text-sm text-red-600">{errors.message}</p>
+              ) : null}
+            </div>
+          )}
 
           <Button
             size="lg"
