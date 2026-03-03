@@ -16,7 +16,7 @@ export async function Journey() {
   return (
     <section
       id="journey"
-      className="bg-white px-4 py-20 sm:px-6 sm:py-28 lg:px-8"
+      className="bg-white px-4 py-14 sm:px-6 sm:py-20 lg:px-8"
     >
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto mb-12 max-w-3xl text-center sm:mb-16">

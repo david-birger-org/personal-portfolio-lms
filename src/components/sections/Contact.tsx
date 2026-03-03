@@ -50,7 +50,7 @@ async function ContactSection({ variant }: { variant: ContactVariant }) {
   return (
     <section
       id="contact"
-      className="relative overflow-hidden bg-gray-50 py-20 md:py-28"
+      className="relative overflow-hidden bg-gray-50 py-14 md:py-20"
     >
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader

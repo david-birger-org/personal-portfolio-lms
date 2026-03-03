@@ -14,7 +14,7 @@ export async function CTA({ locale }: { locale: string }) {
   return (
     <section
       id="cta"
-      className="py-20 md:py-32 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden"
+      className="py-14 md:py-20 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">

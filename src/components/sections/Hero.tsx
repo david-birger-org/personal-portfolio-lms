@@ -34,7 +34,7 @@ export async function Hero({ locale }: { locale: string }) {
         <div className="absolute inset-0 bg-linear-to-r from-black/65 via-black/25 to-black/45 lg:from-black/75 lg:via-black/30 lg:to-black/35" />
       </div>
 
-      <div className="container relative z-10 mx-auto min-h-svh px-4 pb-24 sm:px-6 sm:pb-20 md:max-h-[1420px] lg:px-8">
+      <div className="container relative z-10 mx-auto min-h-svh px-4 pb-16 sm:px-6 sm:pb-14 md:max-h-[1420px] lg:px-8">
         <div
           className={cn(
             "mt-[39vh] text-center sm:mt-[45vh] md:mt-[20vh] md:flex md:min-h-[52svh] md:flex-col md:justify-center md:gap-6 md:text-left",
