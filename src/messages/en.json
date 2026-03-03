@@ -45,6 +45,20 @@
         "name": "WNBF Pro in two categories: Bodybuilding and Classic Physique"
       }
     ],
+    "featureCards": {
+      "certified": {
+        "title": "Certified",
+        "description": "CPT"
+      },
+      "personalized": {
+        "title": "Personalized",
+        "description": "Custom Plans"
+      },
+      "results": {
+        "title": "Results",
+        "description": "98% Success"
+      }
+    },
     "stats": {
       "clients": "Happy Clients",
       "lost": "Pounds Lost"
@@ -257,21 +271,21 @@
       {
         "name": "Anastasiia K.",
         "role": "-12 kg | Recomposition",
-        "content": "I came for fat loss and stayed for the structure. David built a clear weekly system for training and nutrition, and for the first time my results became predictable.",
+        "content": "I originally just wanted to lose weight before summer. We started simple, fixed my meals, and added training I could actually stick to. I am down 12 kg now, and for once I did not bounce back after a month.",
         "image": "/images/testimonial-1.svg",
         "rating": 5
       },
       {
         "name": "Oleksandr M.",
         "role": "First-Time Competitor",
-        "content": "Contest prep with David was precise from day one - training blocks, peak-week adjustments, and posing practice. I stepped on stage fully prepared and took top placement in my class.",
+        "content": "My first prep was honestly stressful, but David kept everything clear week by week. When my weight stalled, we adjusted quickly and moved on. By show day I knew exactly what to do and took a top place in my class.",
         "image": "/images/testimonial-2.svg",
         "rating": 5
       },
       {
         "name": "Marta P.",
         "role": "Online Client | 9 Months",
-        "content": "Even online, the coaching felt personal. Weekly feedback, quick corrections, and realistic nutrition rules helped me gain muscle without losing balance in daily life.",
+        "content": "I was not sure online coaching would work for me, but it did. I sent check-ins every week, got straightforward feedback, and we made small changes instead of extreme ones. In 9 months I gained muscle and still kept a normal routine.",
         "image": "/images/testimonial-3.svg",
         "rating": 5
       }

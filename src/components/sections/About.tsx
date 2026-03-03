@@ -1,4 +1,10 @@
-import { Award, CheckCircle2, Target, TrendingUp } from "lucide-react";
+import {
+  Award,
+  CheckCircle2,
+  type LucideIcon,
+  Target,
+  TrendingUp,
+} from "lucide-react";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 
@@ -9,23 +15,24 @@ import { Link } from "@/i18n/routing";
 export async function About() {
   const t = await getTranslations("about");
 
-  const features = [
+  type FeatureKey = "certified" | "personalized" | "results";
+
+  const featureCards = t.raw("featureCards") as Record<
+    FeatureKey,
+    { title: string; description: string }
+  >;
+
+  const features: Array<{ icon: LucideIcon; key: FeatureKey }> = [
     {
       icon: Award,
-      title: "Certified",
-      description: "CPT",
       key: "certified",
     },
     {
       icon: Target,
-      title: "Personalized",
-      description: "Custom Plans",
       key: "personalized",
     },
     {
       icon: TrendingUp,
-      title: "Results",
-      description: "98% Success",
       key: "results",
     },
   ];
@@ -60,10 +67,10 @@ export async function About() {
                 >
                   <feature.icon className="w-6 h-6 mx-auto text-gray-900 mb-2" />
                   <div className="text-xs font-semibold text-gray-900 mb-0.5">
-                    {feature.title}
+                    {featureCards[feature.key].title}
                   </div>
                   <div className="text-xs text-gray-600">
-                    {feature.description}
+                    {featureCards[feature.key].description}
                   </div>
                 </div>
               ))}

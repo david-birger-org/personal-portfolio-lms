@@ -35,7 +35,7 @@ export async function Services({ locale }: { locale: string }) {
   return (
     <section
       id="services"
-      className="relative overflow-hidden bg-gray-50 py-14 md:py-20"
+      className="relative scroll-mt-40 overflow-hidden bg-gray-50 pb-14 pt-20 md:scroll-mt-44 md:pb-20 md:pt-28"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
