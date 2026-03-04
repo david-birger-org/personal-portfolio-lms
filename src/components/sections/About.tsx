@@ -1,10 +1,4 @@
-import {
-  Award,
-  CheckCircle2,
-  type LucideIcon,
-  Target,
-  TrendingUp,
-} from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 
@@ -15,34 +9,12 @@ import { Link } from "@/i18n/routing";
 export async function About() {
   const t = await getTranslations("about");
 
-  type FeatureKey = "certified" | "personalized" | "results";
-
-  const featureCards = t.raw("featureCards") as Record<
-    FeatureKey,
-    { title: string; description: string }
-  >;
-
-  const features: Array<{ icon: LucideIcon; key: FeatureKey }> = [
-    {
-      icon: Award,
-      key: "certified",
-    },
-    {
-      icon: Target,
-      key: "personalized",
-    },
-    {
-      icon: TrendingUp,
-      key: "results",
-    },
-  ];
-
   const achievements = t.raw("achievements") as Array<{ name: string }>;
 
   return (
     <section
       id="about"
-      className="py-20 md:py-24 bg-white relative overflow-hidden"
+      className="bg-white pb-20 pt-0 md:pb-24 md:pt-0 relative overflow-hidden"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
@@ -57,23 +29,6 @@ export async function About() {
                   className="object-cover"
                 />
               </div>
-            </div>
-
-            <div className="grid grid-cols-3 gap-3 mt-6">
-              {features.map((feature) => (
-                <div
-                  key={feature.key}
-                  className="bg-gray-50 border border-gray-200 rounded-2xl p-4 text-center hover:bg-gray-100 transition-all"
-                >
-                  <feature.icon className="w-6 h-6 mx-auto text-gray-900 mb-2" />
-                  <div className="text-xs font-semibold text-gray-900 mb-0.5">
-                    {featureCards[feature.key].title}
-                  </div>
-                  <div className="text-xs text-gray-600">
-                    {featureCards[feature.key].description}
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
 
