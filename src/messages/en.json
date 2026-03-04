@@ -142,7 +142,7 @@
     "inquiry": {
       "title": "Send a Request",
       "nameLabel": "Your Name",
-      "namePlaceholder": "Enter your name",
+      "namePlaceholder": "John Doe",
       "emailLabel": "Email",
       "emailPlaceholder": "Enter your email",
       "phoneLabel": "Phone Number",
@@ -179,9 +179,9 @@
   },
   "contact": {
     "tag": "CONTACTS",
-    "title": "Let's Work Together",
-    "titleAccent": "For Your Results",
-    "description": "Tell me where you are now and where you want to be. I will build a clear plan and coach you all the way through.",
+    "title": "Great Results",
+    "titleAccent": "Start with the First Step",
+    "description": "To begin working together, I need to understand your unique characteristics so I can create an individualized plan",
     "info": {
       "email": {
         "title": "Email",
@@ -258,7 +258,7 @@
     },
     "consultation": {
       "title": "Free Consultation",
-      "description": "Schedule a free 30-minute consultation to discuss your goals and see if we're a good fit.",
+      "description": "Schedule a free 30-minute consultation to discuss your goals and collaboration preferences.",
       "features": ["Goal Assessment", "Program Overview", "Q&A Session"]
     }
   },
@@ -267,27 +267,35 @@
     "title": "Client Results &",
     "titleAccent": "Competition Wins",
     "description": "Stories from clients and athletes who trained with me through lifestyle change, contest prep, and long-term transformation.",
+    "translationNotice": "Translated from {language}",
+    "languages": {
+      "en": "English",
+      "ua": "Ukrainian"
+    },
     "items": [
       {
-        "name": "Anastasiia K.",
-        "role": "-12 kg | Recomposition",
-        "content": "I originally just wanted to lose weight before summer. We started simple, fixed my meals, and added training I could actually stick to. I am down 12 kg now, and for once I did not bounce back after a month.",
-        "image": "/images/testimonial-1.svg",
-        "rating": 5
+        "name": "Marta Yatskiv",
+        "role": "Offline training. Competition prep",
+        "content": "Our cooperation has already lasted two years and continues further. At first, I reached out with a hernia issue, which after starting work with David has not bothered me even once! Then we moved on to preparing for natural bodybuilding competitions. This is the coach who turned my life upside down, opened new opportunities, and showed me what I am truly capable of!",
+        "image": "/images/testimonial-default.svg",
+        "rating": 5,
+        "originalLanguage": "ua"
       },
       {
-        "name": "Oleksandr M.",
-        "role": "First-Time Competitor",
-        "content": "My first prep was honestly stressful, but David kept everything clear week by week. When my weight stalled, we adjusted quickly and moved on. By show day I knew exactly what to do and took a top place in my class.",
-        "image": "/images/testimonial-2.svg",
-        "rating": 5
+        "name": "Taras L",
+        "role": "Online coaching. Competition prep.",
+        "content": "In August 2024, I started working with David and continue to this day. I was looking for a good mentor for my debut in natural bodybuilding competitions. We work online, and both David's work and mine are carried out clearly. Thank you for the valuable knowledge and experience. We keep moving forward!",
+        "image": "/images/testimonial-default.svg",
+        "rating": 5,
+        "originalLanguage": "ua"
       },
       {
-        "name": "Marta P.",
-        "role": "Online Client | 9 Months",
-        "content": "I was not sure online coaching would work for me, but it did. I sent check-ins every week, got straightforward feedback, and we made small changes instead of extreme ones. In 9 months I gained muscle and still kept a normal routine.",
-        "image": "/images/testimonial-3.svg",
-        "rating": 5
+        "name": "Valentyn R",
+        "role": "Online coaching. Competition prep",
+        "content": "With David, I truly reached another level. A lot changed in my approach to training and mindset, and it gave results. I am glad I work specifically with him and keep moving forward together. If your choice is professional sports, then it is definitely David. 🔥💪🏆",
+        "image": "/images/testimonial-default.svg",
+        "rating": 5,
+        "originalLanguage": "ua"
       }
     ],
     "stats": {
@@ -337,7 +345,7 @@
   "footer": {
     "logo": "David Birger",
     "logoAccent": "Birger",
-    "tagline": "The Path of Neptune stands for discipline, aesthetics, and natural progress. I help you build your best self through personalized coaching and a proven system.",
+    "tagline": "The Path of Neptune is a unique vision of the process of building the best version of yourself through discipline, aesthetics, and natural bodybuilding.",
     "navigation": {
       "title": "Navigation",
       "home": "Home",

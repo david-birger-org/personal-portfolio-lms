@@ -1,17 +1,19 @@
 import { Quote, Star } from "lucide-react";
 import Image from "next/image";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 
 import { SectionHeader } from "@/components/sections/SectionHeader";
 
 export async function Testimonials() {
   const t = await getTranslations("testimonials");
+  const locale = await getLocale();
   const testimonials = t.raw("items") as Array<{
     name: string;
     role: string;
     content: string;
     image: string;
     rating: number;
+    originalLanguage: "en" | "ua";
     transformation?: string;
   }>;
 
@@ -54,11 +56,11 @@ export async function Testimonials() {
           <p className="mt-3 text-sm text-gray-600">{t("description")}</p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid gap-6 md:grid-cols-2 md:auto-rows-fr lg:grid-cols-3">
           {testimonials.map((testimonial) => (
             <div
               key={testimonial.name}
-              className="bg-gray-50 border border-gray-200 rounded-3xl p-8 hover:border-gray-300 transition-all duration-500 group"
+              className="group flex h-full flex-col rounded-3xl border border-gray-200 bg-gray-50 p-8 transition-all duration-500 hover:border-gray-300"
             >
               <div className="relative mb-6">
                 <Quote className="w-8 h-8 text-gray-400" />
@@ -85,7 +87,7 @@ export async function Testimonials() {
                 </div>
               )}
 
-              <div className="flex items-center gap-3 pt-6 border-t border-gray-200">
+              <div className="mt-auto flex items-center gap-3 border-t border-gray-200 pt-6">
                 <div className="w-12 h-12 rounded-2xl overflow-hidden ring-1 ring-gray-200">
                   <Image
                     src={testimonial.image}
@@ -103,6 +105,17 @@ export async function Testimonials() {
                   <div className="text-sm text-gray-600">
                     {testimonial.role}
                   </div>
+                  {locale !== testimonial.originalLanguage && (
+                    <div className="text-xs text-gray-500 mt-1">
+                      {t("translationNotice", {
+                        language: t(
+                          `languages.${testimonial.originalLanguage}` as
+                            | "languages.en"
+                            | "languages.ua",
+                        ),
+                      })}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
