@@ -1,24 +1,13 @@
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
-import { isLocale } from "@/i18n/locale";
-import { routing } from "@/i18n/routing";
-import "../globals.css";
+import { AdminAwareFooter } from "@/components/layout/AdminAwareFooter";
 import { Footer } from "@/components/layout/Footer";
 import { Navigation } from "@/components/layout/Navigation";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
-
-export const dynamic = "force-static";
-export const dynamicParams = false;
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
+import { isLocale } from "@/i18n/locale";
+import { routing } from "@/i18n/routing";
 
 export async function generateMetadata({
   params,
@@ -73,25 +62,15 @@ export default async function LocaleLayout({
   };
 
   return (
-    <html lang={locale} className="scroll-smooth">
-      <body className={`${inter.variable} antialiased`}>
-        <NextIntlClientProvider
-          key={locale}
-          locale={locale}
-          messages={messages}
-        >
-          <Navigation locale={locale} />
-          {children}
+    <>
+      <NextIntlClientProvider key={locale} locale={locale} messages={messages}>
+        <Navigation locale={locale} />
+        {children}
+        <AdminAwareFooter>
           <Footer />
-        </NextIntlClientProvider>
-        <ScrollToTop />
-        {process.env.NODE_ENV === "production" && (
-          <>
-            <Analytics />
-            <SpeedInsights />
-          </>
-        )}
-      </body>
-    </html>
+        </AdminAwareFooter>
+      </NextIntlClientProvider>
+      <ScrollToTop />
+    </>
   );
 }

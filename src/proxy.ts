@@ -1,3 +1,4 @@
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { type NextRequest, NextResponse } from "next/server";
 import createMiddleware from "next-intl/middleware";
 import { defaultLocale, type Locale, locales } from "./i18n/config";
@@ -6,6 +7,7 @@ import { routing } from "./i18n/routing";
 const nextIntlMiddleware = createMiddleware(routing);
 const ONE_YEAR_IN_SECONDS = 60 * 60 * 24 * 365;
 const LOCALE_COOKIE_NAME = "NEXT_LOCALE";
+const isAdminRoute = createRouteMatcher(["/:locale/admin(.*)"]);
 
 function isLocale(value: string | undefined): value is Locale {
   return value !== undefined && locales.includes(value as Locale);
@@ -81,13 +83,17 @@ function persistLocale(response: NextResponse, locale: Locale) {
   });
 }
 
-export default function proxy(request: NextRequest) {
+export default clerkMiddleware(async (auth, request: NextRequest) => {
   const { pathname } = request.nextUrl;
 
-  // Reject file-extension requests that slip through the matcher.
-  // Returning a 404 here prevents them from hitting the [locale] catch-all
-  // segment, which would trigger next-intl's requestLocale → headers() call
-  // and cause a static-to-dynamic runtime error.
+  if (isAdminRoute(request)) {
+    await auth.protect();
+  }
+
+  if (pathname.startsWith("/api") || pathname.startsWith("/trpc")) {
+    return NextResponse.next();
+  }
+
   if (/\.\w+$/.test(pathname)) {
     return new NextResponse(null, { status: 404 });
   }
@@ -110,18 +116,11 @@ export default function proxy(request: NextRequest) {
   }
 
   return nextIntlMiddleware(request);
-}
+});
 
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - _vercel (Vercel internals)
-     * - Files with extensions (favicon.ico, sw.js, robots.txt, etc.)
-     */
-    "/((?!api|_next/static|_next/image|_vercel|favicon\\.ico|sw\\.js|sitemap\\.xml|robots\\.txt|.*\\.[\\w]+$).*)",
+    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    "/(api|trpc)(.*)",
   ],
 };
