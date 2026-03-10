@@ -6,6 +6,7 @@
     "about": "About",
     "services": "Collaboration",
     "contact": "Contact",
+    "admin": "Admin",
     "ctaText": "Book Consultation"
   },
   "hero": {
@@ -349,6 +350,44 @@
       "2": "You receive weekly progress analysis, plan updates, and clear next-step execution"
     },
     "button": "Apply for Coaching"
+  },
+  "admin": {
+    "eyebrow": "Admin workspace",
+    "title": "Admin dashboard",
+    "description": "This is a dedicated admin surface. The public website remains open, while Clerk is mounted only here for sign-in, sign-up, and session state.",
+    "tabs": {
+      "general": "General",
+      "payments": "Payments",
+      "history": "History"
+    },
+    "routeLabel": "Route",
+    "sessionLabel": "Session",
+    "sessionSignedIn": "Signed in",
+    "sessionSignedOut": "Not signed in",
+    "signedIn": {
+      "title": "You are signed in",
+      "description": "Clerk is active on this admin page and your session is ready for protected tools."
+    },
+    "signedOut": {
+      "title": "Sign in to unlock the dummy dashboard",
+      "description": "Use the embedded Clerk form to test the complete login flow. You can also create your first test user from here.",
+      "cta": "Create test user"
+    },
+    "stats": {
+      "users": "Users",
+      "leads": "Leads",
+      "tasks": "Tasks"
+    },
+    "dashboard": {
+      "eyebrow": "Access granted",
+      "title": "Dummy admin dashboard",
+      "description": "This state confirms Clerk is mounted and your session is available only on the admin page.",
+      "workflowLabel": "Workflow",
+      "workflowValue": "Ready to extend",
+      "authLabel": "Auth",
+      "authValue": "Clerk session live"
+    },
+    "footer": "Use `/en/admin` or `/ua/admin` during local development. You can later move this same admin surface to a subdomain without splitting the repo."
   },
   "footer": {
     "logo": "David Birger",
