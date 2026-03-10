@@ -37,8 +37,8 @@ export default async function AboutPage({
     currentLocale,
   );
   const imagesBySeries = discoverBiographyImagesBySeries();
-  const imageGroups = sections.map((section) =>
-    resolveBiographyImageGroup(section.title, imagesBySeries),
+  const imageGroups = sections.map((section, index) =>
+    resolveBiographyImageGroup(section.title, imagesBySeries, index),
   );
 
   return (

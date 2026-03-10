@@ -5,16 +5,31 @@ import {
 
 export type BiographyImageSelection = BiographyImageGroup | [];
 
+const BIOGRAPHY_IMAGE_SERIES_ORDER = [
+  "childhood",
+  "adolescence",
+  "beginning-in-the-gym",
+  "interest-in-bodybuilding-and-first-competitions",
+  "development-of-natural-bodybuilding-in-ukraine",
+  "earning-wnbf-pro-status-and-the-first-international-tournament",
+  "path-of-neptune",
+  "memorable-2025-competitive-season",
+] as const;
+
 const BIOGRAPHY_SECTION_IMAGE_ALIASES: Record<string, string> = {
   childhood: "childhood",
   adolescence: "adolescence",
   "beginning in the gym": "beginning-in-the-gym",
+  "bodybuilding debut": "interest-in-bodybuilding-and-first-competitions",
   "interest in bodybuilding and first competitions":
     "interest-in-bodybuilding-and-first-competitions",
+  "the formation of natural bodybuilding in ukraine":
+    "development-of-natural-bodybuilding-in-ukraine",
   "development of natural bodybuilding in ukraine":
     "development-of-natural-bodybuilding-in-ukraine",
   "earning wnbf pro status and the first international tournament":
     "earning-wnbf-pro-status-and-the-first-international-tournament",
+  "neptunes way": "path-of-neptune",
   "path of neptune": "path-of-neptune",
   "memorable 2025 competitive season": "memorable-2025-competitive-season",
   дитинство: "childhood",
@@ -54,12 +69,22 @@ export function discoverBiographyImagesBySeries(): Record<
 export function resolveBiographyImageGroup(
   sectionTitle: string,
   imagesBySeries: Record<string, BiographyImageGroup>,
+  sectionIndex?: number,
 ): BiographyImageSelection {
   const normalizedHeading = normalizeSectionHeading(sectionTitle);
   const mappedSeries = BIOGRAPHY_SECTION_IMAGE_ALIASES[normalizedHeading];
 
   if (mappedSeries && imagesBySeries[mappedSeries]) {
     return imagesBySeries[mappedSeries];
+  }
+
+  const orderedSeries =
+    typeof sectionIndex === "number"
+      ? BIOGRAPHY_IMAGE_SERIES_ORDER[sectionIndex]
+      : undefined;
+
+  if (orderedSeries && imagesBySeries[orderedSeries]) {
+    return imagesBySeries[orderedSeries];
   }
 
   const fallbackSeries = normalizeToken(sectionTitle);
