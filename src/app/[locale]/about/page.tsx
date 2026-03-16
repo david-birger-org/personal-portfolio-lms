@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
 import { BiographyIntroCard } from "@/app/[locale]/about/BiographyIntroCard";
@@ -17,8 +18,29 @@ import {
   resolveBiographyImageGroup,
 } from "@/content/biography";
 import { resolveLocale } from "@/i18n/locale";
+import { buildPageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-static";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const effectiveLocale = resolveLocale(locale);
+
+  return buildPageMetadata({
+    locale: effectiveLocale,
+    path: "/about",
+    title:
+      effectiveLocale === "ua" ? "Про Давіда Біргера" : "About David Birger",
+    description:
+      effectiveLocale === "ua"
+        ? "Спортивний шлях, досягнення та філософія тренерства Давіда Біргера в натуральному бодібілдингу."
+        : "Learn about David Birger's sports journey, achievements, and coaching philosophy in natural bodybuilding.",
+  });
+}
 
 export default async function AboutPage({
   params,
