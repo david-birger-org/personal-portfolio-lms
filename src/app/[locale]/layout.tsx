@@ -7,6 +7,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { isLocale } from "@/i18n/locale";
 import { routing } from "@/i18n/routing";
+import { getMetadataBase } from "@/lib/seo";
 import "../globals.css";
 import { Footer } from "@/components/layout/Footer";
 import { Navigation } from "@/components/layout/Navigation";
@@ -33,16 +34,41 @@ export async function generateMetadata({
 
   if (locale === "ua") {
     return {
-      title: "Давід Біргер - Професійний коучинг та тренування",
+      metadataBase: getMetadataBase(),
+      title: {
+        default:
+          "Дaвід Біргер - Тренер з натурального бодібілдингу і Віцечемпіон світу WNBF",
+        template: "%s | Давід Біргер",
+      },
       description:
-        "Професійний фітнес-коучинг та персоналізовані програми тренувань. Досягай своїх фітнес-цілей з експертною підтримкою, індивідуальними планами та постійною допомогою.",
+        "20+ років досвіду у спорті. Допомагаю будувати твою кращу версію себе через дисципліну, естетику й натуральний бодібілдинг: підготовка до змагань, рекомпозиція, набір мʼязової маси, уроки позування та системний супровід.",
+      openGraph: {
+        type: "website",
+        locale: "uk_UA",
+        siteName: "David Birger",
+      },
+      twitter: {
+        card: "summary_large_image",
+      },
     };
   }
 
   return {
-    title: "David Birger - Professional Coaching & Training",
+    metadataBase: getMetadataBase(),
+    title: {
+      default: "David Birger - Natural Bodybuilding Coach and WNBF Pro",
+      template: "%s | David Birger",
+    },
     description:
-      "Professional fitness coaching and personalized training programs. Achieve your fitness goals with expert guidance, tailored plans, and ongoing support.",
+      "I help you build your best self through discipline, aesthetics, and natural bodybuilding: contest prep, posing lessons, body recomposition, muscle gain, and structured coaching support.",
+    openGraph: {
+      type: "website",
+      locale: "en_US",
+      siteName: "David Birger",
+    },
+    twitter: {
+      card: "summary_large_image",
+    },
   };
 }
 
