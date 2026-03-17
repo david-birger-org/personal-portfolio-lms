@@ -526,8 +526,8 @@ function ContactFormClientVariant({ variant }: ContactFormClientVariantProps) {
                       />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="sms">
-                        {t("form.contactMethods.sms")}
+                      <SelectItem value="whatsapp">
+                        {t("form.contactMethods.whatsapp")}
                       </SelectItem>
                       <SelectItem value="instagram">
                         {t("form.contactMethods.instagram")}

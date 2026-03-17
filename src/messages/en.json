@@ -236,15 +236,15 @@
       "preferredContactMethodLabel": "Preferred Contact Method",
       "preferredContactMethodPlaceholder": "Select a contact method",
       "contactMethods": {
-        "sms": "SMS",
+        "whatsapp": "WhatsApp",
         "instagram": "Instagram",
         "telegram": "Telegram",
         "phoneCall": "Phone Call"
       },
       "socialLabel": "Social Handle",
-      "socialPlaceholder": "Instagram or Telegram username",
+      "socialPlaceholder": "Instagram, WhatsApp or Telegram username",
       "messageLabel": "Message",
-      "messagePlaceholder": "Tell me about your fitness goals and what you're looking to achieve...",
+      "messagePlaceholder": "Briefly describe your request and goal",
       "submitButton": "Send Message",
       "submitting": "Sending...",
       "validation": {
@@ -515,7 +515,7 @@
               "text": "So our fifth tournament took place on October 5, 2025 (symbolically as well) in Lviv. One hundred registered athletes - our biggest achievement to date. On that morning, one of the most massive attacks occurred, and I wanted to cancel the event. But I know what it means to be an athlete preparing for competition: months of exhausting contest prep, daily training, and living a dream (I saw myself in their place). So we made the decision to move forward as planned. Looking back, I understand this is another decision I will be incredibly proud of, just like the one made at the beginning of 2022. The tournament was extraordinary: exclusive sponsor awards - handcrafted crowns from Family Gold Masters for women’s category champions, golden tridents from Kuznia Lviv, and our medals for all athletes decorated with water and ocean symbolism. I also sincerely thank the Mega Mass sports nutrition chain, which has supported natural bodybuilding development since our foundation in 2021. Most of all, I am proud of Ukrainian athletes - you truly deserve the highest honors, because despite every obstacle, you continue to show devotion to this sport, moving with discipline along your own Path and building a legacy that will inspire future generations."
             },
             {
-              "text": "After the tournament, where I performed a free routine titled “Neptune,” I continued preparing for the competition season. At that point, it was already month seven of daily execution of my training, nutrition, and posing plan. I combine all of this with work - personal coaching, online athletes, federation leadership (including marketing, management, accounting, legal work, strategic planning, communication with other international WNBF representatives and athletes, logistics, judging, camp and seminar organization, design, sponsor and partner relations, SMM and social media, video production, the WNBF Ukraine YouTube podcast “Natural Sport,” competition production, and many other responsibilities). This is what I love and what I will keep doing, because I have both inspiration and a clear vision for developing natural bodybuilding."
+              "text": "After the tournament, where I performed a free routine titled “Neptune,” I continued preparing for the competition season. At that point, it was already month seven of daily execution of my training, nutrition, and posing plan. I combine all of this with work - personal coaching, online athletes, federation leadership (including marketing, management, accounting, legal work (thanks to my friends Oleksandr Dovbysh and Oleksandr Davydovych for their help and support!), strategic planning, communication with other international WNBF representatives and athletes, logistics, judging, camp and seminar organization, design, sponsor and partner relations, SMM and social media, video production, the WNBF Ukraine YouTube podcast “Natural Sport,” competition production, and many other responsibilities). This is what I love and what I will keep doing, because I have both inspiration and a clear vision for developing natural bodybuilding."
             }
           ]
         },

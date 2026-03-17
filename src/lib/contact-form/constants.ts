@@ -10,7 +10,7 @@ export const CONTACT_COUNTRIES = [
 ] as const;
 
 export const CONTACT_METHODS = [
-  "sms",
+  "whatsapp",
   "instagram",
   "telegram",
   "phoneCall",
