@@ -1,11 +1,4 @@
-import {
-  Facebook,
-  Instagram,
-  Mail,
-  MapPin,
-  Music2,
-  Youtube,
-} from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 import {
@@ -13,6 +6,7 @@ import {
   ContactFormClient,
 } from "@/components/sections/ContactFormClient";
 import { SectionHeader } from "@/components/sections/SectionHeader";
+import { SocialLinksClient } from "@/components/sections/SocialLinksClient";
 
 type ContactVariant = "full" | "compact";
 
@@ -106,44 +100,12 @@ async function ContactSection({ variant }: { variant: ContactVariant }) {
                 <h4 className="mb-4 text-sm font-medium text-gray-600">
                   {t("socials.title")}
                 </h4>
-                <div className="flex gap-3">
-                  <a
-                    href={t("socials.instagram")}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex h-12 w-12 items-center justify-center rounded-2xl border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md"
-                    aria-label="Instagram"
-                  >
-                    <Instagram className="h-6 w-6 text-[#E4405F] transition-colors group-hover:text-[#C13584]" />
-                  </a>
-                  <a
-                    href={t("socials.facebook")}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex h-12 w-12 items-center justify-center rounded-2xl border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md"
-                    aria-label="Facebook"
-                  >
-                    <Facebook className="h-6 w-6 text-[#1877F2] transition-colors group-hover:text-[#0C5DC6]" />
-                  </a>
-                  <a
-                    href={t("socials.tiktok")}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex h-12 w-12 items-center justify-center rounded-2xl border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md"
-                    aria-label="TikTok"
-                  >
-                    <Music2 className="h-5 w-5 text-gray-900 transition-colors group-hover:text-gray-700" />
-                  </a>
-                  <a
-                    href={t("socials.youtube")}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex h-12 w-12 items-center justify-center rounded-2xl border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md"
-                    aria-label="YouTube"
-                  >
-                    <Youtube className="h-6 w-6 text-[#FF0000] transition-colors group-hover:text-[#CC0000]" />
-                  </a>
-                </div>
+                <SocialLinksClient
+                  instagram={t("socials.instagram")}
+                  facebook={t("socials.facebook")}
+                  tiktok={t("socials.tiktok")}
+                  youtube={t("socials.youtube")}
+                />
               </div>
 
               <div className="mt-auto rounded-3xl border border-gray-200 bg-white p-8">

@@ -1,10 +1,11 @@
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
+
+import { TrackedLink } from "@/components/analytics/TrackedLink";
 import { SectionHeader } from "@/components/sections/SectionHeader";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { CONTACT_FORM_HREF } from "@/constants/links";
-import { Link } from "@/i18n/routing";
 
 export async function CTA({ locale }: { locale: string }) {
   const t = await getTranslations("cta");
@@ -51,12 +52,18 @@ export async function CTA({ locale }: { locale: string }) {
             </div>
 
             <div className="mt-10">
-              <Button asChild size="lg" className="shadow-lg hover:shadow-xl">
-                <Link href={CONTACT_FORM_HREF}>
-                  {t("button")}
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Link>
-              </Button>
+              <TrackedLink
+                href={CONTACT_FORM_HREF}
+                analyticsId="cta_contact"
+                analyticsSection="cta"
+                className={buttonVariants({
+                  size: "lg",
+                  className: "shadow-lg hover:shadow-xl",
+                })}
+              >
+                {t("button")}
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </TrackedLink>
             </div>
           </div>
 

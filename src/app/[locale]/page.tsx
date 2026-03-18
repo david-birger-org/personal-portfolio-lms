@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
+import { SectionViewTracker } from "@/components/analytics/SectionViewTracker";
 import { ScrollProgress } from "@/components/layout/ScrollProgress";
 import { About } from "@/components/sections/About";
 import { AboutFeatureCards } from "@/components/sections/AboutFeatureCards";
@@ -75,6 +76,23 @@ export default async function Home({
           <CTA locale={locale} />
         </Suspense>
       </main>
+      <SectionViewTracker locale={locale} sectionId="home" sectionName="hero" />
+      <SectionViewTracker
+        locale={locale}
+        sectionId="about"
+        sectionName="about"
+      />
+      <SectionViewTracker
+        locale={locale}
+        sectionId="journey"
+        sectionName="journey"
+      />
+      <SectionViewTracker
+        locale={locale}
+        sectionId="testimonials"
+        sectionName="testimonials"
+      />
+      <SectionViewTracker locale={locale} sectionId="cta" sectionName="cta" />
     </div>
   );
 }

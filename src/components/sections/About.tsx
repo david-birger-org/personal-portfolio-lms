@@ -2,9 +2,9 @@ import { CheckCircle2 } from "lucide-react";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 
+import { TrackedLink } from "@/components/analytics/TrackedLink";
 import { SectionHeader } from "@/components/sections/SectionHeader";
-import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/routing";
+import { buttonVariants } from "@/components/ui/button";
 
 export async function About() {
   const t = await getTranslations("about");
@@ -53,9 +53,14 @@ export async function About() {
               ))}
             </div>
 
-            <Button asChild className="px-6">
-              <Link href="/about">{t("readFullBiography")}</Link>
-            </Button>
+            <TrackedLink
+              href="/about"
+              analyticsId="about_biography"
+              analyticsSection="about"
+              className={buttonVariants({ className: "px-6" })}
+            >
+              {t("readFullBiography")}
+            </TrackedLink>
           </div>
         </div>
       </div>

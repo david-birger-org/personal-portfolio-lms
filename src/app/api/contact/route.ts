@@ -1,6 +1,12 @@
-import { NextResponse } from "next/server";
+import { after, NextResponse } from "next/server";
 
 import { contactPayloadSchema } from "@/lib/contact-form/schema";
+import { POSTHOG_EVENTS } from "@/lib/posthog-events";
+import {
+  captureServerEvent,
+  getPostHogDistinctId,
+  getPostHogRequestContext,
+} from "@/lib/posthog-server";
 import { sendTransactionalMail } from "@/lib/server/mailer";
 import {
   applyRetryAfterHeader,
@@ -10,6 +16,7 @@ import {
 } from "@/lib/server/request-security";
 
 export async function POST(request: Request) {
+  const posthogContext = getPostHogRequestContext(request);
   const rateLimit = consumeRateLimit({
     key: getRateLimitKey(request, "contact"),
     maxRequests: 8,
@@ -64,6 +71,24 @@ export async function POST(request: Request) {
   });
 
   if (result.ok) {
+    after(() =>
+      captureServerEvent({
+        distinctId: getPostHogDistinctId(
+          posthogContext.distinctId,
+          payload.email,
+          payload.phone,
+        ),
+        event: POSTHOG_EVENTS.contactApiEmailSent,
+        properties: {
+          ...(posthogContext.properties ?? {}),
+          country: payload.country,
+          preferred_contact_method: payload.preferredContactMethod,
+          has_phone: Boolean(payload.phone),
+          has_social: Boolean(payload.social),
+        },
+      }),
+    );
+
     return NextResponse.json({ ok: true });
   }
 

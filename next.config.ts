@@ -1,10 +1,20 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
+import {
+  getPostHogAssetHost,
+  getPostHogHost,
+  isPostHogEnabled,
+} from "./src/lib/posthog-config";
+
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
+const posthogEnabled = isPostHogEnabled();
+const posthogAssetHost = getPostHogAssetHost();
+const posthogHost = getPostHogHost();
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
+  skipTrailingSlashRedirect: true,
   images: {
     remotePatterns: [
       {
@@ -12,6 +22,22 @@ const nextConfig: NextConfig = {
         hostname: "images.unsplash.com",
       },
     ],
+  },
+  async rewrites() {
+    if (!posthogEnabled) {
+      return [];
+    }
+
+    return [
+      {
+        source: "/ingest/static/:path*",
+        destination: `${posthogAssetHost}/static/:path*`,
+      },
+      {
+        source: "/ingest/:path*",
+        destination: `${posthogHost}/:path*`,
+      },
+    ];
   },
   headers: async () => [
     {

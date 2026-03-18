@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 
 import { LanguageSwitcherView } from "@/components/layout/LanguageSwitcherView";
 import { type Locale, locales } from "@/i18n/config";
+import { capturePostHogEvent } from "@/lib/posthog-client";
+import { POSTHOG_EVENTS } from "@/lib/posthog-events";
 
 interface LanguageSwitcherClientProps {
   currentLocale: Locale;
@@ -49,12 +51,23 @@ export function LanguageSwitcherClient({
     {} as Record<Locale, string>,
   );
 
+  const handleLocaleSelect = (locale: Locale) => {
+    if (locale !== currentLocale) {
+      capturePostHogEvent(POSTHOG_EVENTS.languageSwitched, {
+        from_locale: currentLocale,
+        to_locale: locale,
+        path: pathnameWithoutLocale,
+      });
+    }
+  };
+
   return (
     <LanguageSwitcherView
       currentLocale={currentLocale}
       hrefByLocale={hrefByLocale}
       className={className}
       onSelect={onSelect}
+      onLocaleSelect={handleLocaleSelect}
       scroll={false}
     />
   );

@@ -10,6 +10,7 @@ interface LanguageSwitcherViewProps {
   currentLocale: Locale;
   hrefByLocale: Record<Locale, string>;
   onSelect?: () => void;
+  onLocaleSelect?: (locale: Locale) => void;
   scroll?: boolean;
 }
 
@@ -18,16 +19,21 @@ export function LanguageSwitcherView({
   currentLocale,
   hrefByLocale,
   onSelect,
+  onLocaleSelect,
   scroll,
 }: LanguageSwitcherViewProps) {
   return (
     <div className={cn("flex items-center gap-2", className)}>
-      {locales.map((locale) =>
-        isDevelopment ? (
+      {locales.map((locale) => {
+        const handleClick = () => {
+          onSelect?.();
+          onLocaleSelect?.(locale);
+        };
+        return isDevelopment ? (
           <a
             key={locale}
             href={hrefByLocale[locale]}
-            onClick={onSelect}
+            onClick={handleClick}
             className={cn(
               "rounded px-2 py-1 text-xs transition-colors",
               locale === currentLocale
@@ -43,7 +49,7 @@ export function LanguageSwitcherView({
             key={locale}
             href={hrefByLocale[locale]}
             scroll={scroll}
-            onClick={onSelect}
+            onClick={handleClick}
             className={cn(
               "rounded px-2 py-1 text-xs transition-colors",
               locale === currentLocale
@@ -54,8 +60,8 @@ export function LanguageSwitcherView({
           >
             {locale.toUpperCase()}
           </Link>
-        ),
-      )}
+        );
+      })}
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { SectionViewTracker } from "@/components/analytics/SectionViewTracker";
 import { Contact } from "@/components/sections/Contact";
 import { resolveLocale } from "@/i18n/locale";
 import { buildPageMetadata } from "@/lib/seo";
@@ -28,10 +29,21 @@ export async function generateMetadata({
   });
 }
 
-export default function ContactPage() {
+export default async function ContactPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+
   return (
     <main className="min-h-screen bg-gray-50 pt-20 md:pt-24">
       <Contact />
+      <SectionViewTracker
+        locale={locale}
+        sectionId="contact"
+        sectionName="contact"
+      />
     </main>
   );
 }

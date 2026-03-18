@@ -23,6 +23,12 @@ import {
   SOCIAL_HANDLE_PATTERN,
 } from "@/lib/contact-form/constants";
 import type { ContactPayload } from "@/lib/contact-form/schema";
+import {
+  capturePostHogEvent,
+  capturePostHogException,
+  createPostHogHeaders,
+} from "@/lib/posthog-client";
+import { POSTHOG_EVENTS } from "@/lib/posthog-events";
 
 interface ContactFormData {
   firstName: string;
@@ -86,6 +92,7 @@ function ContactFormClientVariant({ variant }: ContactFormClientVariantProps) {
   const formContainerRef = useRef<HTMLDivElement>(null);
   const firstNameFieldRef = useRef<HTMLInputElement>(null);
   const hasProgramPrefill = selectedProgramMessage.length > 0;
+  const hasTrackedViewRef = useRef(false);
 
   useEffect(() => {
     const idleScheduler = globalThis as typeof globalThis & {
@@ -172,6 +179,24 @@ function ContactFormClientVariant({ variant }: ContactFormClientVariantProps) {
       firstNameField.focus({ preventScroll: true });
     });
   }, [selectedProgram]);
+
+  useEffect(() => {
+    const formContainer = formContainerRef.current;
+    if (!formContainer) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasTrackedViewRef.current) {
+          hasTrackedViewRef.current = true;
+          capturePostHogEvent(POSTHOG_EVENTS.contactFormViewed, { variant });
+        }
+      },
+      { threshold: 0.3 },
+    );
+
+    observer.observe(formContainer);
+    return () => observer.disconnect();
+  }, [variant]);
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -260,9 +285,9 @@ function ContactFormClientVariant({ variant }: ContactFormClientVariantProps) {
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
-        headers: {
+        headers: createPostHogHeaders({
           "Content-Type": "application/json",
-        },
+        }),
         body: JSON.stringify({
           firstName: formData.firstName.trim(),
           lastName: formData.lastName.trim(),
@@ -282,13 +307,25 @@ function ContactFormClientVariant({ variant }: ContactFormClientVariantProps) {
         throw new Error("Failed to submit contact form");
       }
 
+      capturePostHogEvent(POSTHOG_EVENTS.contactFormSubmitted, {
+        variant,
+        country: formData.country,
+        preferred_contact_method: formData.preferredContactMethod,
+        has_program_prefill: hasProgramPrefill,
+      });
+
       setIsSuccess(true);
       setFormData(INITIAL_FORM_DATA);
 
       setTimeout(() => {
         setIsSuccess(false);
       }, 5000);
-    } catch {
+    } catch (err) {
+      capturePostHogEvent(POSTHOG_EVENTS.contactFormSubmitFailed, {
+        variant,
+        has_program_prefill: hasProgramPrefill,
+      });
+      capturePostHogException(err);
       setErrors({ form: t("form.validation.submitFailed") });
     } finally {
       setIsSubmitting(false);

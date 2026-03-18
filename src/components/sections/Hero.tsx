@@ -1,9 +1,10 @@
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
-import { Button } from "@/components/ui/button";
+
+import { TrackedLink } from "@/components/analytics/TrackedLink";
+import { buttonVariants } from "@/components/ui/button";
 import { SERVICES_SECTION_HREF } from "@/constants/links";
-import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
 export async function Hero({ locale }: { locale: string }) {
@@ -65,16 +66,19 @@ export async function Hero({ locale }: { locale: string }) {
             </p>
 
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row md:items-start md:justify-start">
-              <Button
-                asChild
-                size="lg"
-                className="border border-white/65 bg-white/20 text-white shadow-[0_14px_36px_-18px_rgba(2,6,23,0.8)] backdrop-blur-md hover:bg-white/30 hover:shadow-[0_18px_44px_-20px_rgba(2,6,23,0.85)]"
+              <TrackedLink
+                href={SERVICES_SECTION_HREF}
+                analyticsId="hero_services"
+                analyticsSection="hero"
+                className={buttonVariants({
+                  size: "lg",
+                  className:
+                    "border border-white/65 bg-white/20 text-white shadow-[0_14px_36px_-18px_rgba(2,6,23,0.8)] backdrop-blur-md hover:bg-white/30 hover:shadow-[0_18px_44px_-20px_rgba(2,6,23,0.85)]",
+                })}
               >
-                <Link href={SERVICES_SECTION_HREF}>
-                  {t("ctaText")}
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Link>
-              </Button>
+                {t("ctaText")}
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </TrackedLink>
             </div>
           </div>
 

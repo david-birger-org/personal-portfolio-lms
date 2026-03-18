@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { SectionViewTracker } from "@/components/analytics/SectionViewTracker";
 import { Services } from "@/components/sections/Services";
 import { resolveLocale } from "@/i18n/locale";
 import { buildPageMetadata, createServicesJsonLd } from "@/lib/seo";
@@ -43,6 +44,11 @@ export default async function ServicesPage({
         {JSON.stringify(servicesJsonLd)}
       </script>
       <Services locale={locale} />
+      <SectionViewTracker
+        locale={locale}
+        sectionId="services"
+        sectionName="services"
+      />
     </main>
   );
 }

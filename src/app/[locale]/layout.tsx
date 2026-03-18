@@ -5,6 +5,8 @@ import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
+
+import { PageScrollTracker } from "@/components/analytics/PageScrollTracker";
 import { isLocale } from "@/i18n/locale";
 import { routing } from "@/i18n/routing";
 import { getMetadataBase } from "@/lib/seo";
@@ -127,6 +129,7 @@ export default async function LocaleLayout({
           <Navigation locale={locale} />
           {children}
           <Footer />
+          <PageScrollTracker locale={locale} />
         </NextIntlClientProvider>
         <ScrollToTop />
         {process.env.NODE_ENV === "production" && (
