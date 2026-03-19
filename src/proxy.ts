@@ -6,6 +6,23 @@ import { routing } from "./i18n/routing";
 const nextIntlMiddleware = createMiddleware(routing);
 const ONE_YEAR_IN_SECONDS = 60 * 60 * 24 * 365;
 const LOCALE_COOKIE_NAME = "NEXT_LOCALE";
+const IS_PRODUCTION = process.env.VERCEL_ENV === "production";
+const SKIPPED_LOCALE_SUBDOMAINS = new Set([
+  "api.davidbirger.com",
+  "admin.davidbirger.com",
+]);
+
+function shouldSkipLocaleMiddleware(hostname: string): boolean {
+  if (SKIPPED_LOCALE_SUBDOMAINS.has(hostname)) {
+    return true;
+  }
+
+  if (!IS_PRODUCTION) {
+    return true;
+  }
+
+  return false;
+}
 
 function isLocale(value: string | undefined): value is Locale {
   return value !== undefined && locales.includes(value as Locale);
@@ -82,6 +99,10 @@ function persistLocale(response: NextResponse, locale: Locale) {
 }
 
 export default function proxy(request: NextRequest) {
+  if (shouldSkipLocaleMiddleware(request.nextUrl.hostname)) {
+    return NextResponse.next();
+  }
+
   const { pathname } = request.nextUrl;
 
   // Reject file-extension requests that slip through the matcher.
