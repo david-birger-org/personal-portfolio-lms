@@ -338,18 +338,18 @@
   },
   "cta": {
     "tag": "GET STARTED",
-    "title": "Ready to Build",
-    "titleAccent": "Your Best Shape?",
-    "description": "If you are ready to move forward with discipline, I will build a system around your exact goal - from your first transformation to the WNBF stage.",
+    "title": "Let’s create your best version together!",
+    "titleAccent": "",
+    "description": "If you’re ready to follow your unique path with discipline, I will build the system that will become the foundation of your transformation!",
     "features": [
-      "Strategy built for your category and goal",
-      "WNBF Pro and international stage expertise",
-      "Structured support with weekly adjustments"
+      "Strategy for Your Goals",
+      "Expert Knowledge & Global Experience",
+      "Full Support & Guidance"
     ],
     "featureDescriptions": {
-      "0": "Training, nutrition, and posing are tailored to your current level and target outcome",
-      "1": "Methods are built on proven international WNBF experience in Bodybuilding and Classic Physique",
-      "2": "You receive weekly progress analysis, plan updates, and clear next-step execution"
+      "0": "Your training and nutrition plans are custom-built around your current fitness level and specific objectives. No cookie-cutter programs — only what works for you.",
+      "1": "My approach is rooted in principles forged during my professional competitive career and refined through collaboration with world-class athletes and leading experts in natural bodybuilding.",
+      "2": "We adjust your plan as you progress. Every week, I review your updates to track your physical results and make sure you’re feeling good mentally and emotionally."
     },
     "button": "Apply for Coaching"
   },
