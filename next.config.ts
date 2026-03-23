@@ -39,6 +39,7 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  allowedDevOrigins: ["192.168.8.186"],
   headers: async () => [
     {
       // Cache static assets (fonts, images, svgs) aggressively
