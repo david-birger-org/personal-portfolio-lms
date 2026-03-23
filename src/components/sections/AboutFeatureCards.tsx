@@ -50,23 +50,17 @@ export async function AboutFeatureCards() {
     <section className="bg-white py-[4.5rem] md:py-24 lg:py-36">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-xl lg:max-w-5xl">
-          <div className="grid grid-cols-6 gap-3 lg:grid-cols-5 lg:gap-5">
-            {features.map((feature, index) => (
+          <div className="flex flex-wrap justify-center gap-3 sm:grid sm:grid-cols-3 lg:grid-cols-5 lg:gap-5">
+            {features.map((feature) => (
               <div
                 key={feature.key}
-                className={`col-span-2 rounded-2xl border border-gray-200 bg-gray-50 p-4 text-center transition-all hover:bg-gray-100 lg:col-span-1 lg:rounded-3xl lg:p-6 ${
-                  index === 3
-                    ? "col-start-2 lg:col-start-auto"
-                    : index === 4
-                      ? "col-start-4 lg:col-start-auto"
-                      : ""
-                }`}
+                className="min-w-0 basis-[calc(50%-0.375rem)] rounded-2xl border border-gray-200 bg-gray-50 p-4 text-center transition-all hover:bg-gray-100 sm:basis-auto lg:rounded-3xl lg:p-6"
               >
                 <feature.icon className="mx-auto mb-2 h-6 w-6 text-gray-900 lg:mb-3 lg:h-7 lg:w-7" />
-                <div className="mb-0.5 text-xs font-semibold text-gray-900 lg:text-sm">
+                <div className="mb-0.5 break-words text-xs font-semibold leading-tight text-gray-900 lg:text-sm">
                   {featureCards[feature.key].title}
                 </div>
-                <div className="text-xs text-gray-600 lg:text-sm">
+                <div className="break-words text-xs leading-tight text-gray-600 lg:text-sm">
                   {featureCards[feature.key].description}
                 </div>
               </div>
