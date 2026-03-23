@@ -119,7 +119,7 @@ export default async function LocaleLayout({
   };
 
   return (
-    <html lang={locale} className="scroll-smooth">
+    <html lang={locale} className="scroll-smooth" data-scroll-behavior="smooth">
       <body className={`${inter.variable} antialiased`}>
         <NextIntlClientProvider
           key={locale}
