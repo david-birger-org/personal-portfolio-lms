@@ -26,6 +26,10 @@ function getAdminUrl() {
   );
 }
 
+function resolveAdminLocale(locale: string) {
+  return locale === "ua" ? "ua" : "en";
+}
+
 function resolveImageUrl(product: PortfolioProduct, locale: string) {
   const raw = product.imageUrl;
   if (!raw) return null;
@@ -42,6 +46,7 @@ export async function Services({ locale }: { locale: string }) {
   const products = await fetchActiveProducts();
   const displayCurrency = resolveDisplayCurrency(locale);
   const adminUrl = getAdminUrl();
+  const adminLocale = resolveAdminLocale(locale);
 
   if (products.length === 0) return null;
 
@@ -71,7 +76,7 @@ export async function Services({ locale }: { locale: string }) {
                 : null;
 
             const href = isFixed
-              ? `${adminUrl}/checkout?product=${encodeURIComponent(product.slug)}&c=${displayCurrency}`
+              ? `${adminUrl}/${adminLocale}/checkout?product=${encodeURIComponent(product.slug)}&c=${displayCurrency}`
               : `${CONTACT_PAGE_HREF}?program=${encodeURIComponent(name)}#${CONTACT_FORM_ID}`;
 
             const ctaLabel = isFixed

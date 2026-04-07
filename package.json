@@ -24,7 +24,7 @@
     "libphonenumber-js": "^1.12.38",
     "lucide-react": "^0.575.0",
     "motion": "^12.34.3",
-    "next": "16.1.6",
+    "next": "16.2.2",
     "next-intl": "^4.8.3",
     "posthog-js": "^1.360.2",
     "posthog-node": "^5.28.2",
@@ -41,7 +41,7 @@
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "1.0.0",
     "tailwindcss": "^4.2.1",
-    "typescript": "^5"
+    "typescript": "^6.0.2"
   },
   "ignoreScripts": [
     "sharp",
