@@ -7,7 +7,7 @@ import {
   getPostHogDistinctId,
   getPostHogRequestContext,
 } from "@/lib/posthog-server";
-import { sendTransactionalMail } from "@/lib/server/mailer";
+import { sendTransactionalMail } from "@/lib/server/lms-sls-client";
 import {
   applyRetryAfterHeader,
   consumeRateLimit,

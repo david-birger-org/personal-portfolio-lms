@@ -8,7 +8,7 @@ const ONE_YEAR_IN_SECONDS = 60 * 60 * 24 * 365;
 const LOCALE_COOKIE_NAME = "NEXT_LOCALE";
 const SKIPPED_LOCALE_SUBDOMAINS = new Set([
   "api.davidbirger.com",
-  "admin.davidbirger.com",
+  "app.davidbirger.com",
 ]);
 
 function shouldSkipLocaleMiddleware(hostname: string): boolean {
