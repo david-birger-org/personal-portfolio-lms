@@ -5,7 +5,7 @@ import { Services } from "@/components/sections/Services";
 import { resolveLocale } from "@/i18n/locale";
 import { buildPageMetadata, createServicesJsonLd } from "@/lib/seo";
 
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
