@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 
 import { TrackedLink } from "@/components/analytics/TrackedLink";
 import { SectionHeader } from "@/components/sections/SectionHeader";
+import { ServicesBuyButton } from "@/components/sections/ServicesBuyButton";
 import { buttonVariants } from "@/components/ui/button";
 import { CONTACT_FORM_ID, CONTACT_PAGE_HREF } from "@/constants/links";
 import {
@@ -75,8 +76,8 @@ export async function Services({ locale }: { locale: string }) {
 
             const ctaLabel = isFixed
               ? priceLabel
-                ? `${t("learnMore")} · ${priceLabel}`
-                : t("learnMore")
+                ? `${t("buy")} · ${priceLabel}`
+                : t("buy")
               : t("learnMore");
 
             return (
@@ -100,32 +101,44 @@ export async function Services({ locale }: { locale: string }) {
                   ) : null}
                   <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/35 group-focus-within:bg-black/35" />
 
-                  {priceLabel ? (
-                    <div className="absolute right-4 top-4 rounded-full bg-white/95 px-3 py-1 text-sm font-semibold text-slate-900 shadow-lg backdrop-blur-xs">
-                      {priceLabel}
-                    </div>
-                  ) : null}
-
                   <div className="absolute inset-x-4 bottom-4 opacity-100 transition duration-300 md:pointer-events-none md:translate-y-2 md:opacity-0 md:group-hover:pointer-events-auto md:group-hover:translate-y-0 md:group-hover:opacity-100 md:group-focus-within:pointer-events-auto md:group-focus-within:translate-y-0 md:group-focus-within:opacity-100">
-                    <TrackedLink
-                      href={href}
-                      analyticsId={
-                        isFixed ? "services_checkout" : "services_learn_more"
-                      }
-                      analyticsSection="services"
-                      analyticsProperties={{
-                        program: name,
-                        product_slug: product.slug,
-                        pricing_type: product.pricingType,
-                      }}
-                      className={buttonVariants({
-                        size: "sm",
-                        className:
-                          "w-full border border-white/80 bg-white/90 text-slate-900 shadow-lg backdrop-blur-xs hover:bg-white",
-                      })}
-                    >
-                      {ctaLabel}
-                    </TrackedLink>
+                    {isFixed ? (
+                      <ServicesBuyButton
+                        href={href}
+                        label={ctaLabel}
+                        analyticsId="services_checkout"
+                        analyticsSection="services"
+                        analyticsProperties={{
+                          program: name,
+                          product_slug: product.slug,
+                          pricing_type: product.pricingType,
+                        }}
+                        modalTitle={t("buyModal.title")}
+                        modalDescription={t("buyModal.description")}
+                        modalAccountNotice={t("buyModal.accountNotice")}
+                        cancelLabel={t("buyModal.cancel")}
+                        confirmLabel={t("buyModal.confirm")}
+                        className="w-full border border-white/80 bg-white/90 text-slate-900 shadow-lg backdrop-blur-xs hover:bg-white"
+                      />
+                    ) : (
+                      <TrackedLink
+                        href={href}
+                        analyticsId="services_learn_more"
+                        analyticsSection="services"
+                        analyticsProperties={{
+                          program: name,
+                          product_slug: product.slug,
+                          pricing_type: product.pricingType,
+                        }}
+                        className={buttonVariants({
+                          size: "sm",
+                          className:
+                            "w-full border border-white/80 bg-white/90 text-slate-900 shadow-lg backdrop-blur-xs hover:bg-white",
+                        })}
+                      >
+                        {ctaLabel}
+                      </TrackedLink>
+                    )}
                   </div>
                 </div>
               </div>

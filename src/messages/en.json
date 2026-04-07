@@ -186,6 +186,14 @@
       "cta": "Book Your Assessment Call"
     },
     "learnMore": "Discuss This Program",
+    "buy": "Buy",
+    "buyModal": {
+      "title": "Before you continue",
+      "description": "You will be redirected to the app portal to complete your purchase.",
+      "accountNotice": "This product requires an account in the app portal, so you may be asked to create one first before proceeding with checkout.",
+      "cancel": "Cancel",
+      "confirm": "Continue to portal"
+    },
     "comingSoon": "Coming Soon"
   },
   "contact": {
