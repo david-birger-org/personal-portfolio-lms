@@ -7,7 +7,10 @@ import {
   getPostHogDistinctId,
   getPostHogRequestContext,
 } from "@/lib/posthog-server";
-import { sendTransactionalMail } from "@/lib/server/lms-sls-client";
+import {
+  saveContactRequest,
+  sendTransactionalMail,
+} from "@/lib/server/lms-sls-client";
 import {
   applyRetryAfterHeader,
   consumeRateLimit,
@@ -64,11 +67,28 @@ export async function POST(request: Request) {
     payload.message,
   ].join("\n");
 
-  const result = await sendTransactionalMail({
-    subject,
-    text,
-    replyTo: payload.email,
-  });
+  const [saveResult, result] = await Promise.all([
+    saveContactRequest({
+      requestType: "contact",
+      firstName: payload.firstName,
+      lastName: payload.lastName,
+      email: payload.email,
+      country: payload.country,
+      phone: payload.phone,
+      preferredContactMethod: payload.preferredContactMethod,
+      social: payload.social,
+      message: payload.message,
+    }),
+    sendTransactionalMail({
+      subject,
+      text,
+      replyTo: payload.email,
+    }),
+  ]);
+
+  if (!saveResult.ok) {
+    console.error("Failed to persist contact request", saveResult);
+  }
 
   if (result.ok) {
     after(() =>
