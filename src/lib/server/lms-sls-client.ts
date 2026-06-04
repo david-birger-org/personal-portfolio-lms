@@ -1,7 +1,6 @@
 type TransactionalMailResult =
   | { ok: true }
   | { ok: false; reason: "missing_config" }
-  | { ok: false; reason: "missing_destination" }
   | { ok: false; reason: "send_failed"; error: unknown };
 
 type SaveContactRequestResult =
@@ -24,7 +23,9 @@ export interface ContactRequestPayload {
 
 function getLmsSlsConfig() {
   const baseUrl = process.env.LMS_SLS_URL?.trim();
-  const internalApiKey = process.env.INTERNAL_API_KEY?.trim();
+  const internalApiKey = (
+    process.env.LMS_SLS_PUBLIC_API_KEY ?? process.env.INTERNAL_API_KEY
+  )?.trim();
 
   if (!baseUrl || !internalApiKey) return null;
   return { baseUrl: baseUrl.replace(/\/$/, ""), internalApiKey };
@@ -86,12 +87,13 @@ export async function sendTransactionalMail({
 
     if (response.ok) return { ok: true };
 
+    // Backend returns 500 only for a missing/unconfigured mail provider and
+    // 502 for an actual send failure, so status alone classifies the error.
+    if (response.status === 500) return { ok: false, reason: "missing_config" };
+
     const payload = (await response.json().catch(() => null)) as {
       error?: string;
     } | null;
-
-    if (response.status === 500 && payload?.error?.includes("not configured"))
-      return { ok: false, reason: "missing_config" };
 
     return {
       ok: false,

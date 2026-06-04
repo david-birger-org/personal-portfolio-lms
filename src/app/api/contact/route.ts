@@ -112,10 +112,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true });
   }
 
-  if (
-    result.reason === "missing_config" ||
-    result.reason === "missing_destination"
-  ) {
+  if (result.reason === "missing_config") {
     return NextResponse.json(
       { error: "Email provider is not configured" },
       { status: 500 },
