@@ -71,39 +71,3 @@ export const contactPayloadSchema = z
   });
 
 export type ContactPayload = z.infer<typeof contactPayloadSchema>;
-
-export const serviceRequestSchema = z
-  .object({
-    service: z.string().trim().min(2).max(200),
-    name: z.string().trim().min(2).max(120),
-    email: z.string().trim().max(200).optional().default(""),
-    phone: z.string().trim().max(40).optional().default(""),
-  })
-  .superRefine((data, ctx) => {
-    const hasEmail = data.email.length > 0;
-    const hasPhone = data.phone.length > 0;
-
-    if (!hasEmail && !hasPhone) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "Email or phone is required",
-      });
-      return;
-    }
-
-    if (hasEmail && !EMAIL_PATTERN.test(data.email)) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "Invalid email",
-        path: ["email"],
-      });
-    }
-
-    if (hasPhone && !isPhoneValid(data.phone)) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "Invalid phone",
-        path: ["phone"],
-      });
-    }
-  });

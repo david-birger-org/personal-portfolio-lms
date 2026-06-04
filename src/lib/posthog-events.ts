@@ -7,7 +7,6 @@ export const POSTHOG_EVENTS = {
   languageSwitched: "language_switched",
   pageScrollDepthReached: "page_scroll_depth_reached",
   sectionViewed: "section_viewed",
-  serviceRequestSubmitted: "service_request_submitted",
   socialLinkClicked: "social_link_clicked",
 } as const;
 

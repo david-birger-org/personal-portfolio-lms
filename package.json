@@ -23,7 +23,6 @@
     "clsx": "^2.1.1",
     "libphonenumber-js": "^1.12.38",
     "lucide-react": "^0.575.0",
-    "motion": "^12.34.3",
     "next": "16.2.2",
     "next-intl": "^4.8.3",
     "posthog-js": "^1.360.2",
